@@ -1,0 +1,17 @@
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Business\obj\Debug\net5.0\Business.csproj.AssemblyReference.cache
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Business\obj\Debug\net5.0\Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Business\obj\Debug\net5.0\Business.AssemblyInfoInputs.cache
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Business\obj\Debug\net5.0\Business.AssemblyInfo.cs
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Business\obj\Debug\net5.0\Business.csproj.CoreCompileInputs.cache
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Business\bin\Debug\net5.0\Business.deps.json
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Business\bin\Debug\net5.0\Business.dll
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Business\bin\Debug\net5.0\Business.pdb
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Business\bin\Debug\net5.0\DAL.dll
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Business\bin\Debug\net5.0\Exceptions.dll
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Business\bin\Debug\net5.0\DAL.pdb
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Business\bin\Debug\net5.0\Exceptions.pdb
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Business\obj\Debug\net5.0\Business.csproj.CopyComplete
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Business\obj\Debug\net5.0\Business.dll
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Business\obj\Debug\net5.0\refint\Business.dll
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Business\obj\Debug\net5.0\Business.pdb
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Business\obj\Debug\net5.0\ref\Business.dll

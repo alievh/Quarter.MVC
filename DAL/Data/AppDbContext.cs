@@ -1,0 +1,35 @@
+﻿using DAL.Identity;
+using DAL.Model;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DAL.Data
+{
+    public class AppDbContext : IdentityDbContext<AppUser>
+    {
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+
+        public DbSet<Image> Images { get; set; }
+        public DbSet<Slider> Sliders { get; set; }
+        public DbSet<Blog> Blogs{ get; set; }
+        public DbSet<BlogCategory> BlogCategories { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<About> Abouts { get; set; }
+        public DbSet<Video> Videos { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<ApartmentPlan> ApartmentPlans { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
+        public DbSet<Wishlist> Wishlists { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Setting> Settings { get; set; }
+
+    }
+}
