@@ -20,6 +20,7 @@ namespace DAL.Data
         public DbSet<Blog> Blogs{ get; set; }
         public DbSet<BlogCategory> BlogCategories { get; set; }
         public DbSet<Service> Services { get; set; }
+        public DbSet<ServiceDetail> ServiceDetails { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<About> Abouts { get; set; }

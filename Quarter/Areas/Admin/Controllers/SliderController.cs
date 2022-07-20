@@ -6,6 +6,8 @@ using Quarter.Helpers.Extensions;
 using Business.Services;
 using System.Collections.Generic;
 using System;
+using DAL.Data;
+using System.Linq;
 
 namespace Quarter.Areas.Admin.Controllers
 {
@@ -16,10 +18,9 @@ namespace Quarter.Areas.Admin.Controllers
         private readonly IImageService _imageService;
         private readonly IWebHostEnvironment _env;
 
-        public SliderController(
-                                       ISliderService sliderService,
-                                       IImageService imageService,
-                                       IWebHostEnvironment env)
+        public SliderController(ISliderService sliderService,
+                                IImageService imageService,
+                                IWebHostEnvironment env)
         {
             _sliderService = sliderService;
             _imageService = imageService;
@@ -46,7 +47,6 @@ namespace Quarter.Areas.Admin.Controllers
             {
                 throw;
             }
-
 
             return View(model: data);
         }
@@ -132,7 +132,33 @@ namespace Quarter.Areas.Admin.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Update(int id, Slider entity)
         {
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(entity);
+            //}
+
+            //if (entity.ImageFile is null)
+            //{
+            //    ModelState.AddModelError("ImageFile", "Image can not be empty");
+            //    return View(entity);
+            //}
+
+            if (entity.ImageFile is not null)
+            {
+                string fileName = await entity.ImageFile.CreateFile(_env);
+
+                Image image = new();
+                image.Url = fileName;
+                List<Slider> sliders = new();
+                sliders.Add(entity);
+                image.Sliders = sliders;
+                var data = await _sliderService.Get(id);
+                await _imageService.Update(data.Images.FirstOrDefault().Id, image);
+
+            }
+
             await _sliderService.Update(id, entity);
+            await _imageService.SaveChanges();
 
             return RedirectToAction(nameof(Index));
         }

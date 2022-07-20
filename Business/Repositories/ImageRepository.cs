@@ -27,7 +27,7 @@ namespace Business.Repositories
                 throw new ArgumentNullException(nameof(id));
             }
 
-            var data = await _context.Images.FirstOrDefaultAsync();
+            var data = await _context.Images.Where(n => n.Id == id).FirstOrDefaultAsync();
 
             if (data is null)
             {
@@ -64,6 +64,11 @@ namespace Business.Repositories
             }
 
             data.Url = entity.Url;
+            data.Abouts = entity.Abouts;
+            data.Services = entity.Services;
+            data.Blogs = entity.Blogs;
+            data.ApartmentPlans = entity.ApartmentPlans;
+            data.Products = entity.Products;
         }
 
         public async Task Delete(int? id)

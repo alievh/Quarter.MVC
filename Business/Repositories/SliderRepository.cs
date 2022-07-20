@@ -67,7 +67,7 @@ namespace Business.Repositories
             data.Title = entity.Title;
             data.Content = entity.Content;
             data.UpdateDate = DateTime.UtcNow.AddHours(4);
-
+            _context.Sliders.Update(data);
         }
 
         public async Task Delete(int? id)

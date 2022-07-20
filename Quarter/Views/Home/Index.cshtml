@@ -2,6 +2,8 @@
     Layout = "_HomeLayout";
 }
 
+@model HomeVM
+
   <!-- Utilize Cart Menu Start -->
     <div id="ltn__utilize-cart-menu" class="ltn__utilize ltn__utilize-cart-menu">
         <div class="ltn__utilize-menu-inner ltn__scrollbar">
@@ -207,79 +209,39 @@
     <div class="ltn__slider-area ltn__slider-3  section-bg-2">
         <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
             <!-- ltn__slide-item -->
-            <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image bg-overlay-theme-black-60" data-bs-bg="./assets/img/slider/11.jpg">
-                <div class="ltn__slide-item-inner text-center">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 align-self-center">
-                                <div class="slide-item-info">
-                                    <div class="slide-item-info-inner ltn__slide-animation">
-                                        <div class="slide-video mb-50 d-none">
-                                            <a class="ltn__video-icon-2 ltn__video-icon-2-border" href="https://www.youtube.com/embed/tlThdr3O5Qo" data-rel="lightcase:myCollection">
-                                                <i class="fa fa-play"></i>
-                                            </a>
-                                        </div>
-                                        <h6 class="slide-sub-title white-color--- animated"><span><i class="fas fa-home"></i></span> Real Estate Agency</h6>
-                                        <h1 class="slide-title animated ">Find Your Dream <br> House By Us</h1>
-                                        <div class="slide-brief animated">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                        </div>
-                                        <div class="btn-wrapper animated">
-                                            <a asp-controller="shop" asp-action="index" class="theme-btn-1 btn btn-effect-1">Make An Enquiry</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- ltn__slide-item -->
-            <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image bg-overlay-theme-black-60" data-bs-bg="./assets/img/slider/12.jpg">
-                <div class="ltn__slide-item-inner  text-right text-end">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 align-self-center">
-                                <div class="slide-item-info">
-                                    <div class="slide-item-info-inner ltn__slide-animation">
-                                        <h6 class="slide-sub-title white-color--- animated"><span><i class="fas fa-home"></i></span> Real Estate Agency</h6>
-                                        <h1 class="slide-title animated ">Find Your Dream <br> House By Us</h1>
-                                        <div class="slide-brief animated">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                        </div>
-                                        <div class="btn-wrapper animated">
-                                            <a asp-controller="shop" asp-action="index" class="theme-btn-1 btn btn-effect-1">Make An Enquiry</a>
+            @foreach (var slider in Model.Sliders)
+            {
+                @foreach (var image in slider.Images)
+               {
+                    <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image bg-overlay-theme-black-60" data-bs-bg="./assets/uploads/images/@image.Url">
+                        <div class="ltn__slide-item-inner text-center">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12 align-self-center">
+                                        <div class="slide-item-info">
+                                            <div class="slide-item-info-inner ltn__slide-animation">
+                                                <div class="slide-video mb-50 d-none">
+                                                    <a class="ltn__video-icon-2 ltn__video-icon-2-border" href="https://www.youtube.com/embed/tlThdr3O5Qo" data-rel="lightcase:myCollection">
+                                                        <i class="fa fa-play"></i>
+                                                    </a>
+                                                </div>
+                                                <h6 class="slide-sub-title white-color--- animated"><span><i class="fas fa-home"></i></span> Real Estate Agency</h6>
+                                                <h1 class="slide-title animated ">@slider.Title</h1>
+                                                <div class="slide-brief animated">
+                                                    <p>@slider.Content</p>
+                                                </div>
+                                                <div class="btn-wrapper animated">
+                                                    <a asp-controller="shop" asp-action="index" class="theme-btn-1 btn btn-effect-1">Make An Enquiry</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- ltn__slide-item -->
-            <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image bg-overlay-theme-black-60" data-bs-bg="./assets/img/slider/13.jpg">
-                <div class="ltn__slide-item-inner  text-left">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 align-self-center">
-                                <div class="slide-item-info">
-                                    <div class="slide-item-info-inner ltn__slide-animation">
-                                        <h6 class="slide-sub-title white-color--- animated"><span><i class="fas fa-home"></i></span> Real Estate Agency</h6>
-                                        <h1 class="slide-title animated ">Find Your Dream <br> House By Us</h1>
-                                        <div class="slide-brief animated">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                        </div>
-                                        <div class="btn-wrapper animated">
-                                            <a asp-controller="shop" asp-action="index" class="theme-btn-1 btn btn-effect-1">Make An Enquiry</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+               }
+            }
             <!--  -->
         </div>
     </div>
@@ -398,45 +360,25 @@
                 </div>
             </div>
             <div class="row ltn__custom-gutter---  justify-content-center">
-                <div class="col-lg-4 col-sm-6 col-12">
-                    <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
-                        <div class="ltn__feature-icon">
-                            <!-- <span><i class="flaticon-house"></i></span> -->
-                            <img src="~/assets/img/icons/icon-img/21.png" alt="#">
-                        </div>
-                        <div class="ltn__feature-info">
-                            <h3><a asp-controller="service" asp-action="detail">Buy a home</a></h3>
-                            <p>over 1 million+ homes for sale available on the website, we can match you with a house you will want to call home.</p>
-                            <a class="ltn__service-btn" asp-controller="service" asp-action="detail">Find A Home <i class="flaticon-right-arrow"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 col-12">
-                    <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1 active">
-                        <div class="ltn__feature-icon">
-                            <!-- <span><i class="flaticon-house-3"></i></span> -->
-                            <img src="~/assets/img/icons/icon-img/22.png" alt="#">
-                        </div>
-                        <div class="ltn__feature-info">
-                            <h3><a asp-controller="service" asp-action="detail">Rent a home</a></h3>
-                            <p>over 1 million+ homes for sale available on the website, we can match you with a house you will want to call home.</p>
-                            <a class="ltn__service-btn" asp-controller="service" asp-action="detail">Find A Home <i class="flaticon-right-arrow"></i></a>
+                @foreach (var homeService in Model.HomeServices)
+               {
+                    @foreach (var image in homeService.Images)
+                   {
+                    <div class="col-lg-4 col-sm-6 col-12">
+                        <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
+                            <div class="ltn__feature-icon">
+                                <!-- <span><i class="flaticon-house"></i></span> -->
+                                <img src="~/assets/uploads/images/@image.Url" alt="#">
+                            </div>
+                            <div class="ltn__feature-info">
+                                <h3><a asp-controller="service" asp-action="detail" asp-route-id="@homeService.ServiceDetailId">@homeService.Title</a></h3>
+                                <p>@homeService.Description</p>
+                                <a class="ltn__service-btn" asp-controller="service" asp-action="detail" asp-route-id="@homeService.ServiceDetailId">Find A Home <i class="flaticon-right-arrow"></i></a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 col-12">
-                    <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
-                        <div class="ltn__feature-icon">
-                            <!-- <span><i class="flaticon-deal-1"></i></span> -->
-                            <img src="~/assets/img/icons/icon-img/23.png" alt="#">
-                        </div>
-                        <div class="ltn__feature-info">
-                            <h3><a asp-controller="service" asp-action="detail">Sell a home</a></h3>
-                            <p>over 1 million+ homes for sale available on the website, we can match you with a house you will want to call home.</p>
-                            <a class="ltn__service-btn" asp-controller="service" asp-action="detail">Find A Home <i class="flaticon-right-arrow"></i></a>
-                        </div>
-                    </div>
-                </div>
+                   }
+               }
             </div>
         </div>
     </div>

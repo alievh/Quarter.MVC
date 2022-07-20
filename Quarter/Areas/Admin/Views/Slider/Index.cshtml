@@ -33,7 +33,10 @@
                    {
                     <tr>
                         <td class="py-1">
-                          @*<img src="~/assets/uploads/images/@slider.SliderImages.Where(n => n.SliderId == slider.Id).FirstOrDefault().Image.Url" alt="image"/>*@
+                            @foreach (var image in slider.Images)
+                           {
+                                <img src="~/assets/uploads/images/@image.Url" alt="image"/>
+                           }
                         </td>
                         <td>
                           @slider.Title
@@ -43,9 +46,9 @@
                         </td>
                         <td>
                               <div class="d-flex">
-                                  <a class="btn btn-primary text-white mx-1" asp-controller="slider" asp-action="detail">Detail</a>
-                                  <a class="btn btn-warning text-white mx-1" asp-controller="slider" asp-action="update">Update</a>
-                                  <a class="btn btn-danger text-white mx-1" asp-controller="slider" asp-action="delete">Delete</a>
+                                  <a class="btn btn-primary text-white mx-1" asp-controller="slider" asp-action="detail" asp-route-id="@slider.Id">Detail</a>
+                                  <a class="btn btn-warning text-white mx-1" asp-controller="slider" asp-action="update" asp-route-id="@slider.Id">Update</a>
+                                  <a class="btn btn-danger text-white mx-1" asp-controller="slider" asp-action="delete" asp-route-id="@slider.Id">Delete</a>
                               </div>
                         </td>
                     </tr>

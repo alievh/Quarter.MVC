@@ -1,24 +1,38 @@
-﻿<div class="container mt-5">
+﻿@model Service
+
+<div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">Service - Create</h4>
-              <form class="forms-sample">
+              <form enctype="multipart/form-data" method="post" class="forms-sample">
                 <div class="form-group">
-                  <label for="exampleInputUsername1">Title</label>
-                  <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Create Title">
+                  <label asp-for="Title">Title</label>
+                  <input asp-for="Title" class="form-control" placeholder="Create Title">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Content</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Create Content">
+                  <label asp-for="Description">Description</label>
+                  <input asp-for="Description" class="form-control" placeholder="Create Description">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Image</label>
-                  <input type="file" class="form-control" id="exampleInputPassword1" placeholder="Upload Image">
+                  <label asp-for="ServiceDetail.Content">Content</label>
+                  <textarea class="form-control" asp-for="ServiceDetail.Content" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                  <label asp-for="ServiceIcon">Service Icon</label>
+                  <input accept="image/*" class="form-control" asp-for="ServiceIcon">
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageFile">Image</label>
+                    <input accept="image/*" class="form-control" asp-for="ImageFile">
+                </div>
+                <div class="form-group">
+                    <label class="display-2" asp-for="ForHome">Publish HomePage</label>
+                    <input class="text-left" asp-for="ForHome">
                 </div>
                 <button type="submit" class="btn btn-primary mr-2 text-white">Submit</button>
-                <button asp-controller="service" asp-action="index" class="btn btn-secondary text-white">Cancel</button>
+                <button asp-controller="slider" asp-action="index" class="btn btn-secondary text-white">Cancel</button>
               </form>
             </div>
           </div>

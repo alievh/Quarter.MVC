@@ -1,4 +1,6 @@
-﻿<div class="container">
+﻿@model List<Service>
+
+<div class="container">
     <div class="row">
        <div class="col-lg-12 grid-margin stretch-card">
           <div class="card">
@@ -27,24 +29,30 @@
                     </tr>
                   </thead>
                   <tbody>
+                     @foreach (var service in Model)
+                   {
                     <tr>
-                      <td class="py-1">
-                        <img src="../../images/faces/face1.jpg" alt="image"/>
-                      </td>
-                      <td>
-                        title
-                      </td>
-                      <td>
-                        content
-                      </td>
-                      <td>
-                            <div class="d-flex">
-                                <a class="btn btn-primary text-white mx-1" asp-controller="service" asp-action="detail">Detail</a>
-                                <a class="btn btn-warning text-white mx-1" asp-controller="service" asp-action="update">Update</a>
-                                <a class="btn btn-danger text-white mx-1" asp-controller="service" asp-action="delete">Delete</a>
-                            </div>
+                        <td class="py-1">
+                            @foreach (var image in service.Images)
+                           {
+                                <img src="~/assets/uploads/images/@image.Url" alt="image"/>
+                           }
+                        </td>
+                        <td>
+                          @service.Title
+                        </td>
+                        <td>
+                          @service.Description
+                        </td>
+                        <td>
+                              <div class="d-flex">
+                                  <a class="btn btn-primary text-white mx-1" asp-controller="service" asp-action="detail" asp-route-id="@service.Id">Detail</a>
+                                  <a class="btn btn-warning text-white mx-1" asp-controller="service" asp-action="update" asp-route-id="@service.Id">Update</a>
+                                  <a class="btn btn-danger text-white mx-1" asp-controller="service" asp-action="delete" asp-route-id="@service.Id">Delete</a>
+                              </div>
                         </td>
                     </tr>
+                   }
                   </tbody>
                 </table>
               </div>

@@ -3,15 +3,10 @@ using Business.Services;
 using DAL.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Quarter
 {
@@ -40,6 +35,7 @@ namespace Quarter
             services.AddScoped<IImageService, ImageRepository>();
             services.AddScoped<IProductService, ProductRepository>();
             services.AddScoped<IServiceService, ServiceRepository>();
+            services.AddScoped<IServiceDetailService, ServiceDetailRepository>();
             services.AddScoped<ISliderService, SliderRepository>();
             services.AddScoped<IVideoService, VideoRepository>();
         }
