@@ -12,7 +12,6 @@ namespace DAL.Model
     public class Basket : BaseEntity, IEntity
     {
         public double TotalPrice { get; set; }
-        public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
         public ICollection<Product> Products { get; set; }
     }

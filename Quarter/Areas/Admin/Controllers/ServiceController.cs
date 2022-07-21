@@ -106,13 +106,22 @@ namespace Quarter.Areas.Admin.Controllers
 
                 Image image = new();
                 image.Url = fileName;
+                image.IsMain = false;
                 images.Add(image);
             }
+
+            Image mainImage = new();
+            string mainFileName = await entity.MainImage.CreateFile(_env);
+            mainImage.Url = mainFileName;
+            mainImage.IsMain = true;
+            images.Add(mainImage);
 
             Image iconImage = new();
             string iconFileName = await entity.ServiceIcon.CreateFile(_env);
             iconImage.Url = iconFileName;
+            iconImage.IsMain = false;
             images.Add(iconImage);
+
 
             entity.Images = images;
 

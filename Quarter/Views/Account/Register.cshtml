@@ -1,4 +1,5 @@
-﻿
+﻿@model GetRegisterVM
+
 <!-- Utilize Cart Menu Start -->
 <div id="ltn__utilize-cart-menu" class="ltn__utilize ltn__utilize-cart-menu">
     <div class="ltn__utilize-menu-inner ltn__scrollbar">
@@ -234,13 +235,23 @@
         </div>
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="account-login-inner">
-                    <form action="#" class="ltn__form-box contact-form-box">
-                        <input type="text" name="firstname" placeholder="First Name">
-                        <input type="text" name="lastname" placeholder="Last Name">
-                        <input type="text" name="email" placeholder="Email*">
-                        <input type="password" name="password" placeholder="Password*">
-                        <input type="password" name="confirmpassword" placeholder="Confirm Password*">
+                    <form method="post">
+                        <label asp-for="Firstname"></label>
+                        <input asp-for="Firstname" placeholder="First Name" />
+                        <label asp-for="Lastname"></label>
+                        <input asp-for="Lastname" placeholder="Last Name" />
+                        <label asp-for="Position"></label>
+                        <input asp-for="Position" placeholder=Position(optional) />
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" placeholder="Email" />
+                        <label asp-for="Username"></label>
+                        <input asp-for="Username" placeholder="Username" />
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" placeholder="Password" />
+                        <label asp-for="ConfirmPassword"></label>
+                        <input asp-for="ConfirmPassword" placeholder="Confirm Password" />
                         <label class="checkbox-inline">
                             <input type="checkbox" value="">
                             I consent to Herboil processing my personal data in order to send personalized marketing material in accordance with the consent form and the privacy policy.
@@ -250,7 +261,7 @@
                             By clicking "create account", I consent to the privacy policy.
                         </label>
                         <div class="btn-wrapper">
-                            <button class="theme-btn-1 btn reverse-color btn-block" type="submit">CREATE ACCOUNT</button>
+                            <button type="submit" class="theme-btn-1 btn reverse-color btn-block" >CREATE ACCOUNT</button>
                         </div>
                     </form>
                     <div class="by-agree text-center">

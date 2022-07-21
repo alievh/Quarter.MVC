@@ -1715,6 +1715,16 @@
         "runtime": {
           "bin/placeholder/Exceptions.dll": {}
         }
+      },
+      "Utilities/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/Utilities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Utilities.dll": {}
+        }
       }
     }
   },
@@ -6217,6 +6227,11 @@
       "type": "project",
       "path": "../Exceptions/Exceptions.csproj",
       "msbuildProject": "../Exceptions/Exceptions.csproj"
+    },
+    "Utilities/1.0.0": {
+      "type": "project",
+      "path": "../Utilities/Utilities.csproj",
+      "msbuildProject": "../Utilities/Utilities.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -6224,7 +6239,8 @@
       "Business >= 1.0.0",
       "DAL >= 1.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.17",
-      "Microsoft.EntityFrameworkCore.Tools >= 5.0.17"
+      "Microsoft.EntityFrameworkCore.Tools >= 5.0.17",
+      "Utilities >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -6259,6 +6275,9 @@
             },
             "C:\\Users\\hsyna\\Desktop\\QaurterProject\\Quarter\\DAL\\DAL.csproj": {
               "projectPath": "C:\\Users\\hsyna\\Desktop\\QaurterProject\\Quarter\\DAL\\DAL.csproj"
+            },
+            "C:\\Users\\hsyna\\Desktop\\QaurterProject\\Quarter\\Utilities\\Utilities.csproj": {
+              "projectPath": "C:\\Users\\hsyna\\Desktop\\QaurterProject\\Quarter\\Utilities\\Utilities.csproj"
             }
           }
         }

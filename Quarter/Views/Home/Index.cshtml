@@ -362,23 +362,23 @@
             <div class="row ltn__custom-gutter---  justify-content-center">
                 @foreach (var homeService in Model.HomeServices)
                {
-                    @foreach (var image in homeService.Images)
-                   {
-                    <div class="col-lg-4 col-sm-6 col-12">
-                        <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
-                            <div class="ltn__feature-icon">
-                                <!-- <span><i class="flaticon-house"></i></span> -->
-                                <img src="~/assets/uploads/images/@image.Url" alt="#">
-                            </div>
-                            <div class="ltn__feature-info">
-                                <h3><a asp-controller="service" asp-action="detail" asp-route-id="@homeService.ServiceDetailId">@homeService.Title</a></h3>
-                                <p>@homeService.Description</p>
-                                <a class="ltn__service-btn" asp-controller="service" asp-action="detail" asp-route-id="@homeService.ServiceDetailId">Find A Home <i class="flaticon-right-arrow"></i></a>
+                    if(homeService.ForHome == true)
+                    {
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
+                                <div class="ltn__feature-icon">
+                                    <!-- <span><i class="flaticon-house"></i></span> -->
+                                    <img src="~/assets/uploads/images/@homeService.Images[^1].Url" alt="#">
+                                </div>
+                                <div class="ltn__feature-info">
+                                    <h3><a asp-controller="service" asp-action="detail" asp-route-id="@homeService.ServiceDetailId">@homeService.Title</a></h3>
+                                    <p>@homeService.Description</p>
+                                    <a class="ltn__service-btn" asp-controller="service" asp-action="detail" asp-route-id="@homeService.ServiceDetailId">Find A Home <i class="flaticon-right-arrow"></i></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                   }
-               }
+                    }
+                }
             </div>
         </div>
     </div>

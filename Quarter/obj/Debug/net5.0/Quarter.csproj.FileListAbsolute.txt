@@ -108,3 +108,6 @@ C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Vie
 C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Views\Shop\Index.cshtml.g.cs
 C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Views\Team\Detail.cshtml.g.cs
 C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Views\Team\Index.cshtml.g.cs
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\bin\Debug\net5.0\Utilities.dll
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\bin\Debug\net5.0\Utilities.pdb
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Views\Shared\Components\Basket\Default.cshtml.g.cs

@@ -117,6 +117,9 @@ namespace DAL.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int>("BasketId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -157,6 +160,9 @@ namespace DAL.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Position")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -167,7 +173,13 @@ namespace DAL.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int>("WishlistId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("BasketId")
+                        .IsUnique();
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -176,6 +188,9 @@ namespace DAL.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("WishlistId")
+                        .IsUnique();
 
                     b.ToTable("AspNetUsers");
                 });
@@ -259,9 +274,6 @@ namespace DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -275,8 +287,6 @@ namespace DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
 
                     b.ToTable("Baskets");
                 });
@@ -394,6 +404,9 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool?>("IsMain")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
@@ -643,9 +656,6 @@ namespace DAL.Migrations
                     b.Property<int>("AppUserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("AppUserId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -656,8 +666,6 @@ namespace DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppUserId1");
 
                     b.ToTable("Wishlists");
                 });
@@ -943,13 +951,23 @@ namespace DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DAL.Model.Basket", b =>
+            modelBuilder.Entity("DAL.Identity.AppUser", b =>
                 {
-                    b.HasOne("DAL.Identity.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId");
+                    b.HasOne("DAL.Model.Basket", "Basket")
+                        .WithOne("AppUser")
+                        .HasForeignKey("DAL.Identity.AppUser", "BasketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("AppUser");
+                    b.HasOne("DAL.Model.Wishlist", "Wishlist")
+                        .WithOne("AppUser")
+                        .HasForeignKey("DAL.Identity.AppUser", "WishlistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Basket");
+
+                    b.Navigation("Wishlist");
                 });
 
             modelBuilder.Entity("DAL.Model.Blog", b =>
@@ -1031,15 +1049,6 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("DAL.Model.Wishlist", b =>
-                {
-                    b.HasOne("DAL.Identity.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId1");
-
-                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("ImageProduct", b =>
@@ -1162,6 +1171,11 @@ namespace DAL.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("DAL.Model.Basket", b =>
+                {
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("DAL.Model.BlogCategory", b =>
                 {
                     b.Navigation("Blogs");
@@ -1180,6 +1194,11 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Model.ServiceDetail", b =>
                 {
                     b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("DAL.Model.Wishlist", b =>
+                {
+                    b.Navigation("AppUser");
                 });
 #pragma warning restore 612, 618
         }

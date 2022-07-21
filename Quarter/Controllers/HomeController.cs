@@ -35,13 +35,19 @@ namespace Quarter.Controllers
             List<GetHomeServiceVM> getHomeServiceVms = new();
             foreach (Service service in await _serviceService.GetAll())
             {
+                List<Image> images = new();
+                foreach (var image in service.Images)
+                {
+                    images.Add(image);
+                }
                 GetHomeServiceVM getHomeServiceVm = new()
                 {
                     Title = service.Title,
                     Description = service.Description,
                     Content = service.ServiceDetail.Content,
                     ServiceDetailId = service.ServiceDetailId,
-                    Images = service.Images
+                    ForHome = service.ForHome,
+                    Images = images
                 };
                 getHomeServiceVms.Add(getHomeServiceVm);
             }

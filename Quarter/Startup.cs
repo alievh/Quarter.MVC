@@ -1,12 +1,15 @@
 using Business.Repositories;
 using Business.Services;
 using DAL.Data;
+using DAL.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace Quarter
 {
@@ -30,6 +33,18 @@ namespace Quarter
                 options.UseSqlServer(_config.GetConnectionString("Default"));
             });
 
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
+                options.Password.RequiredLength = 8;
+                options.User.RequireUniqueEmail = true;
+            });
+
             services.AddScoped<IAboutService, AboutRepository>();
             services.AddScoped<IBlogService, BlogRepository>();
             services.AddScoped<IImageService, ImageRepository>();
@@ -38,6 +53,7 @@ namespace Quarter
             services.AddScoped<IServiceDetailService, ServiceDetailRepository>();
             services.AddScoped<ISliderService, SliderRepository>();
             services.AddScoped<IVideoService, VideoRepository>();
+            services.AddScoped<IBasketService, BasketRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +65,10 @@ namespace Quarter
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseStaticFiles();
 

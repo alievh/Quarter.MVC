@@ -1,66 +1,7 @@
-﻿
-    <!-- Utilize Cart Menu Start -->
-    <div id="ltn__utilize-cart-menu" class="ltn__utilize ltn__utilize-cart-menu">
-        <div class="ltn__utilize-menu-inner ltn__scrollbar">
-            <div class="ltn__utilize-menu-head">
-                <span class="ltn__utilize-menu-title">Cart</span>
-                <button class="ltn__utilize-close">×</button>
-            </div>
-            <div class="mini-cart-product-area ltn__scrollbar">
-                <div class="mini-cart-item clearfix">
-                    <div class="mini-cart-img">
-                        <a href="#"><img src="~/assets/img/product/1.png" alt="Image"></a>
-                        <span class="mini-cart-item-delete"><i class="icon-cancel"></i></span>
-                    </div>
-                    <div class="mini-cart-info">
-                        <h6><a href="#">Wheel Bearing Retainer</a></h6>
-                        <span class="mini-cart-quantity">1 x $65.00</span>
-                    </div>
-                </div>
-                <div class="mini-cart-item clearfix">
-                    <div class="mini-cart-img">
-                        <a href="#"><img src="~/assets/img/product/2.png" alt="Image"></a>
-                        <span class="mini-cart-item-delete"><i class="icon-cancel"></i></span>
-                    </div>
-                    <div class="mini-cart-info">
-                        <h6><a href="#">Brake Conversion Kit</a></h6>
-                        <span class="mini-cart-quantity">1 x $85.00</span>
-                    </div>
-                </div>
-                <div class="mini-cart-item clearfix">
-                    <div class="mini-cart-img">
-                        <a href="#"><img src="~/assets/img/product/3.png" alt="Image"></a>
-                        <span class="mini-cart-item-delete"><i class="icon-cancel"></i></span>
-                    </div>
-                    <div class="mini-cart-info">
-                        <h6><a href="#">OE Replica Wheels</a></h6>
-                        <span class="mini-cart-quantity">1 x $92.00</span>
-                    </div>
-                </div>
-                <div class="mini-cart-item clearfix">
-                    <div class="mini-cart-img">
-                        <a href="#"><img src="~/assets/img/product/4.png" alt="Image"></a>
-                        <span class="mini-cart-item-delete"><i class="icon-cancel"></i></span>
-                    </div>
-                    <div class="mini-cart-info">
-                        <h6><a href="#">Shock Mount Insulator</a></h6>
-                        <span class="mini-cart-quantity">1 x $68.00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="mini-cart-footer">
-                <div class="mini-cart-sub-total">
-                    <h5>Subtotal: <span>$310.00</span></h5>
-                </div>
-                <div class="btn-wrapper">
-                    <a href="cart.html" class="theme-btn-1 btn btn-effect-1">View Cart</a>
-                    <a href="cart.html" class="theme-btn-2 btn btn-effect-2">Checkout</a>
-                </div>
-                <p>Free Shipping on All Orders Over $100!</p>
-            </div>
+﻿@model ServiceVM
 
-        </div>
-    </div>
+    <!-- Utilize Cart Menu Start -->
+    @await Component.InvokeAsync("Basket");
     <!-- Utilize Cart Menu End -->
 
     <!-- Utilize Mobile Menu Start -->
@@ -263,83 +204,24 @@
                 </div>
             </div>
             <div class="row  justify-content-center">
-                <div class="col-lg-4 col-sm-6 col-12">
-                    <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
-                        <div class="ltn__feature-icon">
-                            <span><i class="flaticon-house"></i></span>
-                            <!-- <img src="~/assets/img/icons/icon-img/21.png" alt="#"> -->
+                @foreach (var service in Model.Services)
+               {
+                    if(service.ForHome == false)
+                    {
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
+                                <div class="ltn__feature-icon">
+                                    <img src="~/assets/uploads/images/@service.Images[^1].Url" alt="#">
+                                </div>
+                                <div class="ltn__feature-info">
+                                    <h3><a asp-controller="service" asp-action="detail" asp-route-id="@service.ServiceDetail.Id">@service.Title</a></h3>
+                                    <p>over 1 million+ homes for sale available on the website, we can match you with a house you will want to call home.</p>
+                                    <!-- <a class="ltn__service-btn" asp-controller="service" asp-action="detail">Find A Home <i class="flaticon-right-arrow"></i></a> -->
+                                </div>
+                            </div>
                         </div>
-                        <div class="ltn__feature-info">
-                            <h3><a asp-controller="service" asp-action="detail">Property Management</a></h3>
-                            <p>over 1 million+ homes for sale available on the website, we can match you with a house you will want to call home.</p>
-                            <!-- <a class="ltn__service-btn" asp-controller="service" asp-action="detail">Find A Home <i class="flaticon-right-arrow"></i></a> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 col-12">
-                    <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
-                        <div class="ltn__feature-icon">
-                            <span><i class="flaticon-mortgage"></i></span>
-                            <!-- <img src="~/assets/img/icons/icon-img/21.png" alt="#"> -->
-                        </div>
-                        <div class="ltn__feature-info">
-                            <h3><a asp-controller="service" asp-action="detail">Mortgage Service</a></h3>
-                            <p>over 1 million+ homes for sale available on the website, we can match you with a house you will want to call home.</p>
-                            <!-- <a class="ltn__service-btn" asp-controller="service" asp-action="detail">Find A Home <i class="flaticon-right-arrow"></i></a> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 col-12">
-                    <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
-                        <div class="ltn__feature-icon">
-                            <span><i class="flaticon-operator"></i></span>
-                            <!-- <img src="~/assets/img/icons/icon-img/21.png" alt="#"> -->
-                        </div>
-                        <div class="ltn__feature-info">
-                            <h3><a asp-controller="service" asp-action="detail">Consulting Service</a></h3>
-                            <p>over 1 million+ homes for sale available on the website, we can match you with a house you will want to call home.</p>
-                            <!-- <a class="ltn__service-btn" asp-controller="service" asp-action="detail">Find A Home <i class="flaticon-right-arrow"></i></a> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 col-12">
-                    <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
-                        <div class="ltn__feature-icon">
-                            <span><i class="flaticon-house-1"></i></span>
-                            <!-- <img src="~/assets/img/icons/icon-img/21.png" alt="#"> -->
-                        </div>
-                        <div class="ltn__feature-info">
-                            <h3><a asp-controller="service" asp-action="detail">Home Buying</a></h3>
-                            <p>over 1 million+ homes for sale available on the website, we can match you with a house you will want to call home.</p>
-                            <!-- <a class="ltn__service-btn" asp-controller="service" asp-action="detail">Find A Home <i class="flaticon-right-arrow"></i></a> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 col-12">
-                    <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
-                        <div class="ltn__feature-icon">
-                            <span><i class="flaticon-house-3"></i></span>
-                            <!-- <img src="~/assets/img/icons/icon-img/21.png" alt="#"> -->
-                        </div>
-                        <div class="ltn__feature-info">
-                            <h3><a asp-controller="service" asp-action="detail">Home Selling</a></h3>
-                            <p>over 1 million+ homes for sale available on the website, we can match you with a house you will want to call home.</p>
-                            <!-- <a class="ltn__service-btn" asp-controller="service" asp-action="detail">Find A Home <i class="flaticon-right-arrow"></i></a> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 col-12">
-                    <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
-                        <div class="ltn__feature-icon">
-                            <span><i class="flaticon-official-documents"></i></span>
-                            <!-- <img src="~/assets/img/icons/icon-img/21.png" alt="#"> -->
-                        </div>
-                        <div class="ltn__feature-info">
-                            <h3><a asp-controller="service" asp-action="detail">Escrow Services</a></h3>
-                            <p>over 1 million+ homes for sale available on the website, we can match you with a house you will want to call home.</p>
-                            <!-- <a class="ltn__service-btn" asp-controller="service" asp-action="detail">Find A Home <i class="flaticon-right-arrow"></i></a> -->
-                        </div>
-                    </div>
+                    }
+                }
                 </div>
             </div>
         </div>

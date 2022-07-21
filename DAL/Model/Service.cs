@@ -18,6 +18,8 @@ namespace DAL.Model
         [NotMapped]
         public IFormFile ServiceIcon { get; set; }
         [NotMapped]
+        public IFormFile MainImage { get; set; }
+        [NotMapped]
         public List<IFormFile> ImageFile { get; set; }
 
         public ICollection<Image> Images { get; set; }

@@ -12,7 +12,8 @@ namespace Business.ViewModels
         public string Title { get; set; }
         public string Description { get; set; }
         public string Content { get; set; }
+        public bool ForHome { get; set; }
         public int ServiceDetailId { get; set; }
-        public ICollection<Image> Images { get; set; }
+        public List<Image> Images { get; set; }
     }
 }
