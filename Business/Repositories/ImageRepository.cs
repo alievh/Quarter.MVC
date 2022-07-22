@@ -73,11 +73,6 @@ namespace Business.Repositories
 
         public async Task Delete(int? id)
         {
-            if (id is null)
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
-
             var data = await Get(id);
 
             _context.Images.Remove(data);

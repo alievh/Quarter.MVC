@@ -58,8 +58,8 @@ namespace Business.Repositories
         public async Task Create(Category entity)
         {
             entity.CreateDate = DateTime.UtcNow.AddHours(4);
+            await _context.Categories.AddAsync(entity);
 
-            await _context.SaveChangesAsync();
         }
 
         public async Task Update(int id, Category entity)
@@ -68,8 +68,14 @@ namespace Business.Repositories
 
             data.UpdateDate = DateTime.UtcNow.AddHours(4);
             data.Name = entity.Name;
-            data.SubCategories = entity.SubCategories;
-            data.Products = entity.Products;
+            if(entity.SubCategories is not null)
+            {
+                data.SubCategories = entity.SubCategories;
+            }
+            if(entity.Products is not null)
+            {
+                data.Products = entity.Products;
+            }
 
             _context.Categories.Update(data);
         }

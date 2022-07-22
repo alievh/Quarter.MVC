@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 
 namespace Quarter.Areas.Admin.Controllers
 {
+    [Area("admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
+        private readonly ISubCategoryService _subCategoryService;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(ICategoryService categoryService, ISubCategoryService subCategoryService)
         {
             _categoryService = categoryService;
+            _subCategoryService = subCategoryService;
         }
 
         public async Task<IActionResult> Index()
@@ -71,9 +74,9 @@ namespace Quarter.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Category category)
+        public async Task<IActionResult> Create(Category entity)
         {
-            await _categoryService.Create(category);
+            await _categoryService.Create(entity);
             await _categoryService.SaveChanges();
 
             return RedirectToAction(nameof(Index));
@@ -99,6 +102,64 @@ namespace Quarter.Areas.Admin.Controllers
         {
             await _categoryService.Delete(id);
             await _categoryService.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult AddSubCategory()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddSubCategory(int? id, SubCategory entity)
+        {
+            var category = await _categoryService.Get(id);
+
+            foreach (var subCategory in category.SubCategories)
+            {
+                if(subCategory.Name == entity.Name)
+                {
+                    return View();
+                };
+            }
+
+            SubCategory newSubCategory = new()
+            {
+                Name = entity.Name.Trim(),
+                Category = category
+            };
+
+            await _subCategoryService.Create(newSubCategory);
+            await _subCategoryService.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateSubCategory(int id)
+        {
+            var data = await _subCategoryService.Get(id);
+
+            return View(model: data);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateSubCategory(int id, SubCategory subCategory)
+        {
+            await _subCategoryService.Update(id, subCategory);
+            await _subCategoryService.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> DeleteSubCategory(int? id)
+        {
+            await _subCategoryService.Delete(id);
+            await _subCategoryService.SaveChanges();
 
             return RedirectToAction(nameof(Index));
         }

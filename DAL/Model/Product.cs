@@ -3,6 +3,7 @@ using DAL.Entity;
 using DAL.Identity;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.Model
 {
@@ -21,6 +22,7 @@ namespace DAL.Model
         public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
 
+        [NotMapped]
         public List<IFormFile> ImageFile { get; set; }
 
         public ICollection<Wishlist> Wishlists { get; set; }

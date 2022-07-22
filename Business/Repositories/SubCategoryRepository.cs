@@ -54,8 +54,6 @@ namespace Business.Repositories
         public async Task Create(SubCategory entity)
         {
             entity.CreateDate = DateTime.UtcNow.AddHours(4);
-            entity.Category = entity.Category;
-            entity.Name = entity.Name;
 
             await _context.SubCategories.AddAsync(entity);
         }
@@ -65,7 +63,10 @@ namespace Business.Repositories
             var data = await Get(id);
 
             data.Name = entity.Name;
-            data.Category = entity.Category;
+            if(entity.Category is not null)
+            {
+                data.Category = entity.Category;
+            }
             data.UpdateDate = DateTime.UtcNow.AddHours(4);
 
             _context.SubCategories.Update(data);
