@@ -1,6 +1,7 @@
 ﻿using DAL.Base;
 using DAL.Entity;
 using DAL.Identity;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
 namespace DAL.Model
@@ -19,6 +20,8 @@ namespace DAL.Model
         public Comment Comment { get; set; }
         public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
+
+        public List<IFormFile> ImageFile { get; set; }
 
         public ICollection<Wishlist> Wishlists { get; set; }
         public ICollection<Image> Images { get; set; }

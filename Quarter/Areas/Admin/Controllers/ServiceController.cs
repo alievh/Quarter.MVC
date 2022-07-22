@@ -156,50 +156,94 @@ namespace Quarter.Areas.Admin.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Update(int id, Service entity)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(entity);
-            //}
-
-            //if (entity.ImageFile is null)
-            //{
-            //    ModelState.AddModelError("ImageFile", "Image can not be empty");
-            //    return View(entity);
-            //}
-
-            foreach (var imageFile in entity.ImageFile)
+            if (!ModelState.IsValid)
             {
+                return View(entity);
+            }
 
-                if (imageFile is not null)
+            List<Image> currentImages = new();
+            var data = await _serviceService.Get(id);
+
+            if (entity.ImageFile is not null)
+            {
+                for (int i = 0; i < data.Images.Where(n => n.IsMain == false).ToList().Count - 1; i++)
+                {
+                    currentImages.Add(data.Images.Where(n => n.IsMain == false).ToList()[i]);
+                }
+
+                foreach (var imageFile in entity.ImageFile)
                 {
                     string fileName = await imageFile.CreateFile(_env);
 
                     Image image = new();
                     image.Url = fileName;
-
-                    List<Service> services = new();
-                    services.Add(entity);
-                    image.Services = services;
-                    var data = await _serviceService.Get(id);
-                    await _imageService.Update(data.Images.FirstOrDefault().Id, image);
+                    image.IsMain = false;
+                    currentImages.Add(image);
                 }
 
-
-
-                
-
-                await _serviceService.Update(id, entity);
-                await _imageService.SaveChanges();
+                var images = data.Images;
+                currentImages.AddRange(images);
+            }else
+            {
+                for (int i = 0; i < data.Images.Where(n => n.IsMain == false).ToList().Count - 1; i++)
+                {
+                    currentImages.Add(data.Images.Where(n => n.IsMain == false).ToList()[i]);
+                }
             }
+
+            if (entity.MainImage is not null)
+            {
+                string fileName = await entity.ServiceIcon.CreateFile(_env);
+
+                Image image = new();
+                image.Url = fileName;
+                image.IsMain = true;
+                currentImages.Add(image);
+
+                await _imageService.Delete(data.Images.Where(n => n.IsMain == true).FirstOrDefault().Id);
+            }else
+            {
+                currentImages.Add(data.Images.Where(n => n.IsMain == true).FirstOrDefault());
+            }
+
+            if (entity.ServiceIcon is not null)
+            {
+                string fileName = await entity.ServiceIcon.CreateFile(_env);
+
+                Image image = new();
+                image.Url = fileName;
+                image.IsMain = false;
+                currentImages.Add(image);
+
+                await _imageService.Delete(data.Images.Where(n => n.IsMain == false).ToList()[^1].Id);
+            }
+            else
+            {
+                currentImages.Add(data.Images.Where(n => n.IsMain == false).ToList()[^1]);
+            }
+
+            entity.Images = currentImages;
+
+            await _serviceService.Update(id, entity);
+            await _serviceService.SaveChanges();
 
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> DeleteImage(int? id)
+        {
+            await _imageService.Delete(id);
+            await _imageService.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Delete(int? id)
         {
             await _serviceService.Delete(id);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Update));
         }
     }
 }

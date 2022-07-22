@@ -111,3 +111,7 @@ C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Vie
 C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\bin\Debug\net5.0\Utilities.dll
 C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\bin\Debug\net5.0\Utilities.pdb
 C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Views\Shared\Components\Basket\Default.cshtml.g.cs
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Areas\Admin\Views\Category\Index.cshtml.g.cs
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Areas\Admin\Views\Product\Create.cshtml.g.cs
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Areas\Admin\Views\Product\Detail.cshtml.g.cs
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Areas\Admin\Views\Product\Update.cshtml.g.cs

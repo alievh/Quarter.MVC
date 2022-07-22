@@ -67,6 +67,9 @@ namespace Business.Repositories
 
             data.Title = entity.Title;
             data.Description = entity.Description;
+            data.ServiceDetail.Content = entity.ServiceDetail.Content;
+            data.Images = entity.Images;
+            data.ForHome = entity.ForHome;
             data.UpdateDate = DateTime.UtcNow.AddHours(4);
             _context.Services.Update(data);
         }

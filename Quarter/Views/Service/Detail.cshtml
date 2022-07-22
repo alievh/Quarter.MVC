@@ -266,15 +266,12 @@
                             <ul>
                             @foreach (var service in Model.Services)
                             {
-                                if(service.ForHome == false)
+                                if (service.ServiceDetailId == @Model.Id)
                                 {
-                                    if (service.ServiceDetailId == @Model.Id)
-                                    {
-                                        <li class="active"><a asp-controller="service" asp-action="detail" asp-route-id="@service.ServiceDetailId">@service.Title<span><i class="fas fa-arrow-right"></i></span></a></li>
-                                    }else
-                                    {
-                                        <li><a asp-controller="service" asp-action="detail" asp-route-id="@service.ServiceDetailId">@service.Title<span><i class="fas fa-arrow-right"></i></span></a></li>
-                                    }
+                                    <li class="active"><a asp-controller="service" asp-action="detail" asp-route-id="@service.ServiceDetailId">@service.Title<span><i class="fas fa-arrow-right"></i></span></a></li>
+                                }else
+                                {
+                                    <li><a asp-controller="service" asp-action="detail" asp-route-id="@service.ServiceDetailId">@service.Title<span><i class="fas fa-arrow-right"></i></span></a></li>
                                 }
                             }
                         </ul>

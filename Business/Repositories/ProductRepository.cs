@@ -1,5 +1,8 @@
 ﻿using Business.Services;
+using DAL.Data;
 using DAL.Model;
+using Exceptions.Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,37 +13,92 @@ namespace Business.Repositories
 {
     public class ProductRepository : IProductService
     {
-        public ProductRepository()
+        private readonly AppDbContext _context;
+
+        public ProductRepository(AppDbContext context)
         {
+            _context = context;
         }
 
-        public Task<Product> Get(int? id)
+        public async Task<Product> Get(int? id)
         {
-            throw new NotImplementedException();
+            if(id is null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            var data = await _context.Products.Where(n => !n.IsDeleted)
+                                              .Where(n => n.Id == id)
+                                              .Include(n => n.Images)
+                                              .Include(n => n.AppUser)
+                                              .Include(n => n.Baskets)
+                                              .Include(n => n.Comment)
+                                              .Include(n => n.Wishlists)
+                                              .Include(n => n.Location)
+                                              .Include(n => n.Categories)
+                                              .FirstOrDefaultAsync();
+
+            if (data is null)
+            {
+                throw new EntityIsNullException();
+            }
+
+            return data;
         }
 
-        public Task<List<Product>> GetAll()
+        public async Task<List<Product>> GetAll()
         {
-            throw new NotImplementedException();
+            var data = await _context.Products.Where(n => !n.IsDeleted)
+                                             .Include(n => n.Images)
+                                             .Include(n => n.AppUser)
+                                             .Include(n => n.Baskets)
+                                             .Include(n => n.Comment)
+                                             .Include(n => n.Wishlists)
+                                             .Include(n => n.Location)
+                                             .Include(n => n.Categories)
+                                             .ToListAsync();
+
+            if (data is null)
+            {
+                throw new EntityIsNullException();
+            }
+
+            return data;
         }
 
-        public Task Create(Product entity)
+        public async Task Create(Product entity)
         {
-            throw new NotImplementedException();
+            entity.CreateDate = DateTime.UtcNow.AddHours(4);
+
+            await _context.Products.AddAsync(entity);
         }
-        public Task Update(int id, Product entity)
+        public async Task Update(int id, Product entity)
         {
-            throw new NotImplementedException();
+            var data = await Get(id);
+
+            data.UpdateDate = DateTime.UtcNow.AddHours(4);
+            data.Title = entity.Title;
+            data.Description = entity.Description;
+            data.Categories = entity.Categories;
+            data.Images = entity.Images;
+            data.Price = entity.Price;
+            data.BathroomCount = entity.BathroomCount;
+            data.BedroomCount = entity.BedroomCount;
+            data.Location = entity.Location;
+
+            _context.Products.Update(data);
         }
 
-        public Task Delete(int? id)
+        public async Task Delete(int? id)
         {
-            throw new NotImplementedException();
+            var data = await Get(id);
+
+            data.IsDeleted = true;
         }
 
-        public Task SaveChanges()
+        public async Task SaveChanges()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
     }
 }

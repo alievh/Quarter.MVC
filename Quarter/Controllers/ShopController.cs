@@ -7,6 +7,7 @@ namespace Quarter.Controllers
         public IActionResult Index()
         {
 
+
             return View();
         }
 
