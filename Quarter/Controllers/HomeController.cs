@@ -11,13 +11,15 @@ namespace Quarter.Controllers
     {
         private readonly ISliderService _sliderService;
         private readonly IServiceService _serviceService;
+        private readonly ILocationService _locationService;
         private readonly IProductService _productService;
 
-        public HomeController(ISliderService sliderService, IServiceService serviceService, IProductService productService)
+        public HomeController(ISliderService sliderService, IServiceService serviceService, IProductService productService, ILocationService locationService)
         {
             _serviceService = serviceService;
             _sliderService = sliderService;
             _productService = productService;
+            _locationService = locationService;
         }
 
         public async Task<IActionResult> Index()
@@ -64,6 +66,7 @@ namespace Quarter.Controllers
                 }
                 GetProductVM getProductVm = new()
                 {
+                    Id = product.Id,
                     Title = product.Title,
                     Description = product.Description,
                     Price = product.Price,
@@ -72,9 +75,24 @@ namespace Quarter.Controllers
                     ImageCount = images.Count,
                     BedroomCount = product.BedroomCount,
                     BathroomCount = product.BathroomCount,
-                    SquareFt = product.SquareFt
+                    SquareFt = product.SquareFt,
+                    SubCategories = product.SubCategories,
+                    Location = product.Location
                 };
                 getProductVMs.Add(getProductVm);
+            }
+
+            List<GetLocationVM> getLocationVMs = new();
+            foreach (var location in await _locationService.GetAll())
+            {
+                GetLocationVM getLocationVM = new()
+                {
+                    Id = location.Id,
+                    LocationArea = location.LocationArea,
+                    LocationCity = location.LocationCity,
+                    Products = location.Products
+                };
+                getLocationVMs.Add(getLocationVM);
             }
             
 
@@ -83,7 +101,8 @@ namespace Quarter.Controllers
             {
                 Sliders = getSliderVms,
                 HomeServices = getHomeServiceVms,
-                Products = getProductVMs
+                Products = getProductVMs,
+                Locations = getLocationVMs
             };
 
             return View(model: homeVm);

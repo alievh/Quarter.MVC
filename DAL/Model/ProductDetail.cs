@@ -10,6 +10,6 @@ namespace DAL.Model
 {
     public class ProductDetail : BaseEntity, IEntity
     {
-        public int MyProperty { get; set; }
+        public int BuiltYear { get; set; }
     }
 }

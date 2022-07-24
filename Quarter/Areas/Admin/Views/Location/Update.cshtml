@@ -1,0 +1,25 @@
+﻿@model Location
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Location - Create</h4>
+              <form enctype="multipart/form-data" method="post" class="forms-sample">
+                <div class="form-group">
+                  <label asp-for="LocationCity">Location City</label>
+                  <input asp-for="LocationCity" class="form-control" placeholder="Create City">
+                </div>
+                <div class="form-group">
+                  <label asp-for="LocationArea">Location Area</label>
+                  <input asp-for="LocationArea" class="form-control" placeholder="Create Area">
+                </div>
+                <button type="submit" class="btn btn-primary mr-2 text-white">Submit</button>
+                <button asp-controller="location" asp-action="index" class="btn btn-secondary text-white">Cancel</button>
+              </form>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

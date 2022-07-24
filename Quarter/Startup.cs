@@ -56,6 +56,7 @@ namespace Quarter
             services.AddScoped<IBasketService, BasketRepository>();
             services.AddScoped<ICategoryService, CategoryRepository>();
             services.AddScoped<ISubCategoryService, SubCategoryRepository>();
+            services.AddScoped<ILocationService, LocationRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

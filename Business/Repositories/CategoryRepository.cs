@@ -28,7 +28,6 @@ namespace Business.Repositories
 
             var data = await _context.Categories.Where(n => !n.IsDeleted)
                                                 .Where(n => n.Id == id)
-                                                .Include(n => n.Products)
                                                 .Include(n => n.SubCategories)
                                                 .FirstOrDefaultAsync();
 
@@ -43,7 +42,6 @@ namespace Business.Repositories
         public async Task<List<Category>> GetAll()
         {
             var data = await _context.Categories.Where(n => !n.IsDeleted)
-                                                .Include(n => n.Products)
                                                 .Include(n => n.SubCategories)
                                                 .ToListAsync();
 
@@ -71,10 +69,6 @@ namespace Business.Repositories
             if(entity.SubCategories is not null)
             {
                 data.SubCategories = entity.SubCategories;
-            }
-            if(entity.Products is not null)
-            {
-                data.Products = entity.Products;
             }
 
             _context.Categories.Update(data);

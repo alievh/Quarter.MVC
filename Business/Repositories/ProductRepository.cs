@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Business.Repositories
@@ -32,10 +31,10 @@ namespace Business.Repositories
                                               .Include(n => n.Images)
                                               .Include(n => n.AppUser)
                                               .Include(n => n.Baskets)
-                                              .Include(n => n.Comment)
+                                              .Include(n => n.Comments)
                                               .Include(n => n.Wishlists)
                                               .Include(n => n.Location)
-                                              .Include(n => n.Categories)
+                                              .Include(n => n.SubCategories)
                                               .FirstOrDefaultAsync();
 
             if (data is null)
@@ -52,10 +51,10 @@ namespace Business.Repositories
                                              .Include(n => n.Images)
                                              .Include(n => n.AppUser)
                                              .Include(n => n.Baskets)
-                                             .Include(n => n.Comment)
+                                             .Include(n => n.Comments)
                                              .Include(n => n.Wishlists)
                                              .Include(n => n.Location)
-                                             .Include(n => n.Categories)
+                                             .Include(n => n.SubCategories)
                                              .ToListAsync();
 
             if (data is null)
@@ -79,7 +78,7 @@ namespace Business.Repositories
             data.UpdateDate = DateTime.UtcNow.AddHours(4);
             data.Title = entity.Title;
             data.Description = entity.Description;
-            data.Categories = entity.Categories;
+            data.SubCategories = entity.SubCategories;
             data.Images = entity.Images;
             data.Price = entity.Price;
             data.BathroomCount = entity.BathroomCount;

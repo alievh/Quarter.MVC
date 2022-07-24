@@ -17,17 +17,20 @@ namespace DAL.Model
         public int SquareFt { get; set; }
         public int LocationId { get; set; }
         public Location Location { get; set; }
-        public int CommentId { get; set; }
-        public Comment Comment { get; set; }
         public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
+        public int ProductDetailId { get; set; }
+        public ProductDetail ProductDetail { get; set; }
 
+        [NotMapped]
+        public IFormFile MainImage { get; set; }
         [NotMapped]
         public List<IFormFile> ImageFile { get; set; }
 
+        public ICollection<Comment> Comments { get; set; }
         public ICollection<Wishlist> Wishlists { get; set; }
         public ICollection<Image> Images { get; set; }
         public ICollection<Basket> Baskets { get; set; }
-        public ICollection<Category> Categories { get; set; }
+        public List<SubCategory> SubCategories { get; set; }
     }
 }

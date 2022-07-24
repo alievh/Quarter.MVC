@@ -134,10 +134,6 @@ namespace Quarter.Areas.Admin.Controllers
             entity.ServiceDetail = serviceDetail;
             entity.ServiceDetailId = serviceDetail.Id;
 
-            List<Service> services = new();
-            services.Add(entity);
-
-
             await _serviceService.Create(entity);
             await _serviceService.SaveChanges();
 

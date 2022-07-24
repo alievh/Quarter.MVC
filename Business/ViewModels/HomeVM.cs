@@ -7,5 +7,6 @@ namespace Business.ViewModels
         public List<GetSliderVM> Sliders { get; set; }
         public List<GetHomeServiceVM> HomeServices { get; set; }
         public List<GetProductVM> Products { get; set; }
+        public List<GetLocationVM> Locations { get; set; }
     }
 }

@@ -1,8 +1,13 @@
 ﻿using Business.Services;
+using DAL.Identity;
 using DAL.Model;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Quarter.Helpers.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Quarter.Areas.Admin.Controllers
@@ -11,10 +16,20 @@ namespace Quarter.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
+        private readonly ISubCategoryService _subCategoryService;
+        private readonly ILocationService _locationService;
+        private readonly IImageService _imageService;
+        private readonly IWebHostEnvironment _env;
+        private readonly UserManager<AppUser> _userManager;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, ILocationService locationService, IImageService imageService, ISubCategoryService subCategoryService, UserManager<AppUser> userManager, IWebHostEnvironment env)
         {
             _productService = productService;
+            _locationService = locationService;
+            _imageService = imageService;
+            _subCategoryService = subCategoryService;
+            _userManager = userManager;
+            _env = env;
         }
 
         public async Task<IActionResult> Index()
@@ -66,8 +81,12 @@ namespace Quarter.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewData["Locations"] = await _locationService.GetAll();
+            ViewData["SubCategories"] = await _subCategoryService.GetAll(); 
+
+
             return View();
         }
 
@@ -75,7 +94,77 @@ namespace Quarter.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Product entity)
         {
-            return View();
+            ViewData["Locations"] = await _locationService.GetAll();
+            ViewData["SubCategories"] = await _subCategoryService.GetAll();
+
+
+            if (entity.ImageFile is null)
+            {
+                ModelState.AddModelError("ImageFile", "Image can not be empty");
+                return View(entity);
+            }
+
+            List<Image> images = new();
+
+            foreach (var imageFile in entity.ImageFile)
+            {
+                string fileName = await imageFile.CreateFile(_env);
+
+                Image image = new();
+                image.Url = fileName;
+                image.IsMain = false;
+                images.Add(image);
+            }
+
+            Image mainImage = new();
+            string mainFileName = await entity.MainImage.CreateFile(_env);
+            mainImage.Url = mainFileName;
+            mainImage.IsMain = true;
+            images.Add(mainImage);
+
+            entity.Images = images;
+
+            ProductDetail serviceDetail = new()
+            {
+                BuiltYear = entity.ProductDetail.BuiltYear,
+            };
+            
+            entity.ProductDetail = serviceDetail;
+            entity.ProductDetailId = serviceDetail.Id;
+
+            List<SubCategory> subCategories = new();
+            foreach (var subCategory in entity.SubCategories)
+            {
+                if(subCategory.IsSelected == true)
+                {
+                    SubCategory subCategorySub = new();
+                    subCategorySub = await _subCategoryService.Get(subCategory.Id);
+                    subCategory.IsDeleted = false;
+                    subCategories.Add(subCategorySub);
+                }
+            }
+
+            if (entity.Price > 5000 && entity.Price < 10000)
+            {
+                subCategories.Add(await _subCategoryService.Get(11));
+            }else if(entity.Price > 10000 && entity.Price < 30000)
+            {
+                subCategories.Add(await _subCategoryService.Get(12));
+            }else if(entity.Price > 30000)
+            {
+                subCategories.Add(await _subCategoryService.Get(13));
+            }
+
+            entity.SubCategories = subCategories;
+
+            AppUser applicationUser = await _userManager.GetUserAsync(User);
+
+            entity.AppUser = applicationUser;
+
+            await _productService.Create(entity);
+            await _productService.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]

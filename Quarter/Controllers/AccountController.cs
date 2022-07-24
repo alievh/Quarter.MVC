@@ -185,9 +185,9 @@ namespace Quarter.Controllers
             {
                 client.Send(mailMessage);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
 
             return Json("Ok");

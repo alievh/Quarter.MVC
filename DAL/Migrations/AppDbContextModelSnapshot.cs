@@ -94,21 +94,6 @@ namespace DAL.Migrations
                     b.ToTable("BlogImage");
                 });
 
-            modelBuilder.Entity("CategoryProduct", b =>
-                {
-                    b.Property<int>("CategoriesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CategoriesId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("CategoryProduct");
-                });
-
             modelBuilder.Entity("DAL.Identity.AppUser", b =>
                 {
                     b.Property<string>("Id")
@@ -388,12 +373,17 @@ namespace DAL.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Comments");
                 });
@@ -459,9 +449,6 @@ namespace DAL.Migrations
                     b.Property<int>("BedroomCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("CommentId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -477,6 +464,9 @@ namespace DAL.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<int>("ProductDetailId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SquareFt")
                         .HasColumnType("int");
 
@@ -490,11 +480,35 @@ namespace DAL.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.HasIndex("CommentId");
-
                     b.HasIndex("LocationId");
 
+                    b.HasIndex("ProductDetailId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("DAL.Model.ProductDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BuiltYear")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductDetail");
                 });
 
             modelBuilder.Entity("DAL.Model.Service", b =>
@@ -609,13 +623,16 @@ namespace DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSelected")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -846,6 +863,21 @@ namespace DAL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ProductSubCategory", b =>
+                {
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubCategoriesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductsId", "SubCategoriesId");
+
+                    b.HasIndex("SubCategoriesId");
+
+                    b.ToTable("ProductSubCategory");
+                });
+
             modelBuilder.Entity("ProductWishlist", b =>
                 {
                     b.Property<int>("ProductsId")
@@ -936,21 +968,6 @@ namespace DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CategoryProduct", b =>
-                {
-                    b.HasOne("DAL.Model.Category", null)
-                        .WithMany()
-                        .HasForeignKey("CategoriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DAL.Model.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("DAL.Identity.AppUser", b =>
                 {
                     b.HasOne("DAL.Model.Basket", "Basket")
@@ -1001,7 +1018,15 @@ namespace DAL.Migrations
                         .WithMany("Comments")
                         .HasForeignKey("AppUserId");
 
+                    b.HasOne("DAL.Model.Product", "Product")
+                        .WithMany("Comments")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("AppUser");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("DAL.Model.Product", b =>
@@ -1010,23 +1035,23 @@ namespace DAL.Migrations
                         .WithMany("Products")
                         .HasForeignKey("AppUserId");
 
-                    b.HasOne("DAL.Model.Comment", "Comment")
-                        .WithMany()
-                        .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DAL.Model.Location", "Location")
                         .WithMany("Products")
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DAL.Model.ProductDetail", "ProductDetail")
+                        .WithMany()
+                        .HasForeignKey("ProductDetailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("AppUser");
 
-                    b.Navigation("Comment");
-
                     b.Navigation("Location");
+
+                    b.Navigation("ProductDetail");
                 });
 
             modelBuilder.Entity("DAL.Model.Service", b =>
@@ -1044,9 +1069,7 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.Model.Category", "Category")
                         .WithMany("SubCategories")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
                 });
@@ -1147,6 +1170,21 @@ namespace DAL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ProductSubCategory", b =>
+                {
+                    b.HasOne("DAL.Model.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Model.SubCategory", null)
+                        .WithMany()
+                        .HasForeignKey("SubCategoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ProductWishlist", b =>
                 {
                     b.HasOne("DAL.Model.Product", null)
@@ -1189,6 +1227,11 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Model.Location", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("DAL.Model.Product", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("DAL.Model.ServiceDetail", b =>

@@ -1,11 +1,16 @@
 ﻿@model Product
 
+@{
+    var locations = (List<Location>)ViewData["Locations"];
+    var subCategories = (List<SubCategory>)ViewData["SubCategories"];
+}
+
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Service - Create</h4>
+              <h4 class="card-title">Product - Create</h4>
               <form enctype="multipart/form-data" method="post" class="forms-sample">
                 <div class="form-group">
                   <label asp-for="Title">Title</label>
@@ -16,11 +21,73 @@
                   <input asp-for="Description" class="form-control" placeholder="Create Description">
                 </div>
                 <div class="form-group">
+                    <label asp-for="Price">Price(For Month)</label>
+                    <input asp-for="Price" class="form-control" placeholder="Add Price" />
+                </div>
+                <div class="d-flex">
+                    <div class="form-group">
+                    <label asp-for="BedroomCount">Bedroom Count</label>
+                    <input asp-for="BedroomCount" class="form-control" placeholder="Add Bedroom Count" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BathroomCount">Bathroom Count</label>
+                        <input asp-for="BathroomCount" class="form-control" placeholder="Add Bathroom Count" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SquareFt">Square FT</label>
+                        <input asp-for="SquareFt" class="form-control" placeholder="Add Square FT" />
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label asp-for="LocationId">Select Location</label>
+                  <select class="form-control form-control-sm" asp-for="LocationId">
+                      @foreach (var location in locations)
+                     {
+                          <option value="@location.Id">@location.LocationArea, @location.LocationCity</option>  
+                     }
+                  </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProductDetail.BuiltYear">Built Year</label>
+                    <input asp-for="ProductDetail.BuiltYear" class="form-control" placeholder="Add Built Year" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="MainImage">Main Image</label>
+                    <input accept="image/*" class="form-control" asp-for="MainImage">
+                </div>
+                <div class="form-group">
                     <label asp-for="ImageFile">Image</label>
                     <input accept="image/*" class="form-control" asp-for="ImageFile">
                 </div>
+                <div class="form-group">
+                    <p>Select Categories</p>
+                    <div class="d-flex flex-wrap">
+                        @* @foreach (var subCategory in subCategories)
+                        {
+                             if(subCategory.Category.Name != "Price Range")
+                             {
+                                 <div class="col-lg-6 form-group">
+                                         <label asp-for="@subCategory.Name">
+                                            <input class="form-control" asp-for="@Model.SubCategories">
+                                            
+                                           @subCategory.Name</label>
+                                 </div>
+                             }     
+                        }*@
+
+                        @for (var i = 0; i < subCategories.Count; i++)
+                       {
+                           
+                                 <div class="col-lg-6 form-group">
+                                   <input  type="checkbox" asp-for="@Model.SubCategories[i].IsSelected" />
+                                   <label asp-for="@Model.SubCategories[i].IsSelected">@subCategories[i].Name</label>
+                                   <input  type="hidden" asp-for="@subCategories[i].Id" />
+                                 </div>
+                       }
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary mr-2 text-white">Submit</button>
-                <button asp-controller="service" asp-action="index" class="btn btn-secondary text-white">Cancel</button>
+                <button asp-controller="product" asp-action="index" class="btn btn-secondary text-white">Cancel</button>
               </form>
             </div>
           </div>

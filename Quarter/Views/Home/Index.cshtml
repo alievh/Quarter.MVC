@@ -396,82 +396,38 @@
                 </div>
             </div>
             <div class="row ltn__search-by-place-slider-1-active slick-arrow-1">
-                <div class="col-lg-4">
-                    <div class="ltn__search-by-place-item">
-                        <div class="search-by-place-img">
-                            <a asp-controller="product" asp-action="detail"><img src="~/assets/img/product-3/1.jpg" alt="#"></a>
-                            <div class="search-by-place-badge">
-                                <ul>
-                                    <li>2 Properties</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="search-by-place-info">
-                            <h6><a asp-controller="location" asp-action="index">San Francisco</a></h6>
-                            <h4><a asp-controller="product" asp-action="detail">Mission District Area</a></h4>
-                            <div class="search-by-place-btn">
-                                <a asp-controller="product" asp-action="detail">View Property <i class="flaticon-right-arrow"></i></a>
-                            </div>
-                        </div>
+                @foreach (var location in Model.Locations)
+               {
+                    <div class="col-lg-4">
+                     <div class="ltn__search-by-place-item">
+                         <div class="search-by-place-img">
+                            @foreach (var product in location.Products)
+                            {
+                                @foreach (var image in product.Images)
+                                {
+                                    @if(image.IsMain == true)
+                                    {
+                                        <a asp-controller="product" asp-action="detail"><img src="~/assets/uploads/images/@image.Url" alt="#"></a>
+                                        break;
+                                    }
+                                }
+                            }
+                             <div class="search-by-place-badge">
+                                 <ul>
+                                     <li>@location.Products.Count Properties</li>
+                                 </ul>
+                             </div>
+                         </div>
+                         <div class="search-by-place-info">
+                             <h6><a asp-controller="location" asp-action="index" asp-route-id="@location.Id">@location.LocationCity</a></h6>
+                             <h4><a asp-controller="product" asp-action="detail">@location.LocationArea</a></h4>
+                             <div class="search-by-place-btn">
+                                 <a asp-controller="product" asp-action="detail">View Property <i class="flaticon-right-arrow"></i></a>
+                             </div>
+                         </div>
+                     </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ltn__search-by-place-item">
-                        <div class="search-by-place-img">
-                            <a asp-controller="product" asp-action="detail"><img src="~/assets/img/product-3/2.jpg" alt="#"></a>
-                            <div class="search-by-place-badge">
-                                <ul>
-                                    <li>5 Properties</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="search-by-place-info">
-                            <h6><a asp-controller="location" asp-action="index">New York</a></h6>
-                            <h4><a asp-controller="product" asp-action="detail">Pacific Heights Area</a></h4>
-                            <div class="search-by-place-btn">
-                                <a asp-controller="product" asp-action="detail">View Property <i class="flaticon-right-arrow"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ltn__search-by-place-item">
-                        <div class="search-by-place-img">
-                            <a asp-controller="product" asp-action="detail"><img src="~/assets/img/product-3/3.jpg" alt="#"></a>
-                            <div class="search-by-place-badge">
-                                <ul>
-                                    <li>9 Properties</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="search-by-place-info">
-                            <h6><a asp-controller="location" asp-action="index">Sedona, Arizona</a></h6>
-                            <h4><a asp-controller="product" asp-action="detail">Noe Valley Zones</a></h4>
-                            <div class="search-by-place-btn">
-                                <a asp-controller="product" asp-action="detail">View Property <i class="flaticon-right-arrow"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ltn__search-by-place-item">
-                        <div class="search-by-place-img">
-                            <a asp-controller="product" asp-action="detail"><img src="~/assets/img/product-3/2.jpg" alt="#"></a>
-                            <div class="search-by-place-badge">
-                                <ul>
-                                    <li>5 Properties</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="search-by-place-info">
-                            <h6><a asp-controller="location" asp-action="index">New York</a></h6>
-                            <h4><a asp-controller="product" asp-action="detail">Pacific Heights Area</a></h4>
-                            <div class="search-by-place-btn">
-                                <a asp-controller="product" asp-action="detail">View Property <i class="flaticon-right-arrow"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               }
                 <!--  -->
             </div>
         </div>
@@ -491,415 +447,109 @@
             </div>
             <div class="row ltn__product-slider-item-three-active slick-arrow-1">
                 <!-- ltn__product-item -->
-                <div class="col-lg-12">
-                    <div class="ltn__product-item ltn__product-item-4 text-center---">
-                        <div class="product-img">
-                            <a asp-controller="product" asp-action="detail"><img src="~/assets/img/product-3/1.jpg" alt="#"></a>
-                            <div class="product-badge">
-                                <ul>
-                                    <li class="sale-badge bg-green">For Rent</li>
-                                </ul>
-                            </div>
-                            <div class="product-img-location-gallery">
-                                <div class="product-img-location">
-                                    <ul>
-                                        <li>
-                                            <a asp-controller="location" asp-action="index"><i class="flaticon-pin"></i> Belmont Gardens, Chicago</a>
-                                        </li>
+                @foreach (var product in Model.Products)
+               {
+                    @foreach (var image in product.Images)
+                   {
+                    <div class="col-lg-12">
+                     <div class="ltn__product-item ltn__product-item-4 text-center---">
+                         <div class="product-img">
+                                @if(image.IsMain == true)
+                                {
+                                <a asp-controller="shop" asp-action="detail" asp-route-id="@product.Id"><img src="~/assets/uploads/images/@image.Url" alt="#"></a>
+                                    
+                                }
+                                <div class="product-badge">
+                                 <ul>
+                                        @foreach (var subCategory in product.SubCategories)
+                                        {
+                                            if(subCategory.Name == "Rent")
+                                            {
+                                                <li class="sale-badge bg-green">For @subCategory.Name</li>
+                                            }else if (subCategory.Name == "Sold")
+                                            {
+                                                <li class="sale-badge bg-danger">For @subCategory.Name</li>
+                                            }else if (subCategory.Name == "Sale")
+                                            {
+                                                <li class="sale-badge bg-warning">For @subCategory.Name</li>
+                                            }
+                                        }
                                     </ul>
-                                </div>
-                                <div class="product-img-gallery">
-                                    <ul>
-                                        <li>
-                                            <a asp-controller="shop" asp-action="detail"><i class="fas fa-camera"></i> 4</a>
-                                        </li>
-                                        <li>
-                                            <a asp-controller="shop" asp-action="detail"><i class="fas fa-film"></i> 2</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-price">
-                                <span>$34,900<label>/Month</label></span>
-                            </div>
-                            <h2 class="product-title"><a asp-controller="shop" asp-action="detail">New Apartment Nice View</a></h2>
-                            <div class="product-description">
-                                <p>Beautiful Huge 1 Family House In Heart Of <br>
-                                    Westbury. Newly Renovated With New Wood</p>
-                            </div>
-                            <ul class="ltn__list-item-2 ltn__list-item-2-before">
-                                <li><span>3 <i class="flaticon-bed"></i></span>
-                                    Bedrooms
-                                </li>
-                                <li><span>2 <i class="flaticon-clean"></i></span>
-                                    Bathrooms
-                                </li>
-                                <li><span>3450 <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span>
-                                    square Ft
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product-info-bottom">
-                            <div class="real-estate-agent">
-                                <div class="agent-img">
-                                    <a asp-controller="team" asp-action="detail"><img src="~/assets/img/blog/author.jpg" alt="#"></a>
-                                </div>
-                                <div class="agent-brief">
-                                    <h6><a asp-controller="team" asp-action="detail">William Seklo</a></h6>
-                                    <small>Estate Agents</small>
-                                </div>
-                            </div>
-                            <div class="product-hover-action">
-                                <ul>
-                                    <li>
-                                        <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
-                                            <i class="flaticon-expand"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
-                                            <i class="flaticon-heart-1"></i></a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="shop" asp-action="detail" title="Product Details">
-                                            <i class="flaticon-add"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                             </div>
+                             <div class="product-img-location-gallery">
+                                 <div class="product-img-location">
+                                     <ul>
+                                         <li>
+                                             <a asp-controller="location" asp-action="index"><i class="flaticon-pin"></i>@product.Location.LocationArea, @product.Location.LocationCity</a>
+                                         </li>
+                                     </ul>
+                                 </div>
+                                 <div class="product-img-gallery">
+                                     <ul>
+                                         <li>
+                                             <a asp-controller="shop" asp-action="detail" asp-route-id="@product.Id"><i class="fas fa-camera"></i> @product.ImageCount</a>
+                                         </li>
+                                         @*<li>
+                                             <a asp-controller="shop" asp-action="detail"><i class="fas fa-film"></i> 2</a>
+                                         </li>*@
+                                     </ul>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="product-info">
+                             <div class="product-price">
+                                 <span>$@product.Price<label>/Month</label></span>
+                             </div>
+                             <h2 class="product-title"><a asp-controller="shop" asp-action="detail">@product.Title</a></h2>
+                             <div class="product-description">
+                                 <p>@product.Description</p>
+                             </div>
+                             <ul class="ltn__list-item-2 ltn__list-item-2-before">
+                                 <li><span>@product.BedroomCount <i class="flaticon-bed"></i></span>
+                                     Bedrooms
+                                 </li>
+                                 <li><span>@product.BathroomCount <i class="flaticon-clean"></i></span>
+                                     Bathrooms
+                                 </li>
+                                 <li><span>@product.SquareFt <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span>
+                                     square Ft
+                                 </li>
+                             </ul>
+                         </div>
+                         <div class="product-info-bottom">
+                             <div class="real-estate-agent">
+                                 <div class="agent-img">
+                                     <a asp-controller="team" asp-action="detail" asp-route-id="@product.AppUser.Id"><img src="~/assets/img/blog/author.jpg" alt="#"></a>
+                                 </div>
+                                 <div class="agent-brief">
+                                     <h6><a asp-controller="team" asp-action="detail" asp-route-id="@product.AppUser.Id">@product.AppUser.Firstname @product.AppUser.Lastname</a></h6>
+                                     <small>@product.AppUser.Position</small>
+                                 </div>
+                             </div>
+                             <div class="product-hover-action">
+                                 <ul>
+                                     <li>
+                                         <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
+                                             <i class="flaticon-expand"></i>
+                                         </a>
+                                     </li>
+                                     <li>
+                                         <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
+                                             <i class="flaticon-heart-1"></i></a>
+                                     </li>
+                                     <li>
+                                         <a asp-controller="shop" asp-action="detail" asp-route-id="@product.Id" title="Product Details">
+                                             <i class="flaticon-add"></i>
+                                         </a>
+                                     </li>
+                                 </ul>
+                             </div>
+                         </div>
+                     </div>
                     </div>
-                </div>
-                <!-- ltn__product-item -->
-                <div class="col-lg-12">
-                    <div class="ltn__product-item ltn__product-item-4 text-center---">
-                        <div class="product-img">
-                            <a asp-controller="shop" asp-action="detail"><img src="~/assets/img/product-3/2.jpg" alt="#"></a>
-                            <div class="product-badge">
-                                <ul>
-                                    <li class="sale-badge bg-green---">For Sale</li>
-                                </ul>
-                            </div>
-                            <div class="product-img-location-gallery">
-                                <div class="product-img-location">
-                                    <ul>
-                                        <li>
-                                            <a asp-controller="location" asp-action="index"><i class="flaticon-pin"></i> Belmont Gardens, Chicago</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="product-img-gallery">
-                                    <ul>
-                                        <li>
-                                            <a asp-controller="shop" asp-action="detail"><i class="fas fa-camera"></i> 4</a>
-                                        </li>
-                                        <li>
-                                            <a asp-controller="shop" asp-action="detail"><i class="fas fa-film"></i> 2</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-price">
-                                <span>$34,900<label>/Month</label></span>
-                            </div>
-                            <h2 class="product-title"><a asp-controller="shop" asp-action="detail">Modern Apartments</a></h2>
-                            <div class="product-description">
-                                <p>Beautiful Huge 1 Family House In Heart Of <br>
-                                    Westbury. Newly Renovated With New Wood</p>
-                            </div>
-                            <ul class="ltn__list-item-2 ltn__list-item-2-before">
-                                <li><span>3 <i class="flaticon-bed"></i></span>
-                                    Bedrooms
-                                </li>
-                                <li><span>2 <i class="flaticon-clean"></i></span>
-                                    Bathrooms
-                                </li>
-                                <li><span>3450 <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span>
-                                    square Ft
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product-info-bottom">
-                            <div class="real-estate-agent">
-                                <div class="agent-img">
-                                    <a asp-controller="team" asp-action="detail"><img src="~/assets/img/blog/author.jpg" alt="#"></a>
-                                </div>
-                                <div class="agent-brief">
-                                    <h6><a asp-controller="team" asp-action="detail">William Seklo</a></h6>
-                                    <small>Estate Agents</small>
-                                </div>
-                            </div>
-                            <div class="product-hover-action">
-                                <ul>
-                                    <li>
-                                        <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
-                                            <i class="flaticon-expand"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
-                                            <i class="flaticon-heart-1"></i></a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="shop" asp-action="detail" title="Product Details">
-                                            <i class="flaticon-add"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ltn__product-item -->
-                <div class="col-lg-12">
-                    <div class="ltn__product-item ltn__product-item-4 text-center---">
-                        <div class="product-img">
-                            <a asp-controller="shop" asp-action="detail"><img src="~/assets/img/product-3/3.jpg" alt="#"></a>
-                            <div class="product-badge">
-                                <ul>
-                                    <li class="sale-badge bg-green">For Rent</li>
-                                </ul>
-                            </div>
-                            <div class="product-img-location-gallery">
-                                <div class="product-img-location">
-                                    <ul>
-                                        <li>
-                                            <a asp-controller="location" asp-action="index"><i class="flaticon-pin"></i> Belmont Gardens, Chicago</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="product-img-gallery">
-                                    <ul>
-                                        <li>
-                                            <a asp-controller="shop" asp-action="detail"><i class="fas fa-camera"></i> 4</a>
-                                        </li>
-                                        <li>
-                                            <a asp-controller="shop" asp-action="detail"><i class="fas fa-film"></i> 2</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-price">
-                                <span>$34,900<label>/Month</label></span>
-                            </div>
-                            <h2 class="product-title"><a asp-controller="shop" asp-action="detail">Comfortable Apartment</a></h2>
-                            <div class="product-description">
-                                <p>Beautiful Huge 1 Family House In Heart Of <br>
-                                    Westbury. Newly Renovated With New Wood</p>
-                            </div>
-                            <ul class="ltn__list-item-2 ltn__list-item-2-before">
-                                <li><span>3 <i class="flaticon-bed"></i></span>
-                                    Bedrooms
-                                </li>
-                                <li><span>2 <i class="flaticon-clean"></i></span>
-                                    Bathrooms
-                                </li>
-                                <li><span>3450 <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span>
-                                    square Ft
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product-info-bottom">
-                            <div class="real-estate-agent">
-                                <div class="agent-img">
-                                    <a asp-controller="team" asp-action="detail"><img src="~/assets/img/blog/author.jpg" alt="#"></a>
-                                </div>
-                                <div class="agent-brief">
-                                    <h6><a asp-controller="team" asp-action="detail">William Seklo</a></h6>
-                                    <small>Estate Agents</small>
-                                </div>
-                            </div>
-                            <div class="product-hover-action">
-                                <ul>
-                                    <li>
-                                        <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
-                                            <i class="flaticon-expand"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
-                                            <i class="flaticon-heart-1"></i></a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="shop" asp-action="detail" title="Product Details">
-                                            <i class="flaticon-add"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ltn__product-item -->
-                <div class="col-lg-12">
-                    <div class="ltn__product-item ltn__product-item-4 text-center---">
-                        <div class="product-img">
-                            <a asp-controller="shop" asp-action="detail"><img src="~/assets/img/product-3/4.jpg" alt="#"></a>
-                            <div class="product-badge">
-                                <ul>
-                                    <li class="sale-badge bg-green">For Rent</li>
-                                </ul>
-                            </div>
-                            <div class="product-img-location-gallery">
-                                <div class="product-img-location">
-                                    <ul>
-                                        <li>
-                                            <a asp-controller="location" asp-action="index"><i class="flaticon-pin"></i> Belmont Gardens, Chicago</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="product-img-gallery">
-                                    <ul>
-                                        <li>
-                                            <a asp-controller="shop" asp-action="detail"><i class="fas fa-camera"></i> 4</a>
-                                        </li>
-                                        <li>
-                                            <a asp-controller="shop" asp-action="detail"><i class="fas fa-film"></i> 2</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-price">
-                                <span>$34,900<label>/Month</label></span>
-                            </div>
-                            <h2 class="product-title"><a asp-controller="shop" asp-action="detail">Luxury villa in Rego Park </a></h2>
-                            <div class="product-description">
-                                <p>Beautiful Huge 1 Family House In Heart Of <br>
-                                    Westbury. Newly Renovated With New Wood</p>
-                            </div>
-                            <ul class="ltn__list-item-2 ltn__list-item-2-before">
-                                <li><span>3 <i class="flaticon-bed"></i></span>
-                                    Bedrooms
-                                </li>
-                                <li><span>2 <i class="flaticon-clean"></i></span>
-                                    Bathrooms
-                                </li>
-                                <li><span>3450 <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span>
-                                    square Ft
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product-info-bottom">
-                            <div class="real-estate-agent">
-                                <div class="agent-img">
-                                    <a asp-controller="team" asp-action="detail"><img src="~/assets/img/blog/author.jpg" alt="#"></a>
-                                </div>
-                                <div class="agent-brief">
-                                    <h6><a asp-controller="team" asp-action="detail">William Seklo</a></h6>
-                                    <small>Estate Agents</small>
-                                </div>
-                            </div>
-                            <div class="product-hover-action">
-                                <ul>
-                                    <li>
-                                        <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
-                                            <i class="flaticon-expand"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
-                                            <i class="flaticon-heart-1"></i></a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="shop" asp-action="detail" title="Product Details">
-                                            <i class="flaticon-add"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ltn__product-item -->
-                <div class="col-lg-12">
-                    <div class="ltn__product-item ltn__product-item-4 text-center---">
-                        <div class="product-img">
-                            <a asp-controller="shop" asp-action="detail"><img src="~/assets/img/product-3/5.jpg" alt="#"></a>
-                            <div class="product-badge">
-                                <ul>
-                                    <li class="sale-badge bg-green">For Rent</li>
-                                </ul>
-                            </div>
-                            <div class="product-img-location-gallery">
-                                <div class="product-img-location">
-                                    <ul>
-                                        <li>
-                                            <a asp-controller="location" asp-action="index"><i class="flaticon-pin"></i> Belmont Gardens, Chicago</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="product-img-gallery">
-                                    <ul>
-                                        <li>
-                                            <a asp-controller="shop" asp-action="detail"><i class="fas fa-camera"></i> 4</a>
-                                        </li>
-                                        <li>
-                                            <a asp-controller="shop" asp-action="detail"><i class="fas fa-film"></i> 2</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-price">
-                                <span>$34,900<label>/Month</label></span>
-                            </div>
-                            <h2 class="product-title"><a asp-controller="shop" asp-action="detail">Beautiful Flat in Manhattan </a></h2>
-                            <div class="product-description">
-                                <p>Beautiful Huge 1 Family House In Heart Of <br>
-                                    Westbury. Newly Renovated With New Wood</p>
-                            </div>
-                            <ul class="ltn__list-item-2 ltn__list-item-2-before">
-                                <li><span>3 <i class="flaticon-bed"></i></span>
-                                    Bedrooms
-                                </li>
-                                <li><span>2 <i class="flaticon-clean"></i></span>
-                                    Bathrooms
-                                </li>
-                                <li><span>3450 <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span>
-                                    square Ft
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product-info-bottom">
-                            <div class="real-estate-agent">
-                                <div class="agent-img">
-                                    <a asp-controller="team" asp-action="detail"><img src="~/assets/img/blog/author.jpg" alt="#"></a>
-                                </div>
-                                <div class="agent-brief">
-                                    <h6><a asp-controller="team" asp-action="detail">William Seklo</a></h6>
-                                    <small>Estate Agents</small>
-                                </div>
-                            </div>
-                            <div class="product-hover-action">
-                                <ul>
-                                    <li>
-                                        <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
-                                            <i class="flaticon-expand"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
-                                            <i class="flaticon-heart-1"></i></a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="shop" asp-action="detail" title="Product Details">
-                                            <i class="flaticon-add"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+                   }
+               }
                 <!--  -->
             </div>
         </div>

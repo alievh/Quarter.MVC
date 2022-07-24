@@ -129,7 +129,8 @@ namespace Quarter.Areas.Admin.Controllers
             SubCategory newSubCategory = new()
             {
                 Name = entity.Name.Trim(),
-                Category = category
+                Category = category,
+                IsSelected = false
             };
 
             await _subCategoryService.Create(newSubCategory);

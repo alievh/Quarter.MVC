@@ -10,6 +10,7 @@ namespace Business.ViewModels
 {
     public class GetProductVM
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public double Price { get; set; }
@@ -19,5 +20,7 @@ namespace Business.ViewModels
         public int BedroomCount { get; set; }
         public int BathroomCount { get; set; }
         public int SquareFt { get; set; }
+        public Location Location { get; set; }
+        public List<SubCategory> SubCategories { get; set; }
     }
 }
