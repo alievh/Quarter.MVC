@@ -27,8 +27,18 @@ namespace Quarter.Components
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
+                var basket = await _basketService.Get(user.BasketId);
+                double totalPrice = 0;
+                if(basket.Products is not null)
+                {
+                    foreach (var product in basket.Products)
+                    {
+                        totalPrice += product.Price;
+                    }
+                }
+                basket.TotalPrice = totalPrice;
 
-                return View(await _basketService.Get(user.BasketId));
+                return View(basket);
             }
             else
             {

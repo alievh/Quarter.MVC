@@ -11,11 +11,13 @@ namespace Quarter.Controllers
     {
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
+        private readonly IImageService _imageService;
 
-        public ShopController(ICategoryService categoryService, IProductService productService)
+        public ShopController(ICategoryService categoryService, IProductService productService, IImageService imageService)
         {
             _categoryService = categoryService;
             _productService = productService;
+            _imageService = imageService;
         }
 
         public async Task<IActionResult> Index()
@@ -41,6 +43,14 @@ namespace Quarter.Controllers
                 {
                     images.Add(image);
                 }
+
+                Image userImage = null;
+
+                if (product.AppUser.ImageId is not null)
+                {
+                    userImage = await _imageService.Get(product.AppUser.ImageId);
+                }
+
                 GetProductVM getProductVm = new()
                 {
                     Id = product.Id,
@@ -54,7 +64,8 @@ namespace Quarter.Controllers
                     BathroomCount = product.BathroomCount,
                     SquareFt = product.SquareFt,
                     SubCategories = product.SubCategories,
-                    Location = product.Location
+                    Location = product.Location,
+                    UserPicture = userImage,
                 };
                 getProductVMs.Add(getProductVm);
             }

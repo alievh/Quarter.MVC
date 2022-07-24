@@ -62,27 +62,17 @@
                 <div class="form-group">
                     <p>Select Categories</p>
                     <div class="d-flex flex-wrap">
-                        @* @foreach (var subCategory in subCategories)
-                        {
-                             if(subCategory.Category.Name != "Price Range")
-                             {
-                                 <div class="col-lg-6 form-group">
-                                         <label asp-for="@subCategory.Name">
-                                            <input class="form-control" asp-for="@Model.SubCategories">
-                                            
-                                           @subCategory.Name</label>
-                                 </div>
-                             }     
-                        }*@
-
                         @for (var i = 0; i < subCategories.Count; i++)
                        {
-                           
-                                 <div class="col-lg-6 form-group">
-                                   <input  type="checkbox" asp-for="@Model.SubCategories[i].IsSelected" />
-                                   <label asp-for="@Model.SubCategories[i].IsSelected">@subCategories[i].Name</label>
-                                   <input  type="hidden" asp-for="@subCategories[i].Id" />
-                                 </div>
+                                    if(subCategories[i].Category.Name != "Price Range" && subCategories[i].Category.Name != "Bed/Bath")
+                                    {
+                                        <div class="col-lg-6 form-group">
+                                            <input  type="checkbox" asp-for="@Model.SubCategories[i].IsSelected" />
+                                            <label asp-for="@Model.SubCategories[i].IsSelected">@subCategories[i].Name</label>
+                                            <input  type="hidden" asp-for="@subCategories[i].Id" />
+                                        </div>
+                                    }
+                                    
                        }
                     </div>
                 </div>

@@ -1,4 +1,9 @@
-﻿<!doctype html>
+﻿@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<AppUser> UserManager
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!doctype html>
 <html class="no-js" lang="zxx">
 
 <head>
@@ -173,7 +178,7 @@
 
                                             }else
                                             {
-                                                <li><a href="account.html">My Account</a></li>
+                                                <li><a asp-controller="useraccount" asp-action="index" >My Account</a></li>
                                                 <li><a href="wishlist.html">Wishlist</a></li>
                                                 <li><a asp-controller="account" asp-action="logout">Sign out</a></li>
                                             }
@@ -185,7 +190,7 @@
                         <div class="mini-cart-icon">
                             <a href="#ltn__utilize-cart-menu" class="ltn__utilize-toggle">
                                 <i class="icon-shopping-cart"></i>
-                                <sup>2</sup>
+                                <sup>0</sup>
                             </a>
                         </div>
                         <!-- mini-cart -->

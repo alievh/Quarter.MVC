@@ -119,6 +119,9 @@ namespace DAL.Migrations
                     b.Property<string>("Firstname")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Lastname")
                         .HasColumnType("nvarchar(max)");
 
@@ -165,6 +168,10 @@ namespace DAL.Migrations
 
                     b.HasIndex("BasketId")
                         .IsUnique();
+
+                    b.HasIndex("ImageId")
+                        .IsUnique()
+                        .HasFilter("[ImageId] IS NOT NULL");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -386,6 +393,35 @@ namespace DAL.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("DAL.Model.FeedBack", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("FeedBacks");
                 });
 
             modelBuilder.Entity("DAL.Model.Image", b =>
@@ -976,6 +1012,10 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DAL.Model.Image", "Image")
+                        .WithOne("AppUser")
+                        .HasForeignKey("DAL.Identity.AppUser", "ImageId");
+
                     b.HasOne("DAL.Model.Wishlist", "Wishlist")
                         .WithOne("AppUser")
                         .HasForeignKey("DAL.Identity.AppUser", "WishlistId")
@@ -983,6 +1023,8 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Basket");
+
+                    b.Navigation("Image");
 
                     b.Navigation("Wishlist");
                 });
@@ -1027,6 +1069,15 @@ namespace DAL.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("DAL.Model.FeedBack", b =>
+                {
+                    b.HasOne("DAL.Identity.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId");
+
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("DAL.Model.Product", b =>
@@ -1222,6 +1273,11 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Model.Category", b =>
                 {
                     b.Navigation("SubCategories");
+                });
+
+            modelBuilder.Entity("DAL.Model.Image", b =>
+                {
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("DAL.Model.Location", b =>

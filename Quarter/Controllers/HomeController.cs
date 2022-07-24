@@ -13,13 +13,22 @@ namespace Quarter.Controllers
         private readonly IServiceService _serviceService;
         private readonly ILocationService _locationService;
         private readonly IProductService _productService;
+        private readonly IImageService _imageService;
+        private readonly IFeedBackService _feedBackService;
 
-        public HomeController(ISliderService sliderService, IServiceService serviceService, IProductService productService, ILocationService locationService)
+        public HomeController(ISliderService sliderService, 
+                              IServiceService serviceService, 
+                              IProductService productService, 
+                              ILocationService locationService, 
+                              IImageService imageService,
+                              IFeedBackService feedBackService)
         {
             _serviceService = serviceService;
             _sliderService = sliderService;
             _productService = productService;
             _locationService = locationService;
+            _imageService = imageService;
+            _feedBackService = feedBackService;
         }
 
         public async Task<IActionResult> Index()
@@ -64,6 +73,14 @@ namespace Quarter.Controllers
                 {
                     images.Add(image);
                 }
+
+                Image userImage = null;
+
+                if (product.AppUser.ImageId is not null)
+                {
+                    userImage = await _imageService.Get(product.AppUser.ImageId);
+                }
+
                 GetProductVM getProductVm = new()
                 {
                     Id = product.Id,
@@ -77,7 +94,8 @@ namespace Quarter.Controllers
                     BathroomCount = product.BathroomCount,
                     SquareFt = product.SquareFt,
                     SubCategories = product.SubCategories,
-                    Location = product.Location
+                    Location = product.Location,
+                    UserPicture = userImage
                 };
                 getProductVMs.Add(getProductVm);
             }
@@ -95,6 +113,16 @@ namespace Quarter.Controllers
                 getLocationVMs.Add(getLocationVM);
             }
             
+            List<GetFeedBackVM> getFeedBackVMs = new();
+            foreach (var feedback in await _feedBackService.GetAll())
+            {
+                GetFeedBackVM getFeedBackVm = new()
+                {
+                    Content = feedback.Content,
+                    AppUser = feedback.AppUser,
+                };
+                getFeedBackVMs.Add(getFeedBackVm);
+            }
 
 
             HomeVM homeVm = new()
@@ -102,7 +130,8 @@ namespace Quarter.Controllers
                 Sliders = getSliderVms,
                 HomeServices = getHomeServiceVms,
                 Products = getProductVMs,
-                Locations = getLocationVMs
+                Locations = getLocationVMs,
+                FeedBacks = getFeedBackVMs
             };
 
             return View(model: homeVm);

@@ -32,7 +32,13 @@
         </div>
         <div class="mini-cart-footer">
             <div class="mini-cart-sub-total">
-                <h5>Subtotal: <span>$10.00</span></h5>
+                @if(User.Identity.IsAuthenticated)
+                {
+                    <h5>Subtotal: <span>$@Model.TotalPrice</span></h5>
+                }else
+                {
+                    <h5>Subtotal: <span>$0</span></h5>
+                }
             </div>
             <div class="btn-wrapper">
                 <a href="cart.html" class="theme-btn-1 btn btn-effect-1">View Cart</a>

@@ -280,35 +280,44 @@
                                     </div>
                                     @foreach (var product in Model.Products)
                                    {
-                                       @foreach (var image in product.Images)
-                                      {
+                                      
                                         <div class="col-xl-6 col-sm-6 col-12">
                                         <div class="ltn__product-item ltn__product-item-4 ltn__product-item-5 text-center---">
                                             <div class="product-img">
-                                                    @if(image.IsMain == true)
+                                                    @foreach (var image in product.Images)
                                                     {
-                                                        <a asp-controller="shop" asp-action="detail" asp-route-id="@product.Id"><img src="~/assets/uploads/images/@image.Url" alt="#"></a>
+                                                        @if(image.IsMain == true)
+                                                        {
+                                                            <a asp-controller="shop" asp-action="detail" asp-route-id="@product.Id"><img src="~/assets/uploads/images/@image.Url" alt="#"></a>
+                                                        }
                                                     }
                                                     <div class="real-estate-agent">
                                                     <div class="agent-img">
-                                                        <a href="team-details.html"><img src="~/assets/img/blog/author.jpg" alt="#"></a>
-                                                    </div>
+                                                        @if(product.AppUser.ImageId is not null)
+                                                        {
+                                                            <a href="team-details.html"><img src="~/assets/uploads/images/@product.UserPicture.Url" alt="#"></a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="team-details.html"><img src="~/assets/uploads/images/NoProfilePhoto.jpg" alt="#"></a>
+                                                        }
+                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="product-info">
                                                 <div class="product-badge">
-                                                    <ul>
+                                                    <ul class="d-flex align-items-center">
                                                         @foreach (var subCategory in product.SubCategories)
                                                        {
                                                            if(subCategory.Name == "Rent")
                                                            {
-                                                               <li class="sale-badge bg-green">For @subCategory.Name</li>
+                                                               <li class="sale-badge bg-green">@subCategory.Name</li>
                                                            }else if (subCategory.Name == "Sold")
                                                            {
-                                                               <li class="sale-badge bg-danger">For @subCategory.Name</li>
+                                                               <li class="sale-badge bg-danger mx-2 my-0">@subCategory.Name</li>
                                                            }else if (subCategory.Name == "Sale")
                                                            {
-                                                               <li class="sale-badge bg-warning">For @subCategory.Name</li>
+                                                               <li class="sale-badge bg-warning mx-2 my-0">@subCategory.Name</li>
                                                            }
                                                        }
                                                     </ul>
@@ -358,7 +367,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                      }
                                    }
                                 </div>
                             </div>

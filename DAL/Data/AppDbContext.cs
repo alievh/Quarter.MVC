@@ -31,6 +31,7 @@ namespace DAL.Data
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<FeedBack> FeedBacks { get; set; }
         public DbSet<Setting> Settings { get; set; }
 
     }
