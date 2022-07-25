@@ -1,4 +1,5 @@
 ﻿using DAL.Identity;
+using DAL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace Business.ViewModels
     {
         public string Content { get; set; }
         public AppUser AppUser { get; set; }
+        public Image UserImage { get; set; }
     }
 }

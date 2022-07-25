@@ -8,6 +8,7 @@ namespace DAL.Model
     public class FeedBack : BaseEntity, IEntity
     {
         public string Content { get; set; }
+        public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
     }
 }

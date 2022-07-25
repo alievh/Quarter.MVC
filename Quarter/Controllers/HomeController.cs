@@ -16,10 +16,10 @@ namespace Quarter.Controllers
         private readonly IImageService _imageService;
         private readonly IFeedBackService _feedBackService;
 
-        public HomeController(ISliderService sliderService, 
-                              IServiceService serviceService, 
-                              IProductService productService, 
-                              ILocationService locationService, 
+        public HomeController(ISliderService sliderService,
+                              IServiceService serviceService,
+                              IProductService productService,
+                              ILocationService locationService,
                               IImageService imageService,
                               IFeedBackService feedBackService)
         {
@@ -112,17 +112,28 @@ namespace Quarter.Controllers
                 };
                 getLocationVMs.Add(getLocationVM);
             }
-            
+
             List<GetFeedBackVM> getFeedBackVMs = new();
             foreach (var feedback in await _feedBackService.GetAll())
             {
+                Image userImage = null;
+
+                if (feedback.AppUser.ImageId is not null)
+                {
+                    userImage = await _imageService.Get(feedback.AppUser.ImageId);
+                }
+
                 GetFeedBackVM getFeedBackVm = new()
                 {
                     Content = feedback.Content,
                     AppUser = feedback.AppUser,
+                    UserImage = userImage
                 };
+
                 getFeedBackVMs.Add(getFeedBackVm);
             }
+
+            
 
 
             HomeVM homeVm = new()

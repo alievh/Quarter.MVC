@@ -1,7 +1,9 @@
 ﻿using Business.Services;
 using DAL.Data;
+using DAL.Identity;
 using DAL.Model;
 using Exceptions.Entity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -42,8 +44,7 @@ namespace Business.Repositories
 
         public async Task<List<FeedBack>> GetAll()
         {
-            var data = await _context.FeedBacks.Where(n => !n.IsDeleted)
-                                                .ToListAsync();
+            var data = await _context.FeedBacks.Where(n => !n.IsDeleted).Include(n => n.AppUser).ToListAsync();
 
             if (data is null)
             {

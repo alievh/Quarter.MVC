@@ -27,7 +27,11 @@ namespace Quarter.Controllers
         public async Task<IActionResult> Index()
         {
             AppUser applicationUser = await _userManager.GetUserAsync(User);
-            applicationUser.Image = await _imageService.Get(applicationUser.ImageId);
+
+            if (applicationUser.ImageId is not null)
+            {
+                applicationUser.Image = await _imageService.Get(applicationUser.ImageId);
+            }
 
             return View(applicationUser);
         }

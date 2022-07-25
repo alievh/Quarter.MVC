@@ -20,6 +20,7 @@ namespace DAL.Identity
         public ICollection<Blog> Blogs { get; set; }
         public ICollection<Product> Products { get; set; }
         public ICollection<Comment> Comments { get; set; }
+        public ICollection<FeedBack> FeedBacks { get; set; }
         public int BasketId { get; set; }
         public Basket Basket { get; set; }
         public int WishlistId { get; set; }
