@@ -30,9 +30,7 @@ namespace Business.Repositories
                                               .Where(n => n.Id == id)
                                               .Include(n => n.Images)
                                               .Include(n => n.AppUser)
-                                              .Include(n => n.Baskets)
                                               .Include(n => n.Comments)
-                                              .Include(n => n.Wishlists)
                                               .Include(n => n.Location)
                                               .Include(n => n.SubCategories)
                                               .FirstOrDefaultAsync();
@@ -50,9 +48,7 @@ namespace Business.Repositories
             var data = await _context.Products.Where(n => !n.IsDeleted)
                                              .Include(n => n.Images)
                                              .Include(n => n.AppUser)
-                                             .Include(n => n.Baskets)
                                              .Include(n => n.Comments)
-                                             .Include(n => n.Wishlists)
                                              .Include(n => n.Location)
                                              .Include(n => n.SubCategories)
                                              .ToListAsync();
@@ -71,19 +67,26 @@ namespace Business.Repositories
 
             await _context.Products.AddAsync(entity);
         }
+
         public async Task Update(int id, Product entity)
         {
             var data = await Get(id);
 
+            if (data is null)
+            {
+                throw new EntityIsNullException();
+            }
+
             data.UpdateDate = DateTime.UtcNow.AddHours(4);
             data.Title = entity.Title;
             data.Description = entity.Description;
-            data.SubCategories = entity.SubCategories;
             data.Images = entity.Images;
             data.Price = entity.Price;
             data.BathroomCount = entity.BathroomCount;
             data.BedroomCount = entity.BedroomCount;
-            data.Location = entity.Location;
+            data.SquareFt = entity.SquareFt;
+            data.Location = await _context.Locations.Where(n => n.Id == entity.LocationId).FirstOrDefaultAsync();
+            data.LocationId = entity.LocationId;
 
             _context.Products.Update(data);
         }
