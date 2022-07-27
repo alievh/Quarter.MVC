@@ -30,6 +30,7 @@ namespace Business.Repositories
             var data = await _context.Baskets.Where(n => !n.IsDeleted)
                                              .Where(n => n.Id == id)
                                              .Include(n => n.Products)
+                                             .ThenInclude(n => n.Images)
                                              .Include(n => n.AppUser)
                                              .FirstOrDefaultAsync();
 
@@ -45,6 +46,7 @@ namespace Business.Repositories
         {
             var data = _context.Baskets.Where(n => !n.IsDeleted)
                                        .Include(n => n.Products)
+                                       .ThenInclude(n => n.Images)
                                        .Include(n => n.AppUser)
                                        .ToListAsync();
 

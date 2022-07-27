@@ -24,6 +24,7 @@ namespace Quarter.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
+
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);

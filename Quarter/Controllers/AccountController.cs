@@ -1,9 +1,11 @@
-﻿using Business.ViewModels;
+﻿using Business.Services;
+using Business.ViewModels;
 using DAL.Identity;
 using DAL.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
@@ -16,12 +18,20 @@ namespace Quarter.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly IBasketService _basketService;
+        private readonly IProductService _productService;
 
-        public AccountController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<AppUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager, 
+               RoleManager<IdentityRole> roleManager,
+               SignInManager<AppUser> signInManager,
+               IBasketService basketService,
+               IProductService productService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _basketService = basketService;
+            _productService = productService;
         }
 
         [HttpGet(nameof(Register))]
@@ -203,5 +213,60 @@ namespace Quarter.Controllers
         //        }
         //    }
         //}
+
+        public async Task<IActionResult> AddToBasket(int? id)
+        {
+            if (id is null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+
+            var basket = await _basketService.Get(user.BasketId);
+
+            List<Product> products = new();
+
+            products.AddRange(basket.Products);
+
+            products.Add(await _productService.Get(id));
+
+            basket.Products = products;
+
+            await _basketService.Update(basket.Id, basket);
+            await _basketService.SaveChanges();
+
+
+            return ViewComponent("Basket");
+        }
+
+        public async Task<IActionResult> DeleteFromBasket(int? id)
+        {
+            if (id is null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+
+            var basket = await _basketService.Get(user.BasketId);
+
+            List<Product> products = new();
+
+            foreach (var product in basket.Products)
+            {
+                if(product.Id != id)
+                {
+                    products.Add(product);
+                }
+            }
+
+            basket.Products = products;
+
+            await _basketService.Update(basket.Id, basket);
+            await _basketService.SaveChanges();
+
+            return ViewComponent("Basket");
+        }
     }
 }

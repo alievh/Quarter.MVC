@@ -14440,3 +14440,7 @@ input.cart-plus-minus-box {
 ---------------------------------------------------- */
 
 /*# sourceMappingURL=style.css.map */
+
+.add-basket{
+    cursor: pointer;
+}

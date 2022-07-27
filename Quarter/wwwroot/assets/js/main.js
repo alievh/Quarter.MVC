@@ -1987,3 +1987,24 @@
 
   
 })(jQuery);
+
+const addBasket = document.querySelectorAll(".add-basket");
+const deleteBasket = document.querySelectorAll(".delete-basket");
+const basketContainer = document.querySelectorAll(".basket-container");
+
+addBasket.forEach(n => n.addEventListener('click', async function () {
+    let dataId = $(this).attr('data-id');
+    let resp = await fetch(`/account/addtobasket?id=${dataId}`);
+    let data = await resp.text();
+
+    basketContainer.forEach(n => n.innerHTML = data);
+}));
+
+deleteBasket.forEach(n => n.addEventListener('click', async function () {
+    let dataId = $(this).attr('data-id');
+    let resp = await fetch(`/account/deletefrombasket?id=${dataId}`);
+    let data = await resp.text();
+
+    basketContainer.forEach(n => n.innerHTML = data);
+    console.log(dataId);
+}));

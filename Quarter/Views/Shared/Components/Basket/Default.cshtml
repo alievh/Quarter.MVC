@@ -1,6 +1,5 @@
 ﻿@model Basket
 
-<div id="ltn__utilize-cart-menu" class="ltn__utilize ltn__utilize-cart-menu">
     <div class="ltn__utilize-menu-inner ltn__scrollbar">
         <div class="ltn__utilize-menu-head">
             <span class="ltn__utilize-menu-title">Cart</span>
@@ -13,19 +12,16 @@
                 {
                      @foreach (var product in Model.Products)
                     {
-                         @foreach (var image in product.Images)
-                        {
                          <div class="mini-cart-item clearfix">
                             <div class="mini-cart-img">
-                                <a href="#"><img src="~/assets/uploads/images/@image.Url" alt="Image"></a>
-                                <span class="mini-cart-item-delete"><i class="icon-cancel"></i></span>
+                                  <a href="#"><img src="~/assets/uploads/images/@product.Images.Where(n=>n.IsMain ==true).FirstOrDefault().Url" alt="Image"></a>
+                                <a data-id="@product.Id" class="mini-cart-item-delete delete-basket"><i class="icon-cancel"></i></a>
                             </div>
                             <div class="mini-cart-info">
                                 <h6><a href="#">@product.Title</a></h6>
-                                <span class="mini-cart-quantity">1 x $@product.Price</span>
+                               <span class="mini-cart-quantity">$@product.Price</span>
                             </div>
                          </div>
-                        }
                     }
                 }
             }
@@ -48,4 +44,3 @@
         </div>
 
     </div>
-</div>
