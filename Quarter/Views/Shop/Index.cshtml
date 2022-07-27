@@ -230,7 +230,7 @@
                                                     {
                                                         @if(image.IsMain == true)
                                                         {
-                                                            <a asp-controller="shop" asp-action="detail" asp-route-id="@product.Id"><img src="~/assets/uploads/images/@image.Url" alt="#"></a>
+                                                            <a asp-controller="shop" asp-action="detail" asp-route-id="@product.ProductDetailId"><img src="~/assets/uploads/images/@image.Url" alt="#"></a>
                                                         }
                                                     }
                                                     <div class="real-estate-agent">
@@ -264,7 +264,7 @@
                                                        }
                                                     </ul>
                                                 </div>
-                                                <h2 class="product-title"><a asp-controller="shop" asp-action="detail" asp-route-id="@product.Id">@product.Title</a></h2>
+                                                <h2 class="product-title"><a asp-controller="shop" asp-action="detail" asp-route-id="@product.ProductDetailId">@product.Title</a></h2>
                                                 <div class="product-img-location">
                                                     <ul>
                                                         <li>

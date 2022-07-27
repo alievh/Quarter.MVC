@@ -95,7 +95,8 @@ namespace Quarter.Controllers
                     SquareFt = product.SquareFt,
                     SubCategories = product.SubCategories,
                     Location = product.Location,
-                    UserPicture = userImage
+                    UserPicture = userImage,
+                    ProductDetailId = product.ProductDetailId
                 };
                 getProductVMs.Add(getProductVm);
             }

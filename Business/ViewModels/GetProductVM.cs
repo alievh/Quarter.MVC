@@ -22,6 +22,7 @@ namespace Business.ViewModels
         public int SquareFt { get; set; }
         public Location Location { get; set; }
         public List<SubCategory> SubCategories { get; set; }
+        public int ProductDetailId { get; set; }
         public Image UserPicture { get; set; }
     }
 }

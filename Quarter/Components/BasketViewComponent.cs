@@ -1,6 +1,7 @@
 ﻿using Business.Services;
 using DAL.Data;
 using DAL.Identity;
+using DAL.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -24,11 +25,11 @@ namespace Quarter.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-
+            Basket basket = new();
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
-                var basket = await _basketService.Get(user.BasketId);
+                basket = await _basketService.Get(user.BasketId);
                 double totalPrice = 0;
                 if(basket.Products is not null)
                 {
@@ -39,12 +40,10 @@ namespace Quarter.Components
                 }
                 basket.TotalPrice = totalPrice;
 
-                return View(basket);
             }
-            else
-            {
-                return View();
-            }
+
+            return View(basket);
+
         }
     }
 }

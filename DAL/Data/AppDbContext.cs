@@ -22,6 +22,7 @@ namespace DAL.Data
         public DbSet<Service> Services { get; set; }
         public DbSet<ServiceDetail> ServiceDetails { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductDetail> ProductDetails { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<About> Abouts { get; set; }

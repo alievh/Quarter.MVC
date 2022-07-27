@@ -11,13 +11,15 @@ namespace Quarter.Controllers
     {
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
+        private readonly IProductDetailService _productDetailService;
         private readonly IImageService _imageService;
 
-        public ShopController(ICategoryService categoryService, IProductService productService, IImageService imageService)
+        public ShopController(ICategoryService categoryService, IProductService productService, IImageService imageService, IProductDetailService productDetailService)
         {
             _categoryService = categoryService;
             _productService = productService;
             _imageService = imageService;
+            _productDetailService = productDetailService;
         }
 
         public async Task<IActionResult> Index()
@@ -66,6 +68,7 @@ namespace Quarter.Controllers
                     SubCategories = product.SubCategories,
                     Location = product.Location,
                     UserPicture = userImage,
+                    ProductDetailId = product.ProductDetailId
                 };
                 getProductVMs.Add(getProductVm);
             }
@@ -79,9 +82,37 @@ namespace Quarter.Controllers
             return View(model: shopVm);
         }
 
-        public IActionResult Detail()
+        public async Task<IActionResult> Detail(int? id)
         {
-            return View();
+            var data = await _productDetailService.Get(id);
+            var product = await _productService.Get(data.Product.Id);
+
+            List<Image> images = new();
+            foreach (var image in data.Product.Images)
+            {
+                images.Add(image);
+            }
+
+            List<Comment> comments = new();
+            if(product.Comments is not null)
+            {
+                comments.AddRange(product.Comments);
+            }
+            
+            Image userImage = await _imageService.Get(product.AppUser.ImageId);
+
+            GetProductDetailVM getProductDetailVm = new()
+            {
+                Id = data.Id,
+                BuiltYear = data.BuiltYear,
+                Product = product,
+                Images = images,
+                AppUser = product.AppUser,
+                UserImage = userImage,
+                Comments = comments
+            };
+
+            return View(model: getProductDetailVm);
         }
     }
 }

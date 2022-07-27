@@ -1,15 +1,11 @@
 ﻿using DAL.Base;
 using DAL.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Model
 {
     public class ProductDetail : BaseEntity, IEntity
     {
         public int BuiltYear { get; set; }
+        public Product Product { get; set; }
     }
 }

@@ -457,7 +457,7 @@
                                 {
                                     @if(image.IsMain == true)
                                     {
-                                        <a asp-controller="shop" asp-action="detail" asp-route-id="@product.Id"><img src="~/assets/uploads/images/@image.Url" alt="#"></a>
+                                        <a asp-controller="shop" asp-action="detail" asp-route-id="@product.ProductDetailId"><img src="~/assets/uploads/images/@image.Url" alt="#"></a>
                                     }
                                 }
                                 <div class="product-badge">
@@ -488,7 +488,7 @@
                                  <div class="product-img-gallery">
                                      <ul>
                                          <li>
-                                             <a asp-controller="shop" asp-action="detail" asp-route-id="@product.Id"><i class="fas fa-camera"></i> @product.ImageCount</a>
+                                             <a asp-controller="shop" asp-action="detail" asp-route-id="@product.ProductDetailId"><i class="fas fa-camera"></i> @product.ImageCount</a>
                                          </li>
                                          @*<li>
                                              <a asp-controller="shop" asp-action="detail"><i class="fas fa-film"></i> 2</a>

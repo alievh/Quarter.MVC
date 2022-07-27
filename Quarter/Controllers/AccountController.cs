@@ -21,7 +21,7 @@ namespace Quarter.Controllers
         private readonly IBasketService _basketService;
         private readonly IProductService _productService;
 
-        public AccountController(UserManager<AppUser> userManager, 
+        public AccountController(UserManager<AppUser> userManager,
                RoleManager<IdentityRole> roleManager,
                SignInManager<AppUser> signInManager,
                IBasketService basketService,
@@ -66,7 +66,7 @@ namespace Quarter.Controllers
             appUser.Lastname = getRegisterVM.Lastname;
             appUser.Email = getRegisterVM.Email;
             appUser.UserName = getRegisterVM.Username;
-            if(getRegisterVM.Position is not null)
+            if (getRegisterVM.Position is not null)
             {
                 appUser.Position = getRegisterVM.Position;
             }
@@ -97,7 +97,7 @@ namespace Quarter.Controllers
             };
 
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(appUser);
-            var confirmationLink = Url.Action("ConfirmEmail", "Email", new { token, email = appUser.Email }, HttpContext.Request.Scheme);
+            var confirmationLink = Url.Action("ConfirmEmail", "Account", new { token, username = appUser.UserName }, HttpContext.Request.Scheme);
 
             SendEmail(appUser.Email, confirmationLink);
 
@@ -214,6 +214,26 @@ namespace Quarter.Controllers
         //    }
         //}
 
+        public async Task<IActionResult> ConfirmEmail(string username, string token)
+        {
+            AppUser appUser = await _userManager.FindByNameAsync(username);
+
+            if (appUser is null)
+            {
+                return Json("User could not Found");
+            }
+
+            var result = await _userManager.ConfirmEmailAsync(appUser, token);
+
+            if (!result.Succeeded)
+            {
+                return Json("Your token is invalid");
+            }
+
+            return RedirectToAction("index", controllerName: "Home");
+        }
+
+
         public async Task<IActionResult> AddToBasket(int? id)
         {
             if (id is null)
@@ -221,21 +241,25 @@ namespace Quarter.Controllers
                 throw new ArgumentNullException(nameof(id));
             }
 
-            var user = await _userManager.GetUserAsync(User);
-
-            var basket = await _basketService.Get(user.BasketId);
-
             List<Product> products = new();
 
-            products.AddRange(basket.Products);
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                var basket = await _basketService.Get(user.BasketId);
 
-            products.Add(await _productService.Get(id));
+                products.AddRange(basket.Products);
+                products.Add(await _productService.Get(id));
+                basket.Products = products;
+                await _basketService.Update(basket.Id, basket);
+                await _basketService.SaveChanges();
+            }
+            else
+            {
+                var product = await _productService.Get(id);
+                Response.Cookies.Append("BasketProducts", product.Id.ToString());
 
-            basket.Products = products;
-
-            await _basketService.Update(basket.Id, basket);
-            await _basketService.SaveChanges();
-
+            }
 
             return ViewComponent("Basket");
         }
@@ -255,7 +279,7 @@ namespace Quarter.Controllers
 
             foreach (var product in basket.Products)
             {
-                if(product.Id != id)
+                if (product.Id != id)
                 {
                     products.Add(product);
                 }

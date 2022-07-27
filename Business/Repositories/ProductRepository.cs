@@ -21,7 +21,7 @@ namespace Business.Repositories
 
         public async Task<Product> Get(int? id)
         {
-            if(id is null)
+            if (id is null)
             {
                 throw new ArgumentNullException(nameof(id));
             }
