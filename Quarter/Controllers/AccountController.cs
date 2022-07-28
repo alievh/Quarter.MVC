@@ -20,18 +20,21 @@ namespace Quarter.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IBasketService _basketService;
         private readonly IProductService _productService;
+        private readonly ISubscriberService _subscriberService;
 
         public AccountController(UserManager<AppUser> userManager,
                RoleManager<IdentityRole> roleManager,
                SignInManager<AppUser> signInManager,
                IBasketService basketService,
-               IProductService productService)
+               IProductService productService,
+               ISubscriberService subscriberService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
             _basketService = basketService;
             _productService = productService;
+            _subscriberService = subscriberService;
         }
 
         [HttpGet(nameof(Register))]
@@ -234,7 +237,7 @@ namespace Quarter.Controllers
             return RedirectToAction("index", controllerName: "Home");
         }
 
-
+        [HttpPost]
         public async Task<IActionResult> AddToBasket(int? id)
         {
             if (id is null)
@@ -265,6 +268,7 @@ namespace Quarter.Controllers
             return ViewComponent("Basket");
         }
 
+        [HttpPost]
         public async Task<IActionResult> DeleteFromBasket(int? id)
         {
             if (id is null)
@@ -292,6 +296,15 @@ namespace Quarter.Controllers
             await _basketService.SaveChanges();
 
             return ViewComponent("Basket");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateSubscriber(Subscriber subscriber)
+        {
+            await _subscriberService.Create(subscriber);
+            await _subscriberService.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

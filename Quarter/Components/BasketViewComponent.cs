@@ -43,7 +43,6 @@ namespace Quarter.Components
             }
 
             return View(basket);
-
         }
     }
 }

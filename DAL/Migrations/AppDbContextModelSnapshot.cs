@@ -685,6 +685,41 @@ namespace DAL.Migrations
                     b.ToTable("SubCategories");
                 });
 
+            modelBuilder.Entity("DAL.Model.Subscriber", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("SubscriberEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SubscriberMessageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubscriberMessageId");
+
+                    b.ToTable("Subscribers");
+                });
+
+            modelBuilder.Entity("DAL.Model.SubscriberMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SubscriberMessages");
+                });
+
             modelBuilder.Entity("DAL.Model.Video", b =>
                 {
                     b.Property<int>("Id")
@@ -1126,6 +1161,13 @@ namespace DAL.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("DAL.Model.Subscriber", b =>
+                {
+                    b.HasOne("DAL.Model.SubscriberMessage", null)
+                        .WithMany("Subscribers")
+                        .HasForeignKey("SubscriberMessageId");
+                });
+
             modelBuilder.Entity("ImageProduct", b =>
                 {
                     b.HasOne("DAL.Model.Image", null)
@@ -1301,6 +1343,11 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Model.ServiceDetail", b =>
                 {
                     b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("DAL.Model.SubscriberMessage", b =>
+                {
+                    b.Navigation("Subscribers");
                 });
 
             modelBuilder.Entity("DAL.Model.Wishlist", b =>

@@ -304,37 +304,43 @@
           <li class="nav-item">
             <a class="nav-link" asp-area="admin" asp-controller="product" asp-action="index">
               <i class="icon-bar-graph menu-icon"></i>
-              <span class="menu-title">Product</span>
+              <span class="menu-title">Products</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" asp-area="admin" asp-controller="blog" asp-action="index">
               <i class="icon-bar-graph menu-icon"></i>
-              <span class="menu-title">Blog</span>
+              <span class="menu-title">Blogs</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" asp-area="admin" asp-controller="slider" asp-action="index">
               <i class="icon-layout menu-icon"></i>
-              <span class="menu-title">Slider</span>
+              <span class="menu-title">Sliders</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" asp-area="admin" asp-controller="service" asp-action="index">
               <i class="icon-columns menu-icon"></i>
-              <span class="menu-title">Service</span>
+              <span class="menu-title">Services</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" asp-area="admin" asp-controller="category" asp-action="index">
               <i class="icon-columns menu-icon"></i>
-              <span class="menu-title">Category</span>
+              <span class="menu-title">Categories</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" asp-area="admin" asp-controller="location" asp-action="index">
               <i class="icon-layout menu-icon"></i>
-              <span class="menu-title">Location</span>
+              <span class="menu-title">Locations</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" asp-area="admin" asp-controller="subscriber" asp-action="index">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">Subscribers</span>
             </a>
           </li>
           <li class="nav-item">
@@ -427,6 +433,14 @@
   <!-- Custom js for this page-->
   <script src="~/areas/admin/js/dashboard.js"></script>
   <script src="~/areas/admin/js/Chart.roundedBarCharts.js"></script>
+  <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+  <script>
+        ClassicEditor
+            .create(document.querySelector("#editor"))
+            .catch(error => {
+                console.error(error)
+            });
+  </script>
   <!-- End custom js for this page-->
 </body>
 

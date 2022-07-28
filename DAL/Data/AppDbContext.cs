@@ -33,6 +33,8 @@ namespace DAL.Data
         public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<FeedBack> FeedBacks { get; set; }
+        public DbSet<Subscriber> Subscribers { get; set; }
+        public DbSet<SubscriberMessage> SubscriberMessages { get; set; }
         public DbSet<Setting> Settings { get; set; }
 
     }
