@@ -14444,3 +14444,7 @@ input.cart-plus-minus-box {
 .add-basket{
     cursor: pointer;
 }
+
+.add-wishlist {
+    cursor: pointer;
+}

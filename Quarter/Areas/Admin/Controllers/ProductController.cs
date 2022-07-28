@@ -95,6 +95,11 @@ namespace Quarter.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Product entity)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(entity);
+            }
+
             ViewData["Locations"] = await _locationService.GetAll();
             ViewData["SubCategories"] = await _subCategoryService.GetAll();
 

@@ -237,7 +237,6 @@ namespace Quarter.Controllers
             return RedirectToAction("index", controllerName: "Home");
         }
 
-        [HttpPost]
         public async Task<IActionResult> AddToBasket(int? id)
         {
             if (id is null)
@@ -268,7 +267,6 @@ namespace Quarter.Controllers
             return ViewComponent("Basket");
         }
 
-        [HttpPost]
         public async Task<IActionResult> DeleteFromBasket(int? id)
         {
             if (id is null)

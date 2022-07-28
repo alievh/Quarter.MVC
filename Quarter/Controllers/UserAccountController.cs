@@ -40,6 +40,11 @@ namespace Quarter.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddProfilePicture(AppUser appUser)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(appUser);
+            }
+
             AppUser applicationUser = await _userManager.GetUserAsync(User);
             string fileName = await appUser.ProfileImage.CreateFile(_env);
 

@@ -1997,6 +1997,7 @@ addBasket.forEach(n => n.addEventListener('click', async function () {
     let resp = await fetch(`/account/addtobasket?id=${dataId}`);
     let data = await resp.text();
 
+
     basketContainer.forEach(n => n.innerHTML = data);
 }));
 
@@ -2007,4 +2008,25 @@ deleteBasket.forEach(n => n.addEventListener('click', async function () {
 
     basketContainer.forEach(n => n.innerHTML = data);
     console.log(dataId);
+}));
+
+const addWishlist = document.querySelectorAll(".add-wishlist");
+const deleteWishlist = document.querySelectorAll(".delete-wishlist");
+const wishlistContainer = document.getElementById("wishlist-container");
+
+addWishlist.forEach(n => n.addEventListener('click', async function () {
+    let dataId = $(this).attr('data-id');
+    let resp = await fetch(`/wishlist/addtowishlist?id=${dataId}`);
+    let data = await resp.text();
+
+    wishlistContainer.innerHTML = data;
+}));
+
+deleteWishlist.forEach(n => n.addEventListener('click', async function () {
+    let dataId = $(this).attr('data-id');
+    let resp = await fetch(`/wishlist/deletefromwishlist?id=${dataId}`);
+    let data = await resp.text();
+
+
+    wishlistContainer.innerHTML = data;
 }));

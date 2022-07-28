@@ -39,6 +39,11 @@ namespace Quarter.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SendEmail(SubscriberMessage subscriberMessage)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(subscriberMessage);
+            }
+
             var subscribers = await _subscriberService.GetAll();
 
             var user = await _userManager.GetUserAsync(User);

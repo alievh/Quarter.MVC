@@ -26,7 +26,6 @@ namespace DAL.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<About> Abouts { get; set; }
-        public DbSet<Video> Videos { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<ApartmentPlan> ApartmentPlans { get; set; }
         public DbSet<Basket> Baskets { get; set; }

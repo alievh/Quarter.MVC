@@ -6,6 +6,7 @@
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">Send message to Subscribers</h4>
+                <div asp-validation-summary="All" class="text-danger"></div>
               <form asp-controller="subscriber" asp-action="sendemail" method="post" class="forms-sample">
                 <div class="form-group">
                     <label asp-for="Content">Message</label>

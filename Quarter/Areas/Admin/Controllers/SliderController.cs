@@ -137,11 +137,11 @@ namespace Quarter.Areas.Admin.Controllers
             //    return View(entity);
             //}
 
-            //if (entity.ImageFile is null)
-            //{
-            //    ModelState.AddModelError("ImageFile", "Image can not be empty");
-            //    return View(entity);
-            //}
+            if (entity.ImageFile is null)
+            {
+                ModelState.AddModelError("ImageFile", "Image can not be empty");
+                return View(entity);
+            }
 
             if (entity.ImageFile is not null)
             {

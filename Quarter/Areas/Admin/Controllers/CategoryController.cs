@@ -76,6 +76,11 @@ namespace Quarter.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Category entity)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(entity);
+            }
+
             await _categoryService.Create(entity);
             await _categoryService.SaveChanges();
 
@@ -92,6 +97,11 @@ namespace Quarter.Areas.Admin.Controllers
 
         public async Task<IActionResult> Update(int id, Category category)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(category);
+            }
+
             await _categoryService.Update(id, category);
             await _categoryService.SaveChanges();
 
@@ -116,6 +126,11 @@ namespace Quarter.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddSubCategory(int? id, SubCategory entity)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(entity);
+            }
+
             var category = await _categoryService.Get(id);
 
             foreach (var subCategory in category.SubCategories)
@@ -151,6 +166,11 @@ namespace Quarter.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateSubCategory(int id, SubCategory subCategory)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(subCategory);
+            }
+
             await _subCategoryService.Update(id, subCategory);
             await _subCategoryService.SaveChanges();
 

@@ -1,16 +1,14 @@
 ﻿using DAL.Base;
 using DAL.Entity;
 using DAL.Identity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace DAL.Model
 {
     public class Blog : BaseEntity, IEntity
     {
+        [Required]
         public string Title { get; set; }
         public int BlogCategoryId { get; set; }
         public BlogCategory BlogCategory { get; set; }

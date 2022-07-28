@@ -128,3 +128,5 @@ C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Are
 C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Views\Shared\Components\Footer\Default.cshtml.g.cs
 C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Views\Shared\Components\Header\Default.cshtml.g.cs
 C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Areas\Admin\Views\Subscriber\SendEmail.cshtml.g.cs
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Views\Wishlist\Index.cshtml.g.cs
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Views\Shared\_WishlistPartial.cshtml.g.cs

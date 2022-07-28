@@ -143,6 +143,12 @@ namespace Quarter.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddComment(GetProductDetailVM vm, int? id)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
+
+
             var comment = vm.Comment;
             comment.AppUser = await _userManager.GetUserAsync(User);
             var product = await _productService.Get(id);
@@ -151,7 +157,7 @@ namespace Quarter.Controllers
             await _commentService.Create(comment);
             await _commentService.SaveChanges();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Detail), vm);
         }
     }
 }

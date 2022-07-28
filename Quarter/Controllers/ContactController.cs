@@ -27,6 +27,11 @@ namespace Quarter.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateFeedBack(FeedBack feedBack)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(feedBack);
+            }
+
             feedBack.AppUser = await _userManager.GetUserAsync(User);
 
             await _feedBackService.Create(feedBack);

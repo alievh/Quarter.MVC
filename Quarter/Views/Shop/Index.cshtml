@@ -285,7 +285,7 @@
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
+                                                            <a class="add-wishlist" data-id="@product.Id" title="Wishlist">
                                                                 <i class="flaticon-heart-1"></i></a>
                                                         </li>
                                                         <li>
@@ -395,11 +395,11 @@
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
+                                                            <a class="add-wishlist" data-id="@product.Id" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
                                                                 <i class="flaticon-heart-1"></i></a>
                                                         </li>
                                                         <li>
-                                                            <a asp-controller="shop" asp-action="detail" asp-route-id="@product.ProductDetailId" title="Product Details">
+                                                            <a class="add-basket" data-id="@product.Id" title="Product Details">
                                                                 <i class="flaticon-add"></i>
                                                             </a>
                                                         </li>

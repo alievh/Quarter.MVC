@@ -75,6 +75,11 @@ namespace Quarter.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Location entity)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(entity);
+            }
+
             await _locationService.Create(entity);
             await _locationService.SaveChanges();
 
@@ -89,8 +94,15 @@ namespace Quarter.Areas.Admin.Controllers
             return View(data);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int id, Location category)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(category);
+            }
+
             await _locationService.Update(id, category);
             await _locationService.SaveChanges();
 
