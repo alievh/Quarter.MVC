@@ -1,8 +1,11 @@
 ﻿using Business.Services;
 using Business.ViewModels;
+using DAL.Identity;
 using DAL.Model;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Quarter.Controllers
@@ -13,13 +16,22 @@ namespace Quarter.Controllers
         private readonly IProductService _productService;
         private readonly IProductDetailService _productDetailService;
         private readonly IImageService _imageService;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly ICommentService _commentService;
 
-        public ShopController(ICategoryService categoryService, IProductService productService, IImageService imageService, IProductDetailService productDetailService)
+        public ShopController(ICategoryService categoryService,
+                              IProductService productService, 
+                              IImageService imageService, 
+                              IProductDetailService productDetailService,
+                              ICommentService commentService,
+                              UserManager<AppUser> userManager)
         {
             _categoryService = categoryService;
             _productService = productService;
             _imageService = imageService;
             _productDetailService = productDetailService;
+            _userManager = userManager;
+            _commentService = commentService;
         }
 
         public async Task<IActionResult> Index()
@@ -84,6 +96,8 @@ namespace Quarter.Controllers
 
         public async Task<IActionResult> Detail(int? id)
         {
+            ViewData["Products"] = await _productService.GetAll();
+
             var data = await _productDetailService.Get(id);
             var product = await _productService.Get(data.Product.Id);
 
@@ -96,7 +110,15 @@ namespace Quarter.Controllers
             List<Comment> comments = new();
             if(product.Comments is not null)
             {
-                comments.AddRange(product.Comments);
+                foreach (var comment in product.Comments)
+                {
+                    comment.AppUser = await _userManager.FindByIdAsync(comment.AppUserId);
+                    if(comment.AppUser.ImageId is not null)
+                    {
+                        comment.AppUser.Image = await _imageService.Get(comment.AppUser.ImageId);
+                    }
+                    comments.Add(comment);
+                }
             }
             
             Image userImage = await _imageService.Get(product.AppUser.ImageId);
@@ -109,10 +131,27 @@ namespace Quarter.Controllers
                 Images = images,
                 AppUser = product.AppUser,
                 UserImage = userImage,
-                Comments = comments
+                Comments = comments,
+                Comment = null,
+                LocationId = product.LocationId,
             };
 
             return View(model: getProductDetailVm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddComment(GetProductDetailVM vm, int? id)
+        {
+            var comment = vm.Comment;
+            comment.AppUser = await _userManager.GetUserAsync(User);
+            var product = await _productService.Get(id);
+            comment.Product = product;
+
+            await _commentService.Create(comment);
+            await _commentService.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -33,6 +33,7 @@ namespace Quarter
                 options.UseSqlServer(_config.GetConnectionString("Default"));
             });
 
+
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
@@ -59,6 +60,7 @@ namespace Quarter
             services.AddScoped<ILocationService, LocationRepository>();
             services.AddScoped<IFeedBackService, FeedBackRepository>();
             services.AddScoped<IProductDetailService, ProductDetailRepository>();
+            services.AddScoped<ICommentService, CommentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

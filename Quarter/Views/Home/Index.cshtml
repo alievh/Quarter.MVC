@@ -501,7 +501,7 @@
                              <div class="product-price">
                                  <span>$@product.Price<label>/Month</label></span>
                              </div>
-                             <h2 class="product-title"><a asp-controller="shop" asp-action="detail">@product.Title</a></h2>
+                             <h2 class="product-title"><a asp-controller="shop" asp-action="detail" asp-route-id="@product.ProductDetailId">@product.Title</a></h2>
                              <div class="product-description">
                                  <p>@product.Description</p>
                              </div>

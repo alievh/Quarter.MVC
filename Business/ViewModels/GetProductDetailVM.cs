@@ -13,5 +13,7 @@ namespace Business.ViewModels
         public AppUser AppUser { get; set; }
         public Image UserImage { get; set; }
         public List<Comment> Comments { get; set; }
+        public Comment Comment { get; set; }
+        public int LocationId { get; set; }
     }
 }

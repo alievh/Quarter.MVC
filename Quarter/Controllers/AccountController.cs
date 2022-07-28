@@ -66,6 +66,7 @@ namespace Quarter.Controllers
             appUser.Lastname = getRegisterVM.Lastname;
             appUser.Email = getRegisterVM.Email;
             appUser.UserName = getRegisterVM.Username;
+
             if (getRegisterVM.Position is not null)
             {
                 appUser.Position = getRegisterVM.Position;

@@ -30,9 +30,11 @@ namespace Business.Repositories
                                               .Where(n => n.Id == id)
                                               .Include(n => n.Images)
                                               .Include(n => n.AppUser)
+                                              .ThenInclude(n=>n.Image)
                                               .Include(n => n.Comments)
                                               .Include(n => n.Location)
                                               .Include(n => n.SubCategories)
+                                              .AsSplitQuery()
                                               .FirstOrDefaultAsync();
 
             if (data is null)
@@ -48,9 +50,11 @@ namespace Business.Repositories
             var data = await _context.Products.Where(n => !n.IsDeleted)
                                              .Include(n => n.Images)
                                              .Include(n => n.AppUser)
+                                             .ThenInclude(n => n.Image)
                                              .Include(n => n.Comments)
                                              .Include(n => n.Location)
                                              .Include(n => n.SubCategories)
+                                             .AsSplitQuery()
                                              .ToListAsync();
 
             if (data is null)
