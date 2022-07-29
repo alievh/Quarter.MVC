@@ -1,4 +1,5 @@
-﻿
+﻿@model List<AppUser>
+
     <!-- Utilize Cart Menu Start -->
     <div id="ltn__utilize-cart-menu" class="ltn__utilize ltn__utilize-cart-menu basket-container">
     @await Component.InvokeAsync("Basket");
@@ -166,114 +167,33 @@
     <div class="ltn__team-area pt-110--- pb-90">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-4 col-sm-6">
-                    <div class="ltn__team-item ltn__team-item-3---">
-                        <div class="team-img">
-                            <img src="~/assets/img/team/4.jpg" alt="Image">
+                @foreach (var user in Model)
+               {
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="ltn__team-item ltn__team-item-3---">
+                            <div class="team-img">
+                            @if(user.Image is not null)
+                            {
+                                <img src="~/assets/uploads/images/@user.Image.Url" alt="Image">
+                            }else
+                            {
+                                <img src="~/assets/uploads/images/NoProfilePhoto.jpg" alt="Image">
+                            }
                         </div>
-                        <div class="team-info">
-                            <h4><a asp-controller="team" asp-action="detail">Rosalina D. William</a></h4>
-                            <h6 class="ltn__secondary-color">Real Estate Broker</h6>
-                            <div class="ltn__social-media">
-                                <ul>
-                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                                </ul>
+                            <div class="team-info">
+                                <h4><a asp-controller="team" asp-action="detail" asp-route-id="@user.Id">@user.Firstname @user.Lastname</a></h4>
+                                <h6 class="ltn__secondary-color">@user.Position</h6>
+                                <div class="ltn__social-media">
+                                    <ul>
+                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="ltn__team-item ltn__team-item-3---">
-                        <div class="team-img">
-                            <img src="~/assets/img/team/2.jpg" alt="Image">
-                        </div>
-                        <div class="team-info">
-                            <h4><a asp-controller="team" asp-action="detail">Kelian Anderson</a></h4>
-                            <h6 class="ltn__secondary-color">Selling Agents</h6>
-                            <div class="ltn__social-media">
-                                <ul>
-                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="ltn__team-item ltn__team-item-3---">
-                        <div class="team-img">
-                            <img src="~/assets/img/team/3.jpg" alt="Image">
-                        </div>
-                        <div class="team-info">
-                            <h4><a asp-controller="team" asp-action="detail">Miranda H. Halim</a></h4>
-                            <h6 class="ltn__secondary-color">Property Seller</h6>
-                            <div class="ltn__social-media">
-                                <ul>
-                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="ltn__team-item ltn__team-item-3---">
-                        <div class="team-img">
-                            <img src="~/assets/img/team/1.jpg" alt="Image">
-                        </div>
-                        <div class="team-info">
-                            <h4><a asp-controller="team" asp-action="detail">Damble D. Browni.</a></h4>
-                            <h6 class="ltn__secondary-color">Property Seller</h6>
-                            <div class="ltn__social-media">
-                                <ul>
-                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="ltn__team-item ltn__team-item-3---">
-                        <div class="team-img">
-                            <img src="~/assets/img/team/5.jpg" alt="Image">
-                        </div>
-                        <div class="team-info">
-                            <h4><a asp-controller="team" asp-action="detail">Aiden Benjamin</a></h4>
-                            <h6 class="ltn__secondary-color">Real Estate Broker</h6>
-                            <div class="ltn__social-media">
-                                <ul>
-                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="ltn__team-item ltn__team-item-3---">
-                        <div class="team-img">
-                            <img src="~/assets/img/team/6.jpg" alt="Image">
-                        </div>
-                        <div class="team-info">
-                            <h4><a asp-controller="team" asp-action="detail">James Carter</a></h4>
-                            <h6 class="ltn__secondary-color">Selling Agents</h6>
-                            <div class="ltn__social-media">
-                                <ul>
-                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               }
             </div>
         </div>
     </div>

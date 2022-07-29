@@ -541,16 +541,37 @@
                                              <i class="flaticon-expand"></i>
                                          </a>
                                      </li>
-                                     <li>
-                                         <a class="add-wishlist" data-id="@product.Id" title="Wishlist" >
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                         <li>
+                                            <a class="add-wishlist" data-id="@product.Id" title="Wishlist" >
                                              <i class="flaticon-heart-1"></i></a>
-                                     </li>
-                                     <li>
-                                         <a class="add-basket" data-id="@product.Id" title="Product Details">
-                                             <i class="flaticon-add"></i>
-                                         </a>
-                                     </li>
-                                 </ul>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a asp-controller="account" asp-action="login" title="Wishlist" >
+                                             <i class="flaticon-heart-1"></i></a>
+                                        </li>
+                                    }
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <li>
+                                            <a class="add-basket" data-id="@product.Id" title="Product Details">
+                                                <i class="flaticon-add"></i>
+                                            </a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a asp-controller="account" asp-action="login" title="Product Details">
+                                                <i class="flaticon-add"></i>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
                              </div>
                          </div>
                      </div>

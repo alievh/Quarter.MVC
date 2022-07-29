@@ -1,6 +1,7 @@
 ﻿using Business.Services;
 using DAL.Identity;
 using DAL.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Quarter.Areas.Admin.Controllers
 {
-    [Area("admin")]
+    [Area("admin"), Authorize(Roles = "SuperAdmin")]
     public class SubscriberController : Controller
     {
         private readonly ISubscriberService _subscriberService;

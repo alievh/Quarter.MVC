@@ -1,5 +1,6 @@
 ﻿using Business.Services;
 using DAL.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Quarter.Areas.Admin.Controllers
 {
-    [Area("admin")]
+    [Area("admin"), Authorize(Roles = "Admin,SuperAdmin")]
     public class LocationController : Controller
     {
         private readonly ILocationService _locationService;

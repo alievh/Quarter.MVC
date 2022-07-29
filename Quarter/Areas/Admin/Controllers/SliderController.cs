@@ -8,10 +8,11 @@ using System.Collections.Generic;
 using System;
 using DAL.Data;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Quarter.Areas.Admin.Controllers
 {
-    [Area("admin")]
+    [Area("admin"), Authorize(Roles = "Admin,SuperAdmin")]
     public class SliderController : Controller
     {
         private readonly ISliderService _sliderService;

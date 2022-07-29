@@ -679,3 +679,12 @@ $('#example tbody').on('click', 'td.details-control', function () {
   
   });
 })(jQuery);
+
+const roleChanger = document.querySelectorAll(".role-changer");
+
+roleChanger.forEach(n => n.addEventListener("change", async function () {
+    let roleName = this.options[this.selectedIndex].value;
+    let userId = $(this).attr("data-userId");
+
+    await fetch(`/admin/user/changerole?roleName=${roleName}&userId=${userId}`);
+}));

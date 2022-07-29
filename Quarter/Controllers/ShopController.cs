@@ -5,7 +5,6 @@ using DAL.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Quarter.Controllers
@@ -20,8 +19,8 @@ namespace Quarter.Controllers
         private readonly ICommentService _commentService;
 
         public ShopController(ICategoryService categoryService,
-                              IProductService productService, 
-                              IImageService imageService, 
+                              IProductService productService,
+                              IImageService imageService,
                               IProductDetailService productDetailService,
                               ICommentService commentService,
                               UserManager<AppUser> userManager)
@@ -108,19 +107,19 @@ namespace Quarter.Controllers
             }
 
             List<Comment> comments = new();
-            if(product.Comments is not null)
+            if (product.Comments is not null)
             {
                 foreach (var comment in product.Comments)
                 {
                     comment.AppUser = await _userManager.FindByIdAsync(comment.AppUserId);
-                    if(comment.AppUser.ImageId is not null)
+                    if (comment.AppUser.ImageId is not null)
                     {
                         comment.AppUser.Image = await _imageService.Get(comment.AppUser.ImageId);
                     }
                     comments.Add(comment);
                 }
             }
-            
+
             Image userImage = await _imageService.Get(product.AppUser.ImageId);
 
             GetProductDetailVM getProductDetailVm = new()

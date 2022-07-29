@@ -1,6 +1,7 @@
 ﻿using Business.Services;
 using DAL.Identity;
 using DAL.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Quarter.Areas.Admin.Controllers
 {
-    [Area("admin")]
+    [Area("admin"), Authorize(Roles = "Admin,SuperAdmin")]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;

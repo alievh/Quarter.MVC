@@ -2030,3 +2030,4 @@ deleteWishlist.forEach(n => n.addEventListener('click', async function () {
 
     wishlistContainer.innerHTML = data;
 }));
+

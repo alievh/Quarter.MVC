@@ -1,13 +1,13 @@
 ﻿@model Basket
-
+    @if (User.Identity.IsAuthenticated)
+    {
     <div class="ltn__utilize-menu-inner ltn__scrollbar">
         <div class="ltn__utilize-menu-head">
             <span class="ltn__utilize-menu-title">Cart</span>
             <button class="ltn__utilize-close">×</button>
         </div>
         <div class="mini-cart-product-area ltn__scrollbar">
-            @if (User.Identity.IsAuthenticated)
-            {
+            
                 @if(Model.Products is not null)
                 {
                      @foreach (var product in Model.Products)
@@ -24,17 +24,10 @@
                          </div>
                     }
                 }
-            }
         </div>
         <div class="mini-cart-footer">
             <div class="mini-cart-sub-total">
-                @if(User.Identity.IsAuthenticated)
-                {
                     <h5>Subtotal: <span>$@Model.TotalPrice</span></h5>
-                }else
-                {
-                    <h5>Subtotal: <span>$0</span></h5>
-                }
             </div>
             <div class="btn-wrapper">
                 <a href="cart.html" class="theme-btn-1 btn btn-effect-1">View Cart</a>
@@ -44,3 +37,9 @@
         </div>
 
     </div>
+    }else
+    {
+        <div class="h-100 w-100 d-flex align-items-center justify-content-center">
+            <p>Please sign in for buy your favorite products!</p>
+        </div>
+    }
