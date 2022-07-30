@@ -13,7 +13,8 @@ namespace DAL.Model
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
+        public bool IsSelected { get; set; }
 
-        public ICollection<Blog> Blogs { get; set; }
+        public List<Blog> Blogs { get; set; }
     }
 }

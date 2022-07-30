@@ -130,3 +130,5 @@ C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Vie
 C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Views\Shared\_WishlistPartial.cshtml.g.cs
 C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Areas\Admin\Views\User\Index.cshtml.g.cs
 C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Areas\Admin\Views\Shared\Components\AdminProfile\Default.cshtml.g.cs
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Areas\Admin\Views\Blog\Create.cshtml.g.cs
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Areas\Admin\Views\Blog\CreateCategory.cshtml.g.cs

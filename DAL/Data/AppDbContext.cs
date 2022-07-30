@@ -38,6 +38,7 @@ namespace DAL.Data
         public DbSet<AboutAbout> AboutAbouts { get; set; }
         public DbSet<ServiceAbout> ServiceAbouts { get; set; }
         public DbSet<AboutItem> AboutItems { get; set; }
+        public DbSet<BlogDetail> BlogDetails { get; set; }
 
     }
 }

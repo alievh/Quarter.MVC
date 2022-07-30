@@ -6,32 +6,29 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Business.Repositories
 {
-    public class BlogRepository : IBlogService
+    public class BlogDetailRepository : IBlogDetailService
     {
         private readonly AppDbContext _context;
 
-        public BlogRepository(AppDbContext context)
+        public BlogDetailRepository(AppDbContext context)
         {
             _context = context;
         }
-
-        public async Task<Blog> Get(int? id)
+        public async Task<BlogDetail> Get(int? id)
         {
             if (id is null)
             {
-                throw new ArgumentNullException("id");
+                throw new ArgumentNullException(nameof(id));
             }
 
-            var data = await _context.Blogs.Where(n => !n.IsDeleted)
+            var data = await _context.BlogDetails.Where(n => !n.IsDeleted)
                                            .Where(n => n.Id == id)
-                                           .Include(n => n.BlogDetail)
-                                           .Include(n => n.Comment)
-                                           .Include(n => n.AppUser)
-                                           .ThenInclude(n => n.Image)
+                                           .Include(n => n.Blog)
                                            .FirstOrDefaultAsync();
 
             if (data is null)
@@ -42,13 +39,10 @@ namespace Business.Repositories
             return data;
         }
 
-        public async Task<List<Blog>> GetAll()
+        public async Task<List<BlogDetail>> GetAll()
         {
-            var data = await _context.Blogs.Where(n => !n.IsDeleted)
-                                           .Include(n => n.BlogDetail)
-                                           .Include(n => n.Comment)
-                                           .Include(n => n.AppUser)
-                                           .ThenInclude(n => n.Image)
+            var data = await _context.BlogDetails.Where(n => !n.IsDeleted)
+                                           .Include(n => n.Blog)
                                            .ToListAsync();
 
             if (data is null)
@@ -59,24 +53,21 @@ namespace Business.Repositories
             return data;
         }
 
-        public async Task Create(Blog entity)
+        public async Task Create(BlogDetail entity)
         {
             entity.CreateDate = DateTime.UtcNow.AddHours(4);
 
-            await _context.Blogs.AddAsync(entity);
+            await _context.BlogDetails.AddAsync(entity);
         }
 
-        public async Task Update(int id, Blog entity)
+        public async Task Update(int id, BlogDetail entity)
         {
             var data = await Get(id);
 
             data.UpdateDate = DateTime.UtcNow.AddHours(4);
-            data.Title = entity.Title;
-            data.Description = entity.Description;
-            data.Images = entity.Images;
-            data.Comment = entity.Comment;
+            data.Content = entity.Content;
 
-            _context.Blogs.Update(data);
+            _context.BlogDetails.Update(data);
         }
 
         public async Task Delete(int? id)
