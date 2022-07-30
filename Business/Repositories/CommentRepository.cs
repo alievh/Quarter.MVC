@@ -29,6 +29,7 @@ namespace Business.Repositories
             var data = await _context.Comments.Where(n => !n.IsDeleted)
                                               .Where(n => n.Id == id)
                                               .Include(n => n.AppUser)
+                                              .ThenInclude(n => n.Image)
                                               .Include(n => n.Product)
                                               .FirstOrDefaultAsync();
 
@@ -44,7 +45,9 @@ namespace Business.Repositories
         {
             var data = await _context.Comments.Where(n => !n.IsDeleted)
                                               .Include(n => n.AppUser)
+                                              .ThenInclude(n => n.Image)
                                               .Include(n => n.Product)
+                                              .OrderByDescending(n => n.CreateDate)
                                               .ToListAsync();
 
             if (data is null)

@@ -134,9 +134,6 @@ namespace Quarter.Controllers
                 getFeedBackVMs.Add(getFeedBackVm);
             }
 
-            
-
-
             HomeVM homeVm = new()
             {
                 Sliders = getSliderVms,

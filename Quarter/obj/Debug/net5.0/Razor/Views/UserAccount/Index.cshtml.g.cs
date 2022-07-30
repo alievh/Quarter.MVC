@@ -34,7 +34,7 @@ using DAL.Identity;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ec9559e84e1ca1ad168353d334eb019030004761", @"/Views/UserAccount/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"caf0433d5e1aad8bfae708aa46d9253883223789", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f60a7ddc59888b07b99b4def10416b78ba883898", @"/Views/_ViewImports.cshtml")]
     #nullable restore
     public class Views_UserAccount_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<AppUser>
     #nullable disable

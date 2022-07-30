@@ -12,11 +12,13 @@ namespace Quarter.Controllers
     {
         private readonly IServiceDetailService _serviceDetailService;
         private readonly IServiceService _serviceService;
+        private readonly IServiceAboutService _serviceAboutService;
 
-        public ServiceController(IServiceDetailService serviceDetailService, IServiceService serviceService)
+        public ServiceController(IServiceDetailService serviceDetailService, IServiceService serviceService, IServiceAboutService serviceAboutService)
         {
             _serviceDetailService = serviceDetailService;
             _serviceService = serviceService;
+            _serviceAboutService = serviceAboutService;
         }
 
         public async Task<IActionResult> Index()
@@ -44,9 +46,12 @@ namespace Quarter.Controllers
                 getServiceVMs.Add(getServiceVm);
             }
 
+            var serviceAbout = await _serviceAboutService.Get(1);
+
             ServiceVM ServiceVm = new()
             {
-                Services = getServiceVMs
+                Services = getServiceVMs,
+                ServiceAbout = serviceAbout
             };
 
             return View(model: ServiceVm);

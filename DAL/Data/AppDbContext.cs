@@ -35,6 +35,9 @@ namespace DAL.Data
         public DbSet<Subscriber> Subscribers { get; set; }
         public DbSet<SubscriberMessage> SubscriberMessages { get; set; }
         public DbSet<Setting> Settings { get; set; }
+        public DbSet<AboutAbout> AboutAbouts { get; set; }
+        public DbSet<ServiceAbout> ServiceAbouts { get; set; }
+        public DbSet<AboutItem> AboutItems { get; set; }
 
     }
 }

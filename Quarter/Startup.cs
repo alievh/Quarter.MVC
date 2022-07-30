@@ -62,6 +62,8 @@ namespace Quarter
             services.AddScoped<ICommentService, CommentRepository>();
             services.AddScoped<ISubscriberService, SubscriberRepository>();
             services.AddScoped<IWishlistService, WishlistRepository>();
+            services.AddScoped<IServiceAboutService, ServiceAboutRepository>();
+            services.AddScoped<IAboutAboutService, AboutAboutRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

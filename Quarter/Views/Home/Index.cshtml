@@ -615,8 +615,14 @@
                                     <i class="far fa-comments"></i>
                                 </div>
                                 <div class="ltn__testimonial-image">
+                                @if(feedback.AppUser.Image is not null)
+                                {
                                     <img src="~/assets/uploads/images/@feedback.AppUser.Image.Url" alt="quote">
-                                </div>
+                                }else
+                                {
+                                    <img src="~/assets/uploads/images/NoProfilePhoto.jpg" alt="quote">
+                                }
+                            </div>
                                 <div class="ltn__testimonial-info">
                                     <p>@feedback.Content</p>
                                     <h4>@feedback.AppUser.Firstname @feedback.AppUser.Lastname</h4>

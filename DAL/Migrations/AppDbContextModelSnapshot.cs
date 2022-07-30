@@ -34,21 +34,6 @@ namespace DAL.Migrations
                     b.ToTable("AboutImage");
                 });
 
-            modelBuilder.Entity("AboutVideo", b =>
-                {
-                    b.Property<int>("AboutsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VideosId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AboutsId", "VideosId");
-
-                    b.HasIndex("VideosId");
-
-                    b.ToTable("AboutVideo");
-                });
-
             modelBuilder.Entity("ApartmentPlanImage", b =>
                 {
                     b.Property<int>("ApartmentPlansId")
@@ -201,13 +186,16 @@ namespace DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
@@ -215,6 +203,56 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Abouts");
+                });
+
+            modelBuilder.Entity("DAL.Model.AboutAbout", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Callout")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImageId")
+                        .IsUnique();
+
+                    b.ToTable("AboutAbouts");
+                });
+
+            modelBuilder.Entity("DAL.Model.AboutItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AboutAboutId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IconLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AboutAboutId");
+
+                    b.ToTable("AboutItems");
                 });
 
             modelBuilder.Entity("DAL.Model.ApartmentPlan", b =>
@@ -231,6 +269,7 @@ namespace DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateDate")
@@ -246,7 +285,9 @@ namespace DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("TotalArea")
                         .HasColumnType("int");
@@ -306,6 +347,7 @@ namespace DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -330,6 +372,7 @@ namespace DAL.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -351,6 +394,7 @@ namespace DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -372,7 +416,9 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -406,6 +452,7 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateDate")
@@ -456,9 +503,11 @@ namespace DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LocationArea")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LocationCity")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -489,6 +538,7 @@ namespace DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -507,7 +557,9 @@ namespace DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
@@ -559,6 +611,7 @@ namespace DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("ForHome")
@@ -571,7 +624,9 @@ namespace DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
@@ -584,6 +639,30 @@ namespace DAL.Migrations
                     b.ToTable("Services");
                 });
 
+            modelBuilder.Entity("DAL.Model.ServiceAbout", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImageId")
+                        .IsUnique();
+
+                    b.ToTable("ServiceAbouts");
+                });
+
             modelBuilder.Entity("DAL.Model.ServiceDetail", b =>
                 {
                     b.Property<int>("Id")
@@ -592,6 +671,7 @@ namespace DAL.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateDate")
@@ -634,6 +714,7 @@ namespace DAL.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateDate")
@@ -643,6 +724,7 @@ namespace DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -673,6 +755,7 @@ namespace DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -693,6 +776,7 @@ namespace DAL.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("SubscriberEmail")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("SubscriberMessageId")
@@ -713,26 +797,12 @@ namespace DAL.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("SubscriberMessages");
-                });
-
-            modelBuilder.Entity("DAL.Model.Video", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Link")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Videos");
                 });
 
             modelBuilder.Entity("DAL.Model.Wishlist", b =>
@@ -977,21 +1047,6 @@ namespace DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("AboutVideo", b =>
-                {
-                    b.HasOne("DAL.Model.About", null)
-                        .WithMany()
-                        .HasForeignKey("AboutsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DAL.Model.Video", null)
-                        .WithMany()
-                        .HasForeignKey("VideosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ApartmentPlanImage", b =>
                 {
                     b.HasOne("DAL.Model.ApartmentPlan", null)
@@ -1060,6 +1115,28 @@ namespace DAL.Migrations
                     b.Navigation("Image");
 
                     b.Navigation("Wishlist");
+                });
+
+            modelBuilder.Entity("DAL.Model.AboutAbout", b =>
+                {
+                    b.HasOne("DAL.Model.Image", "Image")
+                        .WithOne("AboutAbout")
+                        .HasForeignKey("DAL.Model.AboutAbout", "ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Image");
+                });
+
+            modelBuilder.Entity("DAL.Model.AboutItem", b =>
+                {
+                    b.HasOne("DAL.Model.AboutAbout", "AboutAbout")
+                        .WithMany("AboutItems")
+                        .HasForeignKey("AboutAboutId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AboutAbout");
                 });
 
             modelBuilder.Entity("DAL.Model.Blog", b =>
@@ -1147,6 +1224,17 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("ServiceDetail");
+                });
+
+            modelBuilder.Entity("DAL.Model.ServiceAbout", b =>
+                {
+                    b.HasOne("DAL.Model.Image", "Image")
+                        .WithOne("ServiceAbouts")
+                        .HasForeignKey("DAL.Model.ServiceAbout", "ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("DAL.Model.SubCategory", b =>
@@ -1302,6 +1390,11 @@ namespace DAL.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("DAL.Model.AboutAbout", b =>
+                {
+                    b.Navigation("AboutItems");
+                });
+
             modelBuilder.Entity("DAL.Model.Basket", b =>
                 {
                     b.Navigation("AppUser");
@@ -1319,7 +1412,11 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Model.Image", b =>
                 {
+                    b.Navigation("AboutAbout");
+
                     b.Navigation("AppUser");
+
+                    b.Navigation("ServiceAbouts");
                 });
 
             modelBuilder.Entity("DAL.Model.Location", b =>

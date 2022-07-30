@@ -44,7 +44,7 @@ namespace Business.Repositories
 
         public async Task<List<FeedBack>> GetAll()
         {
-            var data = await _context.FeedBacks.Where(n => !n.IsDeleted).Include(n => n.AppUser).ToListAsync();
+            var data = await _context.FeedBacks.Where(n => !n.IsDeleted).Include(n => n.AppUser).OrderByDescending(n => n.CreateDate).ToListAsync();
 
             if (data is null)
             {

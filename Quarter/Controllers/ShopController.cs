@@ -36,6 +36,7 @@ namespace Quarter.Controllers
         public async Task<IActionResult> Index()
         {
             var data = await _categoryService.GetAll();
+
             List<GetCategoryVM> getCategoryVMs = new();
             foreach (var category in data)
             {
@@ -158,5 +159,6 @@ namespace Quarter.Controllers
 
             return RedirectToAction(nameof(Detail), vm);
         }
+
     }
 }
