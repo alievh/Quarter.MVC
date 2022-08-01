@@ -1,4 +1,5 @@
-﻿using Business.Services;
+﻿using Business.Repositories;
+using Business.Services;
 using DAL.Identity;
 using DAL.Model;
 using Microsoft.AspNetCore.Identity;
@@ -11,15 +12,19 @@ namespace Quarter.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IFeedBackService _feedBackService;
+        private readonly SettingRepository _settingRepository;
 
-        public ContactController(IFeedBackService feedBackService, UserManager<AppUser> userManager)
+        public ContactController(IFeedBackService feedBackService, UserManager<AppUser> userManager, SettingRepository settingRepository)
         {
             _feedBackService = feedBackService;
             _userManager = userManager;
+            _settingRepository = settingRepository;
         }
 
         public IActionResult Index()
         {
+            ViewData["settings"] = _settingRepository.GetAll();
+
             return View();
         }
 

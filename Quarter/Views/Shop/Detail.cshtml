@@ -3,6 +3,8 @@
 
 @{
     var products = (List<Product>)ViewData["Products"];
+    var blogs = (List<Blog>)ViewData["Blogs"];
+    var settings = (Dictionary<string, string>)ViewData["Settings"];
 }
 
     <!-- Utilize Cart Menu Start -->
@@ -224,84 +226,6 @@
                                 <li><label>Property Status:</label> <span>For Rent</span></li>
                             </ul>
                         </div>
-                                        
-                        <h4 class="title-2">Facts and Features</h4>
-                        <div class="property-detail-feature-list clearfix mb-45">                            
-                            <ul>
-                                <li>
-                                    <div class="property-detail-feature-list-item">
-                                        <i class="flaticon-double-bed"></i>
-                                        <div>
-                                            <h6>Living Room</h6>
-                                            <small>20 x 16 sq feet</small>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="property-detail-feature-list-item">
-                                        <i class="flaticon-double-bed"></i>
-                                        <div>
-                                            <h6>Garage</h6>
-                                            <small>20 x 16 sq feet</small>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="property-detail-feature-list-item">
-                                        <i class="flaticon-double-bed"></i>
-                                        <div>
-                                            <h6>Dining Area</h6>
-                                            <small>20 x 16 sq feet</small>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="property-detail-feature-list-item">
-                                        <i class="flaticon-double-bed"></i>
-                                        <div>
-                                            <h6>Bedroom</h6>
-                                            <small>20 x 16 sq feet</small>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="property-detail-feature-list-item">
-                                        <i class="flaticon-double-bed"></i>
-                                        <div>
-                                            <h6>Bathroom</h6>
-                                            <small>20 x 16 sq feet</small>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="property-detail-feature-list-item">
-                                        <i class="flaticon-double-bed"></i>
-                                        <div>
-                                            <h6>Gym Area</h6>
-                                            <small>20 x 16 sq feet</small>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="property-detail-feature-list-item">
-                                        <i class="flaticon-double-bed"></i>
-                                        <div>
-                                            <h6>Garden</h6>
-                                            <small>20 x 16 sq feet</small>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="property-detail-feature-list-item">
-                                        <i class="flaticon-double-bed"></i>
-                                        <div>
-                                            <h6>Parking</h6>
-                                            <small>20 x 16 sq feet</small>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
 
                         <h4 class="title-2">From Our Gallery</h4>
                         <div class="ltn__property-details-gallery mb-30">
@@ -325,111 +249,18 @@
                         <h4 class="title-2 mb-10">Amenities</h4>
                         <div class="property-details-amenities mb-60">
                             <div class="row">
-                                <div class="col-lg-4 col-md-6">
+                                <div class="col-lg-12 col-md-6">
                                     <div class="ltn__menu-widget">
-                                        <ul>
-                                            <li>
-                                                <label class="checkbox-item">Air Conditioning
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="checkbox-item">Gym
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="checkbox-item">Microwave
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="checkbox-item">Swimming Pool
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="checkbox-item">WiFi
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="ltn__menu-widget">
-                                        <ul>
-                                            <li>
-                                                <label class="checkbox-item">Barbeque
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="checkbox-item">Recreation
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="checkbox-item">Microwave
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="checkbox-item">Basketball Cout
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="checkbox-item">Fireplace
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="ltn__menu-widget">
-                                        <ul>
-                                            <li>
-                                                <label class="checkbox-item">Refrigerator
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="checkbox-item">Window Coverings
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="checkbox-item">Washer
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="checkbox-item">24x7 Security
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="checkbox-item">Indoor Game
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </li>
+                                        <ul class="d-flex flex-wrap">
+                                            @foreach (var subCategory in Model.Product.SubCategories)
+                                           {
+                                               <li class="col-lg-4">
+                                                    <label class="checkbox-item">@subCategory.Name
+                                                        <input type="checkbox" checked="checked">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                               </li>
+                                           }
                                         </ul>
                                     </div>
                                 </div>
@@ -890,78 +721,34 @@
                         <div class="widget ltn__popular-post-widget">
                             <h4 class="ltn__widget-title ltn__widget-title-border-2">Leatest Blogs</h4>
                             <ul>
+                                @foreach (var blog in blogs)
+                            {
                                 <li>
                                     <div class="popular-post-widget-item clearfix">
                                         <div class="popular-post-widget-img">
-                                            <a asp-controller="blog" asp-action="detail"><img src="~/assets/img/team/5.jpg" alt="#"></a>
+                                            @if (blog.AppUser.Image is not null)
+                                            {
+                                                <a asp-controller="blog" asp-action="detail" asp-route-id="@blog.BlogDetailId"><img src="~/assets/uploads/images/@blog.AppUser.Image.Url" alt="#"></a>
+                                            }
+                                            else
+                                            {
+                                                <a asp-controller="blog" asp-action="detail" asp-route-id="@blog.BlogDetailId"><img src="~/assets/uploads/images/NoProfilePhoto.jpg" alt="#"></a>
+
+                                            }
                                         </div>
-                                        <div class="popular-post-widget-brief">
-                                            <h6><a asp-controller="blog" asp-action="detail">Lorem ipsum dolor sit
-                                                cing elit, sed do.</a></h6>
-                                            <div class="ltn__blog-meta">
-                                                <ul>
-                                                    <li class="ltn__blog-date">
-                                                        <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
-                                                    </li>
-                                                </ul>
+                                            <div class="popular-post-widget-brief">
+                                                <h6><a asp-controller="blog" asp-action="detail" asp-route-id="@blog.BlogDetailId">@blog.Title</a></h6>
+                                                <div class="ltn__blog-meta">
+                                                    <ul>
+                                                        <li class="ltn__blog-date">
+                                                            <a href="#"><i class="far fa-calendar-alt"></i>@blog.CreateDate.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture)</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="popular-post-widget-item clearfix">
-                                        <div class="popular-post-widget-img">
-                                            <a asp-controller="blog" asp-action="detail"><img src="~/assets/img/team/6.jpg" alt="#"></a>
-                                        </div>
-                                        <div class="popular-post-widget-brief">
-                                            <h6><a asp-controller="blog" asp-action="detail">Lorem ipsum dolor sit
-                                                cing elit, sed do.</a></h6>
-                                            <div class="ltn__blog-meta">
-                                                <ul>
-                                                    <li class="ltn__blog-date">
-                                                        <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="popular-post-widget-item clearfix">
-                                        <div class="popular-post-widget-img">
-                                            <a asp-controller="blog" asp-action="detail"><img src="~/assets/img/team/7.jpg" alt="#"></a>
-                                        </div>
-                                        <div class="popular-post-widget-brief">
-                                            <h6><a asp-controller="blog" asp-action="detail">Lorem ipsum dolor sit
-                                                cing elit, sed do.</a></h6>
-                                            <div class="ltn__blog-meta">
-                                                <ul>
-                                                    <li class="ltn__blog-date">
-                                                        <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="popular-post-widget-item clearfix">
-                                        <div class="popular-post-widget-img">
-                                            <a asp-controller="blog" asp-action="detail"><img src="~/assets/img/team/8.jpg" alt="#"></a>
-                                        </div>
-                                        <div class="popular-post-widget-brief">
-                                            <h6><a asp-controller="blog" asp-action="detail">Lorem ipsum dolor sit
-                                                cing elit, sed do.</a></h6>
-                                            <div class="ltn__blog-meta">
-                                                <ul>
-                                                    <li class="ltn__blog-date">
-                                                        <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
+                               }
                             </ul>
                         </div>
                         <!-- Social Media Widget -->
@@ -969,10 +756,10 @@
                             <h4 class="ltn__widget-title ltn__widget-title-border-2">Follow us</h4>
                             <div class="ltn__social-media-2">
                                 <ul>
-                                    <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-                                    <li><a href="#" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                                    <li><a href="@settings["facebookLink"]" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="@settings["twitterLink"]" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="@settings["linkedinLink"]" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                                    <li><a href="@settings["instagramLink"]" title="Instagram"><i class="fab fa-instagram"></i></a></li>
                                     
                                 </ul>
                             </div>

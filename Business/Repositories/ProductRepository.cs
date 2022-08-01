@@ -107,5 +107,32 @@ namespace Business.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<List<Product>> Filter(int? id)
+        {
+            var datas = await _context.Products.Where(n => !n.IsDeleted)
+                                             .Include(n => n.Images)
+                                             .Include(n => n.AppUser)
+                                             .ThenInclude(n => n.Image)
+                                             .Include(n => n.Comments)
+                                             .Include(n => n.Location)
+                                             .Include(n => n.SubCategories)
+                                             .AsSplitQuery()
+                                             .ToListAsync();
+
+            List<Product> products = new();
+            foreach (var product in datas)
+            {
+                foreach (var subCategory in product.SubCategories)
+                {
+                    if(subCategory.Id == id)
+                    {
+                        Product data = product;
+                        products.Add(data);
+                    }
+                }
+            }
+
+            return products;
+        }
     }
 }

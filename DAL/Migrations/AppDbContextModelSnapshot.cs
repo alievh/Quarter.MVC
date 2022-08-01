@@ -352,9 +352,6 @@ namespace DAL.Migrations
                     b.Property<int>("BlogDetailId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CommentId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -377,8 +374,6 @@ namespace DAL.Migrations
 
                     b.HasIndex("BlogDetailId")
                         .IsUnique();
-
-                    b.HasIndex("CommentId");
 
                     b.ToTable("Blogs");
                 });
@@ -461,6 +456,9 @@ namespace DAL.Migrations
                     b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("BlogId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -472,7 +470,7 @@ namespace DAL.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -481,6 +479,8 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
+
+                    b.HasIndex("BlogId");
 
                     b.HasIndex("ProductId");
 
@@ -1212,17 +1212,9 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DAL.Model.Comment", "Comment")
-                        .WithMany()
-                        .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("AppUser");
 
                     b.Navigation("BlogDetail");
-
-                    b.Navigation("Comment");
                 });
 
             modelBuilder.Entity("DAL.Model.Comment", b =>
@@ -1231,13 +1223,17 @@ namespace DAL.Migrations
                         .WithMany("Comments")
                         .HasForeignKey("AppUserId");
 
+                    b.HasOne("DAL.Model.Blog", "Blog")
+                        .WithMany("Comments")
+                        .HasForeignKey("BlogId");
+
                     b.HasOne("DAL.Model.Product", "Product")
                         .WithMany("Comments")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
                     b.Navigation("AppUser");
+
+                    b.Navigation("Blog");
 
                     b.Navigation("Product");
                 });
@@ -1459,6 +1455,11 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Model.Basket", b =>
                 {
                     b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("DAL.Model.Blog", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("DAL.Model.BlogDetail", b =>

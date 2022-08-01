@@ -6,5 +6,6 @@ namespace Business.ViewModels
     {
         public List<GetProductVM> Products { get; set; }
         public List<GetCategoryVM> Categories { get; set; }
+        public List<GetBlogVM> Blogs { get; set; }
     }
 }

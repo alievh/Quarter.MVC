@@ -33,7 +33,7 @@ namespace Quarter.Areas.Admin.Controllers
             foreach (var feedback in feedbacks)
             {
                 var userImage = await _imageService.Get(feedback.AppUser.ImageId);
-                GetFeedBackVM getFeedBackVm = new GetFeedBackVM()
+                GetFeedBackVM getFeedBackVm = new()
                 {
                     Content = feedback.Content,
                     AppUser = feedback.AppUser,

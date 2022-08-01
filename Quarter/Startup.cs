@@ -66,6 +66,7 @@ namespace Quarter
             services.AddScoped<IAboutAboutService, AboutAboutRepository>();
             services.AddScoped<IBlogCategoryService, BlogCategoryRepository>();
             services.AddScoped<IBlogDetailService, BlogDetailRepository>();
+            services.AddScoped<SettingRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

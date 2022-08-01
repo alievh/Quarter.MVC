@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Quarter.Helpers.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Quarter.Areas.Admin.Controllers
@@ -141,6 +142,85 @@ namespace Quarter.Areas.Admin.Controllers
             await _blogService.SaveChanges();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var data = await _blogService.Get(id);
+
+            return View(model: data);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(int id, Blog entity)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(entity);
+            }
+
+            List<Image> currentImages = new();
+            var data = await _blogService.Get(id);
+
+            if (entity.ImageFile is not null)
+            {
+                for (int i = 0; i < data.Images.Where(n => n.IsMain == false).ToList().Count; i++)
+                {
+                    currentImages.Add(data.Images.Where(n => n.IsMain == false).ToList()[i]);
+                }
+
+                foreach (var imageFile in entity.ImageFile)
+                {
+                    string fileName = await imageFile.CreateFile(_env);
+
+                    Image image = new();
+                    image.Url = fileName;
+                    image.IsMain = false;
+                    currentImages.Add(image);
+                }
+
+                var images = data.Images;
+                currentImages.AddRange(images);
+            }
+            else
+            {
+                for (int i = 0; i < data.Images.Where(n => n.IsMain == false).ToList().Count; i++)
+                {
+                    currentImages.Add(data.Images.Where(n => n.IsMain == false).ToList()[i]);
+                }
+            }
+
+            if (entity.MainFile is not null)
+            {
+                string fileName = await entity.MainFile.CreateFile(_env);
+
+                Image image = new();
+                image.Url = fileName;
+                image.IsMain = true;
+                currentImages.Add(image);
+
+                await _imageService.Delete(data.Images.Where(n => n.IsMain == true).FirstOrDefault().Id);
+            }
+            else
+            {
+                currentImages.Add(data.Images.Where(n => n.IsMain == true).FirstOrDefault());
+            }
+
+            entity.Images = currentImages;  
+
+            await _blogService.Update(id, entity);
+            await _blogService.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            await _blogService.Delete(id);
+
+            return View(nameof(Index));
         }
 
         [HttpGet]

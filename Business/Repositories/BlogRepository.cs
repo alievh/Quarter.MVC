@@ -23,15 +23,18 @@ namespace Business.Repositories
         {
             if (id is null)
             {
-                throw new ArgumentNullException("id");
+                throw new ArgumentNullException(nameof(id));
             }
 
             var data = await _context.Blogs.Where(n => !n.IsDeleted)
                                            .Where(n => n.Id == id)
+                                           .Include(n => n.Images)
                                            .Include(n => n.BlogDetail)
-                                           .Include(n => n.Comment)
+                                           .Include(n => n.BlogCategories)
+                                           .Include(n => n.Comments)
                                            .Include(n => n.AppUser)
                                            .ThenInclude(n => n.Image)
+                                           .AsSplitQuery()
                                            .FirstOrDefaultAsync();
 
             if (data is null)
@@ -45,10 +48,14 @@ namespace Business.Repositories
         public async Task<List<Blog>> GetAll()
         {
             var data = await _context.Blogs.Where(n => !n.IsDeleted)
+                                           .OrderByDescending(n => n.CreateDate)
+                                           .Include(n => n.Images)
                                            .Include(n => n.BlogDetail)
-                                           .Include(n => n.Comment)
+                                           .Include(n => n.BlogCategories)
+                                           .Include(n => n.Comments)
                                            .Include(n => n.AppUser)
                                            .ThenInclude(n => n.Image)
+                                           .AsSplitQuery()
                                            .ToListAsync();
 
             if (data is null)
@@ -74,7 +81,11 @@ namespace Business.Repositories
             data.Title = entity.Title;
             data.Description = entity.Description;
             data.Images = entity.Images;
-            data.Comment = entity.Comment;
+            if (entity.Comments != null)
+            {
+                data.Comments = entity.Comments;
+            }
+            data.BlogDetail.Content = entity.BlogDetail.Content;
 
             _context.Blogs.Update(data);
         }

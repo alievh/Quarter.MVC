@@ -2031,3 +2031,43 @@ deleteWishlist.forEach(n => n.addEventListener('click', async function () {
     wishlistContainer.innerHTML = data;
 }));
 
+const filterCheckbox = document.querySelectorAll('input[name=checkbox]');
+const shopContainer = document.querySelector('.shop-container');
+let checkboxArray = [];
+let count = 0;
+
+filterCheckbox.forEach(n => n.addEventListener('change', async function () {
+    //filterCheckbox.forEach(n => n.checked) {
+    if (this.checked === true) {
+        count += 1;
+        console.log(count);
+        if (count < 2) {
+            shopContainer.innerHTML = "";
+        }
+        let dataId = $(this).attr('data-id');
+        checkboxArray.push(dataId);
+        let resp = await fetch(`/shop/filter?id=${dataId}`);
+        let data = await resp.text();
+        shopContainer.innerHTML += data;
+    }
+
+    if (this.checked === false) {
+        shopContainer.innerHTML = "";
+        let dataId = $(this).attr('data-id');
+        for (var i = 0; i < checkboxArray.length; i++) {
+            if (checkboxArray[i] === dataId) {
+                checkboxArray.splice(i, 1);
+                i--;
+            }
+        }
+
+        for (var i = 0; i < checkboxArray.length; i++) {
+            let resp = await fetch(`/shop/filter?id=${checkboxArray[i]}`);
+            let data = await resp.text();
+            shopContainer.innerHTML += data;
+        }
+    }
+    console.log(checkboxArray)
+    //});
+}));
+

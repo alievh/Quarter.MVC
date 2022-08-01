@@ -1,5 +1,6 @@
 ﻿using DAL.Data;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Business.Repositories
 {
@@ -9,7 +10,7 @@ namespace Business.Repositories
 
         public SettingRepository(AppDbContext context)
         {
-            //_keyValues = context.Settings.ToDictionary(n => n.Key, n => n.Value);
+            _keyValues = context.Settings.ToDictionary(n => n.Key, n => n.Value);
         }
 
         public string Get(string key)

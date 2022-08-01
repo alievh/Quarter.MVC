@@ -1,5 +1,9 @@
 ﻿@model Subscriber
 
+@{
+    var settings = (Dictionary<string, string>) ViewData["settings"];
+}
+
 <footer class="ltn__footer-area  ">
         <div class="footer-top-area  section-bg-2 plr--5">
             <div class="container-fluid">
@@ -8,7 +12,7 @@
                         <div class="footer-widget footer-about-widget">
                             <div class="footer-logo">
                                 <div class="site-logo">
-                                    <img src="~/assets/img/logo-2.png" alt="Logo">
+                                    <img src="~/assets/uploads/images/@settings["footerLogo"]" alt="Logo">
                                 </div>
                             </div>
                             <p>Lorem Ipsum is simply dummy text of the and typesetting industry. Lorem Ipsum is dummy text of the printing.</p>
@@ -19,7 +23,7 @@
                                             <i class="icon-placeholder"></i>
                                         </div>
                                         <div class="footer-address-info">
-                                            <p>Brooklyn, New York, United States</p>
+                                            <p>@settings["address"]</p>
                                         </div>
                                     </li>
                                     <li>
@@ -27,7 +31,7 @@
                                             <i class="icon-call"></i>
                                         </div>
                                         <div class="footer-address-info">
-                                            <p><a href="tel:+0123-456789">+0123-456789</a></p>
+                                            <p><a href="tel:@settings["phoneNumber"]">@settings["phoneNumber"]</a></p>
                                         </div>
                                     </li>
                                     <li>
@@ -35,17 +39,17 @@
                                             <i class="icon-mail"></i>
                                         </div>
                                         <div class="footer-address-info">
-                                            <p><a href="mailto:example@example.com">example@example.com</a></p>
+                                            <p><a href="mailto:@settings["email"]">@settings["email"]</a></p>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
                             <div class="ltn__social-media mt-20">
                                 <ul>
-                                    <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-                                    <li><a href="#" title="Youtube"><i class="fab fa-youtube"></i></a></li>
+                                    <li><a href="@settings["facebookLink"]" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="@settings["twitterLink"]" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="@settings["linkedinLink"]" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                                    <li><a href="@settings["youtubeLink"]" title="Youtube"><i class="fab fa-youtube"></i></a></li>
                                 </ul>
                             </div>
                         </div>

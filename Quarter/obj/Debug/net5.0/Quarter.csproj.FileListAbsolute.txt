@@ -132,3 +132,6 @@ C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Are
 C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Areas\Admin\Views\Shared\Components\AdminProfile\Default.cshtml.g.cs
 C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Areas\Admin\Views\Blog\Create.cshtml.g.cs
 C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Areas\Admin\Views\Blog\CreateCategory.cshtml.g.cs
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Views\Shared\Components\Blog\Default.cshtml.g.cs
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Areas\Admin\Views\Blog\Update.cshtml.g.cs
+C:\Users\hsyna\Desktop\QaurterProject\Quarter\Quarter\obj\Debug\net5.0\Razor\Views\Shared\_ShopPartial.cshtml.g.cs

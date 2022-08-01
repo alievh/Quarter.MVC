@@ -1,4 +1,12 @@
-﻿    <!-- Utilize Cart Menu Start -->
+﻿@using System.Globalization
+@model List<Blog>
+
+@{
+    var products = (List<Product>)ViewData["Products"];
+    var subCategories = (List<SubCategory>)ViewData["SubCategories"];
+}
+
+    <!-- Utilize Cart Menu Start -->
      <div id="ltn__utilize-cart-menu" class="ltn__utilize ltn__utilize-cart-menu basket-container">
     @await Component.InvokeAsync("Basket");
     </div>
@@ -168,279 +176,61 @@
                 <div class="col-lg-8">
                     <div class="ltn__blog-list-wrap">
                         <!-- Blog Item -->
-                        <div class="ltn__blog-item ltn__blog-item-5">
+                        @foreach (var blog in Model)
+                       {
+                           <div class="ltn__blog-item ltn__blog-item-5">
                             <div class="ltn__blog-img">
-                                <a asp-controller="blog" asp-action="detail"><img src="~/assets/img/blog/31.jpg" alt="Image"></a>
+                                <a asp-controller="blog" asp-action="detail"><img src="~/assets/uploads/images/@blog.Images.Where(n => n.IsMain == true).FirstOrDefault().Url" alt="Image"></a>
                             </div>
                             <div class="ltn__blog-brief">
                                 <div class="ltn__blog-meta">
                                     <ul>
-                                        <li class="ltn__blog-category">
-                                            <a href="#">Real Estate</a>
-                                        </li>
+                                        @foreach (var blogCategory in blog.BlogCategories)
+                                       {
+                                           <li class="ltn__blog-category">
+                                            <a href="#">@blogCategory.Name</a>
+                                            </li>
+                                       }
                                     </ul>
                                 </div>
-                                <h3 class="ltn__blog-title"><a asp-controller="blog" asp-action="detail">Real estate is property consisting of land and the buildings on it, 
-                                    along with its</a></h3>
+                                <h3 class="ltn__blog-title"><a asp-controller="blog" asp-action="detail" asp-route-id="@blog.BlogDetailId">@blog.Title</a></h3>
                                 <div class="ltn__blog-meta">
                                     <ul>
                                         <li>
                                             <a href="#"><i class="far fa-eye"></i>232 Views</a>
                                         </li>
                                         <li>
-                                            <a href="#"><i class="far fa-comments"></i>35 Comments</a>
+                                            <a href="#"><i class="far fa-comments"></i>@blog.Comments.Count Comments</a>
                                         </li>
                                         <li class="ltn__blog-date">
-                                            <i class="far fa-calendar-alt"></i>June 22, 2020
+                                            <i class="far fa-calendar-alt"></i>@blog.CreateDate.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture)
                                         </li>
                                     </ul>
                                 </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+                                <p>@blog.Description</p>
                                 <div class="ltn__blog-meta-btn">
                                     <div class="ltn__blog-meta">
                                         <ul>
-                                            <li class="ltn__blog-author">
-                                                <a href="#"><img src="~/assets/img/blog/author.jpg" alt="#">By: Ethan</a>
-                                            </li>
+                                            @if(blog.AppUser.Image is not null)
+                                            {
+                                                <li class="ltn__blog-author">
+                                                <a href="#"><img src="~/assets/uploads/images/@blog.AppUser.Image.Url" alt="#">By: @blog.AppUser.Firstname @blog.AppUser.Lastname</a>
+                                                </li>
+                                            }else
+                                            {
+                                                <li class="ltn__blog-author">
+                                                <a href="#"><img src="~/assets/uploads/images/NoProfilePhoto.jpg" alt="#">By: @blog.AppUser.Firstname @blog.AppUser.Lastname</a>
+                                                </li>
+                                            }
                                         </ul>
                                     </div>
                                     <div class="ltn__blog-btn">
-                                        <a asp-controller="blog" asp-action="detail"><i class="fas fa-arrow-right"></i>Read more</a>
+                                        <a asp-controller="blog" asp-action="detail" asp-route-id="@blog.BlogDetailId"><i class="fas fa-arrow-right"></i>Read more</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Blog Item (Video) -->
-                        <div class="ltn__blog-item ltn__blog-item-5 ltn__blog-item-video">
-                            <div class="ltn__video-img">
-                                <img src="~/assets/img/blog/32.jpg" alt="video popup bg image">
-                                <a class="ltn__video-icon-2 ltn__secondary-bg ltn__video-icon-2-border---" href="https://www.youtube.com/embed/X7R-q9rsrtU?autoplay=1&showinfo=0"  data-rel="lightcase:myCollection">
-                                    <i class="fa fa-play"></i>
-                                </a>
-                            </div>
-                            <div class="ltn__blog-brief">
-                                <div class="ltn__blog-meta">
-                                    <ul>
-                                        <li class="ltn__blog-category">
-                                            <a href="#">Business</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <h3 class="ltn__blog-title"><a asp-controller="blog" asp-action="detail">Adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore.</a></h3>
-                                <div class="ltn__blog-meta">
-                                    <ul>
-                                        <li>
-                                            <a href="#"><i class="far fa-eye"></i>232 Views</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="far fa-comments"></i>35 Comments</a>
-                                        </li>
-                                        <li class="ltn__blog-date">
-                                            <i class="far fa-calendar-alt"></i>June 22, 2020
-                                        </li>
-                                    </ul>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
-                                <div class="ltn__blog-meta-btn">
-                                    <div class="ltn__blog-meta">
-                                        <ul>
-                                            <li class="ltn__blog-author">
-                                                <a href="#"><img src="~/assets/img/blog/author.jpg" alt="#">By: Ethan</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="ltn__blog-btn">
-                                        <a asp-controller="blog" asp-action="detail"><i class="fas fa-arrow-right"></i>Read more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Blog Item (Gallery) -->
-                        <div class="ltn__blog-item ltn__blog-item-5 ltn__blog-item-gallery">
-                            <div class="ltn__blog-gallery-active slick-arrow-1 slick-arrow-1-inner">
-                                <div class="ltn__blog-gallery-item">
-                                    <a asp-controller="blog" asp-action="detail"><img src="~/assets/img/blog/33.jpg" alt="Image"></a>
-                                </div>
-                                <div class="ltn__blog-gallery-item">
-                                    <a asp-controller="blog" asp-action="detail"><img src="~/assets/img/blog/34.jpg" alt="Image"></a>
-                                </div>
-                                <div class="ltn__blog-gallery-item">
-                                    <a asp-controller="blog" asp-action="detail"><img src="~/assets/img/blog/31.jpg" alt="Image"></a>
-                                </div>
-                            </div>
-                            <div class="ltn__blog-brief">
-                                <div class="ltn__blog-meta">
-                                    <ul>
-                                        <li class="ltn__blog-category">
-                                            <a href="#">Business</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <h3 class="ltn__blog-title"><a asp-controller="blog" asp-action="detail">Magna aliqua. Ut enim ad minim venia
-                                    m, quis nostrud exercitation ullamco</a></h3>
-                                <div class="ltn__blog-meta">
-                                    <ul>
-                                        <li>
-                                            <a href="#"><i class="far fa-eye"></i>232 Views</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="far fa-comments"></i>35 Comments</a>
-                                        </li>
-                                        <li class="ltn__blog-date">
-                                            <i class="far fa-calendar-alt"></i>June 22, 2020
-                                        </li>
-                                    </ul>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
-                                <div class="ltn__blog-meta-btn">
-                                    <div class="ltn__blog-meta">
-                                        <ul>
-                                            <li class="ltn__blog-author">
-                                                <a href="#"><img src="~/assets/img/blog/author.jpg" alt="#">By: Ethan</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="ltn__blog-btn">
-                                        <a asp-controller="blog" asp-action="detail"><i class="fas fa-arrow-right"></i>Read more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Blog Item (Audio) -->
-                        <div class="ltn__blog-item ltn__blog-item-5 ltn__blog-item-audio">
-                            <div class="post-audio embed-responsive embed-responsive-16by9">
-                                <iframe src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/837045328&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
-                                
-                            </div>
-                            <div class="ltn__blog-brief">
-                                <div class="ltn__blog-meta">
-                                    <ul>
-                                        <li class="ltn__blog-category">
-                                            <a href="#">Business</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <h3 class="ltn__blog-title"><a asp-controller="blog" asp-action="detail">Laboris nisi ut aliquip ex ea commodo
-                                    consequat. Duis aute irure dolor.</a></h3>
-                                <div class="ltn__blog-meta">
-                                    <ul>
-                                        <li>
-                                            <a href="#"><i class="far fa-eye"></i>232 Views</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="far fa-comments"></i>35 Comments</a>
-                                        </li>
-                                        <li class="ltn__blog-date">
-                                            <i class="far fa-calendar-alt"></i>June 22, 2020
-                                        </li>
-                                    </ul>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
-                                <div class="ltn__blog-meta-btn">
-                                    <div class="ltn__blog-meta">
-                                        <ul>
-                                            <li class="ltn__blog-author">
-                                                <a href="#"><img src="~/assets/img/blog/author.jpg" alt="#">By: Ethan</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="ltn__blog-btn">
-                                        <a asp-controller="blog" asp-action="detail"><i class="fas fa-arrow-right"></i>Read more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Blog Item (No Image) -->
-                        <div class="ltn__blog-item ltn__blog-item-5 ltn__blog-item-no-image">
-                            <div class="ltn__blog-brief">
-                                <div class="ltn__blog-meta">
-                                    <ul>
-                                        <li class="ltn__blog-category">
-                                            <a href="#">Business</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <h3 class="ltn__blog-title"><a asp-controller="blog" asp-action="detail">In reprehenderit in voluptate velit esse
-                                    cillum dolore eu fugiat nulla pariatur.</a></h3>
-                                <div class="ltn__blog-meta">
-                                    <ul>
-                                        <li>
-                                            <a href="#"><i class="far fa-eye"></i>232 Views</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="far fa-comments"></i>35 Comments</a>
-                                        </li>
-                                        <li class="ltn__blog-date">
-                                            <i class="far fa-calendar-alt"></i>June 22, 2020
-                                        </li>
-                                    </ul>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
-                                <div class="ltn__blog-meta-btn">
-                                    <div class="ltn__blog-meta">
-                                        <ul>
-                                            <li class="ltn__blog-author">
-                                                <a href="#"><img src="~/assets/img/blog/author.jpg" alt="#">By: Ethan</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="ltn__blog-btn">
-                                        <a asp-controller="blog" asp-action="detail"><i class="fas fa-arrow-right"></i>Read more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Blog Item (Quote) -->
-                        <div class="ltn__blog-item ltn__blog-item-5 ltn__blog-item-quote bg-image bg-overlay-theme-90" data-bs-bg="./assets/img/blog/3.jpg">
-                            <div class="ltn__blog-brief">
-                                <blockquote>
-                                    <a asp-controller="blog" asp-action="detail">Excepteur sint occaecat cupida
-                                        tat non proident, sunt in.</a>
-                                </blockquote>
-                                <div class="ltn__blog-meta mb-0">
-                                    <ul>
-                                        <li>
-                                            <a href="#"><i class="far fa-eye"></i>232 Views</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="far fa-comments"></i>35 Comments</a>
-                                        </li>
-                                        <li class="ltn__blog-date">
-                                            <i class="far fa-calendar-alt"></i>June 22, 2020
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Blog Item (Background Image) -->
-                        <div class="ltn__blog-item ltn__blog-item-5 ltn__blog-item-bg-image bg-image bg-overlay-white-90" data-bs-bg="./assets/img/blog/2.jpg">
-                            <div class="ltn__blog-brief">
-                                <div class="ltn__blog-meta">
-                                    <ul>
-                                        <li class="ltn__blog-category">
-                                            <a href="#">Business</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <h3 class="ltn__blog-title"><a asp-controller="blog" asp-action="detail">Culpa qui officia deserunt mollit anim
-                                    id est laborum. Sed ut perspiciatis</a></h3>
-                                <div class="ltn__blog-meta mb-0">
-                                    <ul>
-                                        <li>
-                                            <a href="#"><i class="far fa-eye"></i>232 Views</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="far fa-comments"></i>35 Comments</a>
-                                        </li>
-                                        <li class="ltn__blog-date">
-                                            <i class="far fa-calendar-alt"></i>June 22, 2020
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!--  -->
+                       }
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -490,32 +280,16 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Search Widget -->
-                        <div class="widget ltn__search-widget">
-                            <h4 class="ltn__widget-title ltn__widget-title-border-2">Search Objects</h4>
-                            <form action="#">
-                                <input type="text" name="search" placeholder="Search your keyword...">
-                                <button type="submit"><i class="fas fa-search"></i></button>
-                            </form>
-                        </div>
-                        <!-- Form Widget -->
-                        <div class="widget ltn__form-widget">
-                            <h4 class="ltn__widget-title ltn__widget-title-border-2">Drop Messege For Book</h4>
-                            <form action="#">
-                                <input type="text" name="yourname" placeholder="Your Name*">
-                                <input type="text" name="youremail" placeholder="Your e-Mail*">
-                                <textarea name="yourmessage" placeholder="Write Message..."></textarea>
-                                <button type="submit" class="btn theme-btn-1">Send Messege</button>
-                            </form>
-                        </div>
                         <!-- Top Rated Product Widget -->
                         <div class="widget ltn__top-rated-product-widget">
                             <h4 class="ltn__widget-title ltn__widget-title-border-2">Top Rated Product</h4>
                             <ul>
-                                <li>
+                                @foreach (var product in products)
+                               {
+                                   <li>
                                     <div class="top-rated-product-item clearfix">
                                         <div class="top-rated-product-img">
-                                            <a asp-controller="shop" asp-action="detail"><img src="~/assets/img/product/1.png" alt="#"></a>
+                                            <a asp-controller="shop" asp-action="detail" asp-route-id="@product.ProductDetailId"><img src="~/assets/uploads/images/@product.Images.Where(n=>n.IsMain==true).FirstOrDefault().Url" alt="#"></a>
                                         </div>
                                         <div class="top-rated-product-info">
                                             <div class="product-ratting">
@@ -527,336 +301,114 @@
                                                     <li><a href="#"><i class="fas fa-star"></i></a></li>
                                                 </ul>
                                             </div>
-                                            <h6><a asp-controller="shop" asp-action="detail">Luxury House In Greenville </a></h6>
+                                            <h6><a asp-controller="shop" asp-action="detail">@product.Title </a></h6>
                                             <div class="product-price">
-                                                <span>$30,000.00</span>
-                                                <del>$35,000.00</del>
+                                                <span>$@product.Price</span>
                                             </div>
                                         </div>
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="top-rated-product-item clearfix">
-                                        <div class="top-rated-product-img">
-                                            <a asp-controller="shop" asp-action="detail"><img src="~/assets/img/product/2.png" alt="#"></a>
-                                        </div>
-                                        <div class="top-rated-product-info">
-                                            <div class="product-ratting">
-                                                <ul>
-                                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <h6><a asp-controller="shop" asp-action="detail">Apartment with Subunits</a></h6>
-                                            <div class="product-price">
-                                                <span>$30,000.00</span>
-                                                <del>$35,000.00</del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="top-rated-product-item clearfix">
-                                        <div class="top-rated-product-img">
-                                            <a asp-controller="shop" asp-action="detail"><img src="~/assets/img/product/3.png" alt="#"></a>
-                                        </div>
-                                        <div class="top-rated-product-info">
-                                            <div class="product-ratting">
-                                                <ul>
-                                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <h6><a asp-controller="shop" asp-action="detail">3 Rooms Manhattan</a></h6>
-                                            <div class="product-price">
-                                                <span>$30,000.00</span>
-                                                <del>$35,000.00</del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+                               }
                             </ul>
                         </div>
                         <!-- Menu Widget (Category) -->
                         <div class="widget ltn__menu-widget ltn__menu-widget-2--- ltn__menu-widget-2-color-2---">
                             <h4 class="ltn__widget-title ltn__widget-title-border-2">Top Categories</h4>
                             <ul>
-                                <li><a href="#">Apartments <span>(26)</span></a></li>
-                                <li><a href="#">Picture Stodio <span>(30)</span></a></li>
-                                <li><a href="#">Office  <span>(71)</span></a></li>
-                                <li><a href="#">Luxary Vilas <span>(56)</span></a></li>
-                                <li><a href="#">Duplex House <span>(60)</span></a></li>
+                            @foreach (var subCategory in subCategories)
+                            {
+                              if(subCategory.Category.Name == "Amenities"){
+                                  <li><a href="#">@subCategory.Name <span>(@subCategory.Products.Count)</span></a></li>
+                              }
+                            }
                             </ul>
                         </div>
                         <!-- Popular Product Widget -->
                         <div class="widget ltn__popular-product-widget">       
                             <h4 class="ltn__widget-title ltn__widget-title-border-2">Popular Properties</h4>                     
                             <div class="row ltn__popular-product-widget-active slick-arrow-1">
-                                <!-- ltn__product-item -->
+                                @foreach (var product1 in products)
+                                {
+                                    <!-- ltn__product-item -->
                                 <div class="col-12">
                                     <div class="ltn__product-item ltn__product-item-4 ltn__product-item-5 text-center---">
                                         <div class="product-img">
-                                            <a asp-controller="shop" asp-action="detail"><img src="~/assets/img/product-3/6.jpg" alt="#"></a>
+                                            <a asp-controller="shop" asp-action="detail"><img src="~/assets/uploads/images/@product1.Images.Where(n=>n.IsMain==true).FirstOrDefault().Url" alt="#"></a>
                                             <div class="real-estate-agent">
                                                 <div class="agent-img">
-                                                    <a href="team-details.html"><img src="~/assets/img/blog/author.jpg" alt="#"></a>
+                                                    @if(product1.AppUser.Image is not null)
+                                                    {
+                                                        <a href="team-details.html"><img src="~/assets/uploads/images/@product1.AppUser.Image.Url" alt="#"></a>
+
+                                                    }else
+                                                    {
+                                                        <a href="team-details.html"><img src="~/assets/uploads/images/NoProfilePhoto.jpg" alt="#"></a>
+                                                        
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="product-info">
                                             <div class="product-price">
-                                                <span>$349,00<label>/Month</label></span>
+                                                <span>$@product1.Price</span>
                                             </div>
                                             <h2 class="product-title"><a asp-controller="shop" asp-action="detail">New Apartment Nice View</a></h2>
                                             <div class="product-img-location">
                                                 <ul>
                                                     <li>
-                                                        <a asp-controller="shop" asp-action="detail"><i class="flaticon-pin"></i> Belmont Gardens, Chicago</a>
+                                                        <a asp-controller="shop" asp-action="detail" asp-route-id="@product1.ProductDetailId"><i class="flaticon-pin"></i> @product1.Location.LocationArea, @product1.Location.LocationCity</a>
                                                     </li>
                                                 </ul>
                                             </div>
                                             <ul class="ltn__list-item-2--- ltn__list-item-2-before--- ltn__plot-brief">
-                                                <li><span>3 </span>
+                                                <li><span>@product1.BedroomCount </span>
                                                     Bedrooms
                                                 </li>
-                                                <li><span>2 </span>
+                                                <li><span>@product1.BathroomCount </span>
                                                     Bathrooms
                                                 </li>
-                                                <li><span>3450 </span>
+                                                <li><span>@product1.SquareFt </span>
                                                     square Ft
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- ltn__product-item -->
-                                <div class="col-12">
-                                    <div class="ltn__product-item ltn__product-item-4 ltn__product-item-5 text-center---">
-                                        <div class="product-img">
-                                            <a asp-controller="shop" asp-action="detail"><img src="~/assets/img/product-3/4.jpg" alt="#"></a>
-                                            <div class="real-estate-agent">
-                                                <div class="agent-img">
-                                                    <a href="team-details.html"><img src="~/assets/img/blog/author.jpg" alt="#"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="product-price">
-                                                <span>$349,00<label>/Month</label></span>
-                                            </div>
-                                            <h2 class="product-title"><a asp-controller="shop" asp-action="detail">New Apartment Nice View</a></h2>
-                                            <div class="product-img-location">
-                                                <ul>
-                                                    <li>
-                                                        <a asp-controller="shop" asp-action="detail"><i class="flaticon-pin"></i> Belmont Gardens, Chicago</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <ul class="ltn__list-item-2--- ltn__list-item-2-before--- ltn__plot-brief">
-                                                <li><span>3 </span>
-                                                    Bedrooms
-                                                </li>
-                                                <li><span>2 </span>
-                                                    Bathrooms
-                                                </li>
-                                                <li><span>3450 </span>
-                                                    square Ft
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ltn__product-item -->
-                                <div class="col-12">
-                                    <div class="ltn__product-item ltn__product-item-4 ltn__product-item-5 text-center---">
-                                        <div class="product-img">
-                                            <a asp-controller="shop" asp-action="detail"><img src="~/assets/img/product-3/5.jpg" alt="#"></a>
-                                            <div class="real-estate-agent">
-                                                <div class="agent-img">
-                                                    <a href="team-details.html"><img src="~/assets/img/blog/author.jpg" alt="#"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="product-price">
-                                                <span>$349,00<label>/Month</label></span>
-                                            </div>
-                                            <h2 class="product-title"><a asp-controller="shop" asp-action="detail">New Apartment Nice View</a></h2>
-                                            <div class="product-img-location">
-                                                <ul>
-                                                    <li>
-                                                        <a asp-controller="shop" asp-action="detail"><i class="flaticon-pin"></i> Belmont Gardens, Chicago</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <ul class="ltn__list-item-2--- ltn__list-item-2-before--- ltn__plot-brief">
-                                                <li><span>3 </span>
-                                                    Bedrooms
-                                                </li>
-                                                <li><span>2 </span>
-                                                    Bathrooms
-                                                </li>
-                                                <li><span>3450 </span>
-                                                    square Ft
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--  -->
+                                }
                             </div>
                         </div>
                         <!-- Popular Post Widget -->
                         <div class="widget ltn__popular-post-widget">
                             <h4 class="ltn__widget-title ltn__widget-title-border-2">Leatest Blogs</h4>
                             <ul>
-                                <li>
+                                @foreach (var blog1 in Model)
+                                {
+                                    <li>
                                     <div class="popular-post-widget-item clearfix">
                                         <div class="popular-post-widget-img">
-                                            <a asp-controller="blog" asp-action="detail"><img src="~/assets/img/team/5.jpg" alt="#"></a>
+                                            @if(blog1.AppUser.Image is not null)
+                                            {
+                                                <a asp-controller="blog" asp-action="detail" asp-route-id="@blog1.BlogDetailId"><img src="~/assets/uploads/images/@blog1.AppUser.Image.Url" alt="#"></a>
+
+                                            }else
+                                            {
+                                            <a asp-controller="blog" asp-action="detail" asp-route-id="@blog1.BlogDetailId"><img src="~/assets/uploads/images/NoProfilePhoto.jpg" alt="#"></a>
+                                                
+                                            }
                                         </div>
                                         <div class="popular-post-widget-brief">
-                                            <h6><a asp-controller="blog" asp-action="detail">Lorem ipsum dolor sit
-                                                cing elit, sed do.</a></h6>
+                                            <h6><a asp-controller="blog" asp-action="detail" asp-route-id="@blog1.BlogDetailId">@blog1.Title</a></h6>
                                             <div class="ltn__blog-meta">
-                                                <ul>
+                                                <ul>c
                                                     <li class="ltn__blog-date">
-                                                        <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
+                                                        <a href="#"><i class="far fa-calendar-alt"></i>@blog1.CreateDate.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture)</a>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="popular-post-widget-item clearfix">
-                                        <div class="popular-post-widget-img">
-                                            <a asp-controller="blog" asp-action="detail"><img src="~/assets/img/team/6.jpg" alt="#"></a>
-                                        </div>
-                                        <div class="popular-post-widget-brief">
-                                            <h6><a asp-controller="blog" asp-action="detail">Lorem ipsum dolor sit
-                                                cing elit, sed do.</a></h6>
-                                            <div class="ltn__blog-meta">
-                                                <ul>
-                                                    <li class="ltn__blog-date">
-                                                        <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="popular-post-widget-item clearfix">
-                                        <div class="popular-post-widget-img">
-                                            <a asp-controller="blog" asp-action="detail"><img src="~/assets/img/team/7.jpg" alt="#"></a>
-                                        </div>
-                                        <div class="popular-post-widget-brief">
-                                            <h6><a asp-controller="blog" asp-action="detail">Lorem ipsum dolor sit
-                                                cing elit, sed do.</a></h6>
-                                            <div class="ltn__blog-meta">
-                                                <ul>
-                                                    <li class="ltn__blog-date">
-                                                        <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="popular-post-widget-item clearfix">
-                                        <div class="popular-post-widget-img">
-                                            <a asp-controller="blog" asp-action="detail"><img src="~/assets/img/team/8.jpg" alt="#"></a>
-                                        </div>
-                                        <div class="popular-post-widget-brief">
-                                            <h6><a asp-controller="blog" asp-action="detail">Lorem ipsum dolor sit
-                                                cing elit, sed do.</a></h6>
-                                            <div class="ltn__blog-meta">
-                                                <ul>
-                                                    <li class="ltn__blog-date">
-                                                        <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Popular Post Widget (Twitter Post) -->
-                        <div class="widget ltn__popular-post-widget ltn__twitter-post-widget">
-                            <h4 class="ltn__widget-title ltn__widget-title-border-2">Twitter Feeds</h4>
-                            <ul>
-                                <li>
-                                    <div class="popular-post-widget-item clearfix">
-                                        <div class="popular-post-widget-img">
-                                            <a asp-controller="blog" asp-action="detail"><i class="fab fa-twitter"></i></a>
-                                        </div>
-                                        <div class="popular-post-widget-brief">
-                                            <p>Carsafe - #Gutenberg ready 
-                                                @@wordpress
-                                                 Theme for Car Service, Auto Parts, Car Dealer available on 
-                                                @@website
-                                                <a href="https://website.net">https://website.net</a></p>
-                                            <div class="ltn__blog-meta">
-                                                <ul>
-                                                    <li class="ltn__blog-date">
-                                                        <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="popular-post-widget-item clearfix">
-                                        <div class="popular-post-widget-img">
-                                            <a asp-controller="blog" asp-action="detail"><i class="fab fa-twitter"></i></a>
-                                        </div>
-                                        <div class="popular-post-widget-brief">
-                                            <p>Carsafe - #Gutenberg ready 
-                                                @@wordpress
-                                                 Theme for Car Service, Auto Parts, Car Dealer available on 
-                                                @@website
-                                                <a href="https://website.net">https://website.net</a></p>
-                                            <div class="ltn__blog-meta">
-                                                <ul>
-                                                    <li class="ltn__blog-date">
-                                                        <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="popular-post-widget-item clearfix">
-                                        <div class="popular-post-widget-img">
-                                            <a asp-controller="blog" asp-action="detail"><i class="fab fa-twitter"></i></a>
-                                        </div>
-                                        <div class="popular-post-widget-brief">
-                                            <p>Carsafe - #Gutenberg ready 
-                                                @@wordpress
-                                                 Theme for Car Service, Auto Parts, Car Dealer available on 
-                                                @@website
-                                                <a href="https://website.net">https://website.net</a></p>
-                                            <div class="ltn__blog-meta">
-                                                <ul>
-                                                    <li class="ltn__blog-date">
-                                                        <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+                                }
                             </ul>
                         </div>
                         <!-- Social Media Widget -->

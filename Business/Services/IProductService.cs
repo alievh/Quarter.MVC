@@ -10,5 +10,6 @@ namespace Business.Services
 {
     public interface IProductService : IBaseService<Product>
     {
+        Task<List<Product>> Filter(int? id);
     }
 }

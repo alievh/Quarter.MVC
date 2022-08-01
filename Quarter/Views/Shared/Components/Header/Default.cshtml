@@ -1,4 +1,6 @@
-﻿<header class="ltn__header-area ltn__header-5 ltn__header-transparent--- gradient-color-4---">
+﻿@model List<string>
+
+<header class="ltn__header-area ltn__header-5 ltn__header-transparent--- gradient-color-4---">
         <!-- ltn__header-top-area start -->
         <div class="ltn__header-top-area section-bg-6 top-area-color-white---">
             <div class="container">
@@ -60,7 +62,7 @@
                     <div class="col">
                         <div class="site-logo-wrap">
                             <div class="site-logo">
-                                <a asp-controller="home" asp-action="index"><img src="~/assets/img/logo.png" alt="Logo"></a>
+                                <a asp-controller="home" asp-action="index"><img src="~/assets/uploads/images/@Model[0]" alt="Logo"></a>
                             </div>
                             <div class="get-support clearfix d-none">
                                 <div class="get-support-icon">

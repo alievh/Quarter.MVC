@@ -1,0 +1,107 @@
+﻿@model List<Product>
+
+ @foreach (var product in Model)
+{
+   
+     <div class="col-xl-6 col-sm-6 col-12">
+     <div class="ltn__product-item ltn__product-item-4 ltn__product-item-5 text-center---">
+         <div class="product-img">
+                    <a asp-controller="shop" asp-action="detail" asp-route-id="@product.ProductDetailId"><img src="~/assets/uploads/images/@product.Images.Where(n=>n.IsMain == true).FirstOrDefault().Url" alt="#"></a>
+                 <div class="real-estate-agent">
+                 <div class="agent-img">
+                     @if(product.AppUser.ImageId is not null)
+                     {
+                         <a href="team-details.html"><img src="~/assets/uploads/images/@product.AppUser.Image.Url" alt="#"></a>
+                     }
+                     else
+                     {
+                         <a href="team-details.html"><img src="~/assets/uploads/images/NoProfilePhoto.jpg" alt="#"></a>
+                     }
+                  </div>
+             </div>
+         </div>
+         <div class="product-info">
+             <div class="product-badge">
+                 <ul class="d-flex align-items-center">
+                     @foreach (var subCategory in product.SubCategories)
+                    {
+                        if(subCategory.Name == "Rent")
+                        {
+                            <li class="sale-badge bg-green text-white me-2 px-2">@subCategory.Name</li>
+                        }else if (subCategory.Name == "Sold")
+                        {
+                            <li class="sale-badge bg-danger me-2 my-0 text-white px-2">@subCategory.Name</li>
+                        }else if (subCategory.Name == "Sale")
+                        {
+                            <li class="sale-badge bg-warning me-2 my-0 text-white px-2">@subCategory.Name</li>
+                        }
+                    }
+                 </ul>
+             </div>
+             <h2 class="product-title"><a asp-controller="shop" asp-action="detail" asp-route-id="@product.ProductDetailId">@product.Title</a></h2>
+             <div class="product-img-location">
+                 <ul>
+                     <li>
+                         <a href="locations.html"><i class="flaticon-pin"></i> @product.Location.LocationArea, @product.Location.LocationCity</a>
+                     </li>
+                 </ul>
+             </div>
+             <ul class="ltn__list-item-2--- ltn__list-item-2-before--- ltn__plot-brief">
+                 <li><span>@product.BedroomCount </span>
+                     Bed
+                 </li>
+                 <li><span>@product.BathroomCount </span>
+                     Bath
+                 </li>
+                 <li><span>@product.SquareFt </span>
+                     Square Ft
+                 </li>
+             </ul>
+             <div class="product-hover-action">
+                 <ul>
+                     <li>
+                         <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
+                             <i class="flaticon-expand"></i>
+                         </a>
+                     </li>
+                     @if (User.Identity.IsAuthenticated)
+                     {
+                          <li>
+                             <a class="add-wishlist" data-id="@product.Id" title="Wishlist" >
+                              <i class="flaticon-heart-1"></i></a>
+                         </li>
+                     }
+                     else
+                     {
+                         <li>
+                             <a asp-controller="account" asp-action="login" title="Wishlist" >
+                              <i class="flaticon-heart-1"></i></a>
+                         </li>
+                     }
+                     @if (User.Identity.IsAuthenticated)
+                     {
+                         <li>
+                             <a class="add-basket" data-id="@product.Id" title="Product Details">
+                                 <i class="flaticon-add"></i>
+                             </a>
+                         </li>
+                     }
+                     else
+                     {
+                         <li>
+                             <a asp-controller="account" asp-action="login" title="Product Details">
+                                 <i class="flaticon-add"></i>
+                             </a>
+                         </li>
+                     }
+                 </ul>
+             </div>
+         </div>
+         <div class="product-info-bottom">
+             <div class="product-price">
+                 <span>$@product.Price</span>
+             </div>
+         </div>
+     </div>
+     </div>
+}

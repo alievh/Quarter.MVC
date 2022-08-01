@@ -1,4 +1,5 @@
-﻿using Business.Services;
+﻿using Business.Repositories;
+using Business.Services;
 using Business.ViewModels;
 using DAL.Identity;
 using DAL.Model;
@@ -17,13 +18,17 @@ namespace Quarter.Controllers
         private readonly IImageService _imageService;
         private readonly UserManager<AppUser> _userManager;
         private readonly ICommentService _commentService;
+        private readonly IBlogService _blogService;
+        private readonly SettingRepository _settingRepository;
 
         public ShopController(ICategoryService categoryService,
                               IProductService productService,
                               IImageService imageService,
                               IProductDetailService productDetailService,
                               ICommentService commentService,
-                              UserManager<AppUser> userManager)
+                              UserManager<AppUser> userManager,
+                              IBlogService blogService,
+                              SettingRepository settingRepository)
         {
             _categoryService = categoryService;
             _productService = productService;
@@ -31,6 +36,8 @@ namespace Quarter.Controllers
             _productDetailService = productDetailService;
             _userManager = userManager;
             _commentService = commentService;
+            _blogService = blogService;
+            _settingRepository = settingRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -88,7 +95,7 @@ namespace Quarter.Controllers
             ShopVM shopVm = new()
             {
                 Categories = getCategoryVMs,
-                Products = getProductVMs
+                Products = getProductVMs,
             };
 
             return View(model: shopVm);
@@ -97,6 +104,8 @@ namespace Quarter.Controllers
         public async Task<IActionResult> Detail(int? id)
         {
             ViewData["Products"] = await _productService.GetAll();
+            ViewData["Blogs"] = await _blogService.GetAll();
+            ViewData["Settings"] = _settingRepository.GetAll();
 
             var data = await _productDetailService.Get(id);
             var product = await _productService.Get(data.Product.Id);
@@ -158,6 +167,13 @@ namespace Quarter.Controllers
             await _commentService.SaveChanges();
 
             return RedirectToAction(nameof(Detail), vm);
+        }
+
+        public async Task<IActionResult> Filter(int? id)
+        {
+            var data = await _productService.Filter(id);
+
+            return PartialView("_ShopPartial", model: data);
         }
 
     }
