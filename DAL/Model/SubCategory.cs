@@ -8,7 +8,6 @@ namespace DAL.Model
 {
     public class SubCategory : BaseEntity, IEntity
     {
-        [Required]
         public string Name { get; set; }
         public bool IsSelected { get; set; }
         public Category Category { get; set; }
