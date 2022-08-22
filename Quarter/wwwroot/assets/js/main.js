@@ -1988,9 +1988,9 @@
   
 })(jQuery);
 
-const addBasket = document.querySelectorAll(".add-basket");
-const deleteBasket = document.querySelectorAll(".delete-basket");
-const basketContainer = document.querySelectorAll(".basket-container");
+const addBasket = document.getElementsByClassName("add-basket");
+const deleteBasket = document.getElementsByClassName("delete-basket");
+const basketContainer = document.getElementsByClassName("basket-container");
 
 addBasket.forEach(n => n.addEventListener('click', async function () {
     let dataId = $(this).attr('data-id');
@@ -2010,8 +2010,8 @@ deleteBasket.forEach(n => n.addEventListener('click', async function () {
     console.log(dataId);
 }));
 
-const addWishlist = document.querySelectorAll(".add-wishlist");
-const deleteWishlist = document.querySelectorAll(".delete-wishlist");
+const addWishlist = document.getElementsByClassName("add-wishlist");
+const deleteWishlist = document.getElementsByClassName("delete-wishlist");
 const wishlistContainer = document.getElementById("wishlist-container");
 
 addWishlist.forEach(n => n.addEventListener('click', async function () {
@@ -2032,7 +2032,7 @@ deleteWishlist.forEach(n => n.addEventListener('click', async function () {
 }));
 
 const filterCheckbox = document.querySelectorAll('input[name=checkbox]');
-const shopContainer = document.querySelector('.shop-container');
+const shopContainer = document.getElementsByClassName('shop-container');
 let checkboxArray = [];
 let count = 0;
 

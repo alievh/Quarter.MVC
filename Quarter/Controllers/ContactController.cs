@@ -32,6 +32,9 @@ namespace Quarter.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateFeedBack(FeedBack feedBack)
         {
+            ViewData["settings"] = _settingRepository.GetAll();
+
+
             if (!ModelState.IsValid)
             {
                 return View(feedBack);
