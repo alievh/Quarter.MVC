@@ -13,6 +13,9 @@
         "packagesPath": "C:\\Users\\hsyna\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\hsyna\\Desktop\\QaurterProject\\Quarter\\Business\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "C:\\Users\\hsyna\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -74,6 +77,9 @@
         "packagesPath": "C:\\Users\\hsyna\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\hsyna\\Desktop\\QaurterProject\\Quarter\\DAL\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "C:\\Users\\hsyna\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -152,6 +158,9 @@
         "packagesPath": "C:\\Users\\hsyna\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\hsyna\\Desktop\\QaurterProject\\Quarter\\Exceptions\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "C:\\Users\\hsyna\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
